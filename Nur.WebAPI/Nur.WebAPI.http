@@ -1,0 +1,6 @@
+@Nur.WebAPI_HostAddress = http://localhost:5236
+
+GET {{Nur.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
