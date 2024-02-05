@@ -1,6 +1,8 @@
-﻿namespace Nur.Domain.Entities.Attachments;
+﻿using Nur.Domain.Commons;
 
-public class Attachment
+namespace Nur.Domain.Entities.Attachments;
+
+public class Attachment : Auditable
 {
     public string FilePath { get; set; }
     public string FileName { get; set; }

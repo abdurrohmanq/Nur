@@ -1,10 +1,15 @@
-﻿using Nur.Domain.Commons;
-using Nur.Domain.Enums;
+﻿using Nur.Domain.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Nur.Domain.Entities.Users;
+namespace Nur.Application.UseCases.Users.DTOs;
 
-public class User : Auditable
+public class UserDTO
 {
+    public long Id { get; set; }
     public long? TelegramId { get; set; }
     public string Username { get; set; }
     public long ChatId { get; set; }

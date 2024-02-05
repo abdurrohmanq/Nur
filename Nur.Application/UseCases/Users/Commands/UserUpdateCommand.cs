@@ -1,0 +1,39 @@
+﻿using AutoMapper;
+using MediatR;
+using Nur.Application.Commons.Constants;
+using Nur.Application.Commons.Interfaces;
+using Nur.Domain.Entities.Users;
+using Nur.Domain.Enums;
+
+namespace Nur.Application.UseCases.Users.Commands;
+
+public class UserUpdateCommand : IRequest<int>
+{
+    public long Id { get; set; }
+    public long? TelegramId { get; set; }
+    public string Username { get; set; }
+    public long ChatId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
+    public string Password { get; set; }
+    public UserRole Role { get; set; }
+    public DateTime DateOfBirth { get; set; }
+}
+
+public class UserUpdateCommandHandler(IMapper mapper,
+    IRepository<User> repository) : IRequestHandler<UserUpdateCommand, int>
+{
+    public async Task<int> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
+    {
+        var entity = await repository.SelectAsync(u => u.Id.Equals(request.Id))
+            ?? throw new($"This user is not found with id: {request.Id}");
+
+        entity = mapper.Map(request, entity);
+        entity.DateOfBirth = request.DateOfBirth.AddHours(TimeConstant.UTC);
+
+        repository.Update(entity);
+        return await repository.SaveAsync();
+    }
+}

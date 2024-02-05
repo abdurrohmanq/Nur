@@ -1,8 +1,9 @@
-﻿using Nur.Domain.Entities.Attachments;
+﻿using Nur.Domain.Commons;
+using Nur.Domain.Entities.Attachments;
 
 namespace Nur.Domain.Entities.Suppliers;
 
-public class Supplier
+public class Supplier : Auditable
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
