@@ -9,6 +9,6 @@ public interface IRepository<TEntity> where TEntity : class
     void Delete(TEntity entity);
     void Delete(Expression<Func<TEntity, bool>> expression);
     Task<TEntity> SelectAsync(Expression<Func<TEntity, bool>> expression, string[] includes = null!);
-    IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>> expression = null!, string[] includes = null!);
+    IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>> expression = null!, bool isNoTracked = true, string[] includes = null!);
     Task<int> SaveAsync();
 }

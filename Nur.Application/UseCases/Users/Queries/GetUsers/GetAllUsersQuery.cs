@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
+using AutoMapper;
+using Nur.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Users.DTOs;
-using Nur.Domain.Entities.Users;
 
 namespace Nur.Application.UseCases.Users.Queries.GetUsers;
 

@@ -1,9 +1,9 @@
-﻿using Nur.Domain.Commons;
-using System.Linq.Expressions;
-using Nur.Infrastructure.Contexts;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Nur.Application.Commons.Helpers;
 using Nur.Application.Commons.Interfaces;
+using Nur.Domain.Commons;
+using Nur.Infrastructure.Contexts;
+using System.Linq.Expressions;
 
 namespace Nur.Infrastructure.Repositories;
 
@@ -48,16 +48,16 @@ public class Repository<T>(AppDbContext appDbContext) : IRepository<T> where T :
         return (await query.FirstOrDefaultAsync(expression))!;
     }
 
-    public IQueryable<T> SelectAll(Expression<Func<T, bool>> expression = null!, string[] includes = null!)
+    public IQueryable<T> SelectAll(Expression<Func<T, bool>> expression = null!, bool isNoTracked = true, string[] includes = null!)
     {
-        if (includes is null)
-            return expression is null ? Table : Table.Where(expression);
+        IQueryable<T> query = expression is null ? Table.AsQueryable() : Table.Where(expression).AsQueryable();
+        query = isNoTracked ? query.AsNoTracking() : query;
 
-        var query = Table.AsQueryable();
-        foreach (string item in includes)
-            query = query.Include(item);
+        if (includes is not null)
+            foreach (var item in includes)
+                query = query.Include(item);
 
-        return expression is null ? Table : Table.Where(expression);
+        return query;
     }
 
     public Task<int> SaveAsync()

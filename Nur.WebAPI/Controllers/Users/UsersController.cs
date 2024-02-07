@@ -21,11 +21,11 @@ public class UsersController(IMediator mediator) : BaseController
     public async Task<IActionResult> DeleteAsync(long id, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new UserDeleteCommand(id), cancellationToken)});
 
-    [HttpGet("get/{telegramId:long}")]
+    [HttpGet("get/{Id:long}")]
     public async Task<IActionResult> GetAsync(long id, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new GetUserQuery(id), cancellationToken) });
 
-    [HttpGet("get-by-telegram-id/{id:long}")]
+    [HttpGet("get-by-telegram-id/{telegramId:long}")]
     public async Task<IActionResult> GetByTelegramIdAsync(long telegramId, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new GetUserByTelegramIdQuery(telegramId), cancellationToken) });
 
