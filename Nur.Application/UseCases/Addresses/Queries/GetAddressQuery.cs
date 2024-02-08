@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
+using AutoMapper;
 using Nur.Application.Exceptions;
 using Nur.Domain.Entities.Addresses;
 using Nur.Application.Commons.Interfaces;

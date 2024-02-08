@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Nur.Application.Commons.Interfaces;
 using Nur.Application.Exceptions;
 using Nur.Domain.Entities.Products;
+using Nur.Application.Commons.Interfaces;
 
 namespace Nur.Application.UseCases.Products.Commands;
 

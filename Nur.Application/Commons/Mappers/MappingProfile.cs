@@ -9,9 +9,14 @@ using Nur.Application.UseCases.Attachments.Commands;
 using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Application.UseCases.ProductCategories.Commands;
 using Nur.Application.UseCases.Attachments.DTOs;
-using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Domain.Entities.Addresses;
+using Nur.Domain.Entities.Suppliers;
+using Nur.Application.UseCases.Vehicles.DTOs;
 using Nur.Application.UseCases.Addresses.DTOs;
+using Nur.Application.UseCases.Suppliers.DTOs;
+using Nur.Application.UseCases.Addresses.Commands;
+using Nur.Application.UseCases.Vehicles.Commands;
+using Nur.Application.UseCases.Suppliers.Commands;
 
 namespace Nur.Application.Commons.Mappers;
 
@@ -36,6 +41,17 @@ public class MappingProfile : Profile
         CreateMap<AddressCreateCommand, Address>().ReverseMap();
         CreateMap<AddressUpdateCommand, Address>().ReverseMap();
         CreateMap<AddressDTO, Address>().ReverseMap();
+
+        //Supplier
+        CreateMap<SupplierCreateCommand, Supplier>().ReverseMap();
+        CreateMap<SupplierUpdateCommand, Supplier>().ReverseMap();
+        CreateMap<SupplierDTO, Supplier>().ReverseMap();
+
+        //Vehicles
+        CreateMap<VehicleCreateCommand, Vehicle>().ReverseMap();
+        CreateMap<VehicleUpdateCommand, Vehicle>().ReverseMap();
+        CreateMap<VehicleDTO, Vehicle>().ReverseMap();
+
         //Attachment
         CreateMap<Attachment, AttachmentDTO>().ReverseMap();
     }

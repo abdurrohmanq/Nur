@@ -45,6 +45,7 @@ public class ProductCreateCommandHandler(IMapper mapper,
             Description = request.Description,
             Unit = request.Unit,
             CategoryId = category.Id,
+            Category = category
         };
 
         if (request.Attachment is not null)
@@ -53,8 +54,6 @@ public class ProductCreateCommandHandler(IMapper mapper,
             entity.Attachment = attachment;
             entity.AttachmentId = attachment.Id;
         }
-        entity.Category = category;
-        entity.CreatedAt = TimeHelper.GetDateTime();
 
         await repository.InsertAsync(entity);
         await repository.SaveAsync();

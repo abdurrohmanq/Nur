@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using AutoMapper;
+using Nur.Application.Exceptions;
 using Nur.Domain.Entities.Products;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Products.DTOs;
-using Nur.Application.Exceptions;
 
 namespace Nur.Application.UseCases.Products.Queries.GetProducts;
 

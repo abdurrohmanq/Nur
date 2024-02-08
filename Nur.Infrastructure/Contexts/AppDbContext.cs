@@ -6,6 +6,7 @@ using Nur.Domain.Entities.Payments;
 using Nur.Domain.Entities.Products;
 using Nur.Domain.Entities.Suppliers;
 using Nur.Domain.Entities.Users;
+using Nur.Infrastructure.Persistence.EntityTypeConfiguration;
 
 namespace Nur.Infrastructure.Contexts;
 
@@ -21,4 +22,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<Attachment> Attachments { get; set; }
     public DbSet<ProductCategory> ProductCategories { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfiguration(new SupplierEntityTypeConfiguration());
+    }
 }

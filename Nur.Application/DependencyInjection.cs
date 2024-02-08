@@ -4,18 +4,24 @@ using Nur.Application.Commons.Mappers;
 using Nur.Domain.Entities.Attachments;
 using Nur.Application.UseCases.Users.DTOs;
 using Nur.Application.UseCases.Products.DTOs;
-using Nur.Application.UseCases.Users.Commands;
+using Nur.Application.UseCases.Vehicles.DTOs;
+using Nur.Application.UseCases.Suppliers.DTOs;
 using Nur.Application.UseCases.Addresses.DTOs;
+using Nur.Application.UseCases.Users.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using Nur.Application.UseCases.Products.Commands;
+using Nur.Application.UseCases.Vehicles.Commands;
 using Nur.Application.UseCases.Addresses.Queries;
+using Nur.Application.UseCases.Suppliers.Commands;
 using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Attachments.Commands;
 using Nur.Application.UseCases.Users.Queries.GetUsers;
 using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Application.UseCases.ProductCategories.Queries;
 using Nur.Application.UseCases.ProductCategories.Commands;
+using Nur.Application.UseCases.Vehicles.Queries.GetVehicles;
 using Nur.Application.UseCases.Products.Queries.GetProducts;
+using Nur.Application.UseCases.Suppliers.Queries.GetSuppliers;
 
 namespace Nur.Application;
 
@@ -60,6 +66,23 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetAddressQuery, AddressDTO>, GetAddressQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllAddressesQuery, IEnumerable<AddressDTO>>, GetAllAddressesQueryHandler>();
 
+        //Supplier
+        services.AddScoped<IRequestHandler<SupplierCreateCommand, SupplierDTO>, SupplierCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<SupplierUpdateCommand, SupplierDTO>, SupplierUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<SupplierDeleteCommand, bool>, SupplierDeleteCommandHandler>();
+
+        services.AddScoped<IRequestHandler<GetSupplierQuery, SupplierDTO>, GetSupplierQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByVehicleIdQuery, SupplierDTO>, GetByVehicleIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetAllSuppliersQuery, IEnumerable<SupplierDTO>>, GetAllSupplierQueryHandler>();
+
+        //Vehicles
+        services.AddScoped<IRequestHandler<VehicleCreateCommand, VehicleDTO>, VehicleCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<VehicleUpdateCommand, VehicleDTO>, VehicleUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<VehicleDeleteCommand, bool>, VehicleDeleteCommandHandler>();
+
+        services.AddScoped<IRequestHandler<GetVehicleQuery, VehicleDTO>, GetVehicleQueryHandler>();
+        services.AddScoped<IRequestHandler<GetAllVehiclesQuery, IEnumerable<VehicleDTO>>, GetAllVehicleQueryHandler>();
+       
         //Attachment
         services.AddScoped<IRequestHandler<AttachmentCreateCommand, Attachment>, AttachmentCreateCommandHandler>();
         services.AddScoped<IRequestHandler<AttachmentRemoveCommand, bool>, AttachmentRemoveCommandHandler>();

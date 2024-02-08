@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Nur.Application.Commons.Interfaces;
 using Nur.Application.Exceptions;
-using Nur.Application.UseCases.Attachments.Commands;
-using Nur.Application.UseCases.Products.DTOs;
-using Nur.Domain.Entities.Attachments;
-using Nur.Domain.Entities.Products;
-using Nur.Domain.Enums;
 using Unit = Nur.Domain.Enums.Unit;
+using Nur.Domain.Entities.Products;
+using Nur.Domain.Entities.Attachments;
+using Nur.Application.Commons.Interfaces;
+using Nur.Application.UseCases.Products.DTOs;
+using Nur.Application.UseCases.Attachments.Commands;
 
 namespace Nur.Application.UseCases.Products.Commands;
 
@@ -26,6 +25,7 @@ public class ProductUpdateCommand : IRequest<ProductDTO>
 }
 public class ProductUpdateCommandHandler(IMapper mapper,
     IRepository<Product> repository,
+    IRepository<ProductCategory> categoryRepository,
     IRequestHandler<AttachmentCreateCommand, Attachment> attachmentCreateHandler,
     IRequestHandler<AttachmentRemoveCommand, bool> attachmentRemoveHandler) : IRequestHandler<ProductUpdateCommand, ProductDTO>
 {
@@ -34,12 +34,19 @@ public class ProductUpdateCommandHandler(IMapper mapper,
         var entity = await repository.SelectAsync(p => p.Id.Equals(request.Id))
             ?? throw new NotFoundException($"This product not found with Id: {request.Id}");
 
+        if (entity.CategoryId != request.Id)
+        {
+            var category = await categoryRepository.SelectAsync(c => c.Id.Equals(request.CategoryId))
+                ?? throw new NotFoundException($"This category is not found with id: {request.CategoryId}");
+            entity.CategoryId = request.CategoryId;
+            entity.Category = category;
+        }
+
         entity.Name = request.Name;
         entity.Price = request.Price;
         entity.Quantity = request.Quantity;
         entity.Description = request.Description;
         entity.Unit = request.Unit;
-        entity.CategoryId = request.CategoryId;
         if (request.Attachment is not null)
         {
             var attachment = await attachmentCreateHandler.Handle(new AttachmentCreateCommand { FormFile = request.Attachment }, cancellationToken);
