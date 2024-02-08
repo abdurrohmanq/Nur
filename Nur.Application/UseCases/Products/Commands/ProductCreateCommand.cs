@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Nur.Application.Commons.Helpers;
 using Nur.Application.Commons.Interfaces;
+using Nur.Application.Exceptions;
 using Nur.Application.UseCases.Attachments.Commands;
 using Nur.Application.UseCases.Products.DTOs;
 using Nur.Domain.Entities.Attachments;
@@ -31,10 +32,10 @@ public class ProductCreateCommandHandler(IMapper mapper,
     {
         var entity = await repository.SelectAsync(p => p.Name.Equals(request.Name));
         if (entity is not null)
-            throw new($"This product already exist with name: {request.Name}");
+            throw new AlreadyExistException($"This product already exist with name: {request.Name}");
 
         var category = await categoryRepository.SelectAsync(c => c.Id.Equals(request.CategoryId))
-            ?? throw new($"Category is not found with id: {request.CategoryId}");
+            ?? throw new NotFoundException($"Category is not found with id: {request.CategoryId}");
 
         entity = new Product
         {

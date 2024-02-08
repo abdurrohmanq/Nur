@@ -80,6 +80,9 @@ namespace Nur.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("DoorCode")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsDelete")
                         .HasColumnType("boolean");
 
@@ -96,9 +99,6 @@ namespace Nur.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Street")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ZipCode")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

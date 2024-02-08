@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using AutoMapper;
 using Nur.Domain.Entities.Users;
+using Nur.Application.Exceptions;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Users.DTOs;
 
@@ -17,5 +18,5 @@ public class GetUserByTelegramIdHandler(IMapper mapper,
 {
     public async Task<UserDTO> Handle(GetUserByTelegramIdQuery request, CancellationToken cancellationToken)
         => mapper.Map<UserDTO>(await repository.SelectAsync(u => u.TelegramId.Equals(request.TelegramId))
-            ?? throw new($"This user is not found with id: {request.TelegramId}"));
+            ?? throw new NotFoundException($"This user is not found with id: {request.TelegramId}"));
 }

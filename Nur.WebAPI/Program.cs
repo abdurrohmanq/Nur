@@ -1,8 +1,8 @@
 using Nur.Application;
 using Nur.Infrastructure;
-using Nur.Application.Commons.Helpers;
+using Nur.WebAPI.MiddleWares;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Nur.Application.Commons.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +33,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+
 app.UseStaticFiles();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

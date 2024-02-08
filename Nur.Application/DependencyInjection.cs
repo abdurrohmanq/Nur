@@ -1,17 +1,18 @@
 ﻿using MediatR;
 using System.Reflection;
-using Nur.Application.Behaviors;
-using Microsoft.Extensions.Logging;
-using Nur.Domain.Entities.Attachments;
 using Nur.Application.Commons.Mappers;
+using Nur.Domain.Entities.Attachments;
 using Nur.Application.UseCases.Users.DTOs;
 using Nur.Application.UseCases.Products.DTOs;
 using Nur.Application.UseCases.Users.Commands;
+using Nur.Application.UseCases.Addresses.DTOs;
 using Microsoft.Extensions.DependencyInjection;
 using Nur.Application.UseCases.Products.Commands;
+using Nur.Application.UseCases.Addresses.Queries;
+using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Attachments.Commands;
-using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Application.UseCases.Users.Queries.GetUsers;
+using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Application.UseCases.ProductCategories.Queries;
 using Nur.Application.UseCases.ProductCategories.Commands;
 using Nur.Application.UseCases.Products.Queries.GetProducts;
@@ -22,14 +23,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddLogging(configure =>
-        {
-            configure.SetMinimumLevel(LogLevel.Debug);
-        });
-
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddMediatR(Assembly.GetExecutingAssembly());
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
         //Users
         services.AddScoped<IRequestHandler<UserCreateCommand, UserDTO>, UserCreateCommandHandler>();
@@ -57,11 +52,18 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetCategoryQuery, ProductCategoryDTO>, GetCategoryQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllProductCategoriesQuery, IEnumerable<ProductCategoryDTO>>, GetAllProductCategoriesQueryHandler>();
 
+        //Address
+        services.AddScoped<IRequestHandler<AddressCreateCommand, AddressDTO>, AddressCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<AddressUpdateCommand, AddressDTO>, AddressUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<AddressDeleteCommand, bool>, AddressDeleteCommandHandler>();
+
+        services.AddScoped<IRequestHandler<GetAddressQuery, AddressDTO>, GetAddressQueryHandler>();
+        services.AddScoped<IRequestHandler<GetAllAddressesQuery, IEnumerable<AddressDTO>>, GetAllAddressesQueryHandler>();
+
         //Attachment
         services.AddScoped<IRequestHandler<AttachmentCreateCommand, Attachment>, AttachmentCreateCommandHandler>();
         services.AddScoped<IRequestHandler<AttachmentRemoveCommand, bool>, AttachmentRemoveCommandHandler>();
 
-        //HttpContextAccessor
         return services;
     }
 }

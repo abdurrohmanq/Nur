@@ -3,6 +3,7 @@ using MediatR;
 using Nur.Application.Commons.Constants;
 using Nur.Application.Commons.Helpers;
 using Nur.Application.Commons.Interfaces;
+using Nur.Application.Exceptions;
 using Nur.Application.UseCases.Users.DTOs;
 using Nur.Domain.Entities.Users;
 using Nur.Domain.Enums;
@@ -30,7 +31,7 @@ public class UserCreateCommandHandler(IMapper mapper,
     {
         var entity = await repository.SelectAsync(u => u.TelegramId.Equals(request.TelegramId));
         if (entity is not null)
-            throw new($"This user already exist with telegram id: {request.TelegramId}");
+            throw new AlreadyExistException($"This user already exist with telegram id: {request.TelegramId}");
 
         entity = mapper.Map<User>(request);
         entity.CreatedAt = TimeHelper.GetDateTime();

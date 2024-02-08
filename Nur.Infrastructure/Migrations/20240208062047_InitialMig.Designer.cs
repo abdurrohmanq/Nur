@@ -12,7 +12,7 @@ using Nur.Infrastructure.Contexts;
 namespace Nur.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240205095530_InitialMig")]
+    [Migration("20240208062047_InitialMig")]
     partial class InitialMig
     {
         /// <inheritdoc />
@@ -83,6 +83,9 @@ namespace Nur.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("DoorCode")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsDelete")
                         .HasColumnType("boolean");
 
@@ -99,9 +102,6 @@ namespace Nur.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Street")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ZipCode")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -464,6 +464,9 @@ namespace Nur.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("ChatId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -493,6 +496,12 @@ namespace Nur.Infrastructure.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("integer");
+
+                    b.Property<long?>("TelegramId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Nur.Application.Commons.Interfaces;
+using Nur.Application.Exceptions;
 using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Domain.Entities.Products;
 
@@ -19,7 +20,7 @@ public class CategoryCreateCommandHandler(IMapper mapper,
     {
         var entity = await repository.SelectAsync(c => c.Name.ToLower().Equals(request.Name.ToLower()));
         if (entity is not null)
-            throw new($"This category already exist! With name: {request.Name}");
+            throw new AlreadyExistException($"This category already exist! With name: {request.Name}");
 
         entity = mapper.Map<ProductCategory>(request);
         await repository.InsertAsync(entity);

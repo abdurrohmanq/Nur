@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Nur.Application.Commons.Interfaces;
+using Nur.Application.Exceptions;
 using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Domain.Entities.Products;
 
@@ -19,7 +20,7 @@ public class CategoryUpdateCommandHandler(IMapper mapper,
     public async Task<ProductCategoryDTO> Handle(CategoryUpdateCommand request, CancellationToken cancellationToken)
     {
         var entity = await repository.SelectAsync(u => u.Id.Equals(request.Id))
-            ?? throw new($"This category is not found with id: {request.Id}");
+            ?? throw new NotFoundException($"This category is not found with id: {request.Id}");
 
         entity = mapper.Map(request, entity);
 

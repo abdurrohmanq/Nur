@@ -3,6 +3,7 @@ using AutoMapper;
 using Nur.Domain.Entities.Products;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.ProductCategories.DTOs;
+using Nur.Application.Exceptions;
 
 namespace Nur.Application.UseCases.ProductCategories.Queries;
 
@@ -18,5 +19,5 @@ public class GetCategoryQueryHandler(IMapper mapper,
     public async Task<ProductCategoryDTO> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         => mapper.Map<ProductCategoryDTO>(await repository.SelectAsync(u => u.Id.Equals(request.Id),
             includes: new[] { "Products" })
-            ?? throw new($"This category is not found with id: {request.Id}"));
+            ?? throw new NotFoundException($"This category is not found with id: {request.Id}"));
 }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using AutoMapper;
 using Nur.Domain.Entities.Users;
+using Nur.Application.Exceptions;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Users.DTOs;
 
@@ -17,5 +18,5 @@ public class GetUserQueryHandler(IMapper mapper,
 {
     public async Task<UserDTO> Handle(GetUserQuery request, CancellationToken cancellationToken)
         => mapper.Map<UserDTO>(await repository.SelectAsync(u => u.Id.Equals(request.Id))
-            ?? throw new($"This user is not found with id: {request.Id}"));
+            ?? throw new NotFoundException($"This user is not found with id: {request.Id}"));
 }

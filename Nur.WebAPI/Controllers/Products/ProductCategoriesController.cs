@@ -21,7 +21,7 @@ public class ProductCategoriesController(IMediator mediator) : BaseController
     public async Task<IActionResult> DeleteAsync(long id, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new CategoryDeleteCommand(id), cancellationToken) });
 
-    [HttpGet("get/{Id:long}")]
+    [HttpGet("get/{id:long}")]
     public async Task<IActionResult> GetAsync(long id, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new GetCategoryQuery(id), cancellationToken) });
 

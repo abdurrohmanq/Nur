@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Nur.Application.Commons.Interfaces;
+using Nur.Application.Exceptions;
 using Nur.Application.UseCases.Attachments.Commands;
 using Nur.Application.UseCases.Products.DTOs;
 using Nur.Domain.Entities.Attachments;
@@ -31,7 +32,7 @@ public class ProductUpdateCommandHandler(IMapper mapper,
     public async Task<ProductDTO> Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
     {
         var entity = await repository.SelectAsync(p => p.Id.Equals(request.Id))
-            ?? throw new($"This product not found with Id: {request.Id}");
+            ?? throw new NotFoundException($"This product not found with Id: {request.Id}");
 
         entity.Name = request.Name;
         entity.Price = request.Price;

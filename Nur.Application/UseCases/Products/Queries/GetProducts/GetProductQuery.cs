@@ -3,6 +3,7 @@ using AutoMapper;
 using Nur.Domain.Entities.Products;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Products.DTOs;
+using Nur.Application.Exceptions;
 
 namespace Nur.Application.UseCases.Products.Queries.GetProducts;
 
@@ -17,5 +18,5 @@ public class GetProductQueryHandler(IMapper mapper,
 {
     public async Task<ProductDTO> Handle(GetProductQuery request, CancellationToken cancellationToken)
         => mapper.Map<ProductDTO>(await repository.SelectAsync(u => u.Id.Equals(request.Id), includes: new[] {"Category", "Attachment" })
-            ?? throw new($"This product is not found with id: {request.Id}"));
+            ?? throw new NotFoundException($"This product is not found with id: {request.Id}"));
 }

@@ -5,6 +5,7 @@ using Nur.Domain.Entities.Users;
 using Nur.Application.Commons.Constants;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Users.DTOs;
+using Nur.Application.Exceptions;
 
 namespace Nur.Application.UseCases.Users.Commands;
 
@@ -29,7 +30,7 @@ public class UserUpdateCommandHandler(IMapper mapper,
     public async Task<UserDTO> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
     {
         var entity = await repository.SelectAsync(u => u.Id.Equals(request.Id))
-            ?? throw new($"This user is not found with id: {request.Id}");
+            ?? throw new NotFoundException($"This user is not found with id: {request.Id}");
 
         entity = mapper.Map(request, entity);
         entity.DateOfBirth = request.DateOfBirth.AddHours(TimeConstant.UTC);
