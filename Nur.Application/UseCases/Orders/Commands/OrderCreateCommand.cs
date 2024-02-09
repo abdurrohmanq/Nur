@@ -35,16 +35,16 @@ public class OrderCreateCommandHandler(IMapper mapper,
     public async Task<OrderDTO> Handle(OrderCreateCommand request, CancellationToken cancellationToken)
     {
         var user = await userRepository.SelectAsync(u => u.Id.Equals(request.UserId))
-            ?? throw new NotFoundException($"This user is not found with id: {request.UserId}");
+            ?? throw new NotFoundException($"This user was not found with id: {request.UserId}");
 
         var supplier = await supplierRepository.SelectAsync(u => u.Id.Equals(request.SupplierId))
-            ?? throw new NotFoundException($"This supplier is not found with id: {request.SupplierId}");
+            ?? throw new NotFoundException($"This supplier was not found with id: {request.SupplierId}");
 
         var address = await addressRepository.SelectAsync(u => u.Id.Equals(request.AddressId))
-            ?? throw new NotFoundException($"This address is not found with id: {request.AddressId}");
+            ?? throw new NotFoundException($"This address was not found with id: {request.AddressId}");
         
         var payment = await paymentRepository.SelectAsync(u => u.Id.Equals(request.PaymentId))
-            ?? throw new NotFoundException($"This payment is not found with id: {request.PaymentId}");
+            ?? throw new NotFoundException($"This payment was not found with id: {request.PaymentId}");
 
         var entity = mapper.Map<Order>(request);
         entity.User = user;

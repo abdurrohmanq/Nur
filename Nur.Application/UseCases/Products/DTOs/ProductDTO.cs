@@ -10,7 +10,7 @@ public class ProductDTO
     public long Id { get; set; }
     public string Name { get; set; }
     public decimal Price { get; set; }
-    public long Quantity { get; set; }
+    public double Quantity { get; set; }
     public string Description { get; set; }
     public Unit Unit { get; set; }
 

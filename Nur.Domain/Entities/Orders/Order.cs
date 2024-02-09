@@ -25,4 +25,6 @@ public class Order : Auditable
 
     public long PaymentId { get; set; }
     public Payment Payment { get; set; }
+
+    public ICollection<OrderItem> OrderItems { get; set; }
 }
