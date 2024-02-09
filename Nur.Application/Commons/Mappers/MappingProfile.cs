@@ -17,6 +17,9 @@ using Nur.Application.UseCases.Suppliers.DTOs;
 using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Vehicles.Commands;
 using Nur.Application.UseCases.Suppliers.Commands;
+using Nur.Application.UseCases.Payments.Commands;
+using Nur.Domain.Entities.Payments;
+using Nur.Application.UseCases.Payments.DTOs;
 
 namespace Nur.Application.Commons.Mappers;
 
@@ -51,6 +54,11 @@ public class MappingProfile : Profile
         CreateMap<VehicleCreateCommand, Vehicle>().ReverseMap();
         CreateMap<VehicleUpdateCommand, Vehicle>().ReverseMap();
         CreateMap<VehicleDTO, Vehicle>().ReverseMap();
+
+        //Payments
+        CreateMap<PaymentCreateCommand, Payment>().ReverseMap();
+        CreateMap<PaymentUpdateCommand, Payment>().ReverseMap();
+        CreateMap<PaymentDTO, Payment>().ReverseMap();
 
         //Attachment
         CreateMap<Attachment, AttachmentDTO>().ReverseMap();
