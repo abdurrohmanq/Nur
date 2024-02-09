@@ -3,6 +3,7 @@ using System.Reflection;
 using Nur.Application.Commons.Mappers;
 using Nur.Domain.Entities.Attachments;
 using Nur.Application.UseCases.Users.DTOs;
+using Nur.Application.UseCases.Orders.DTOs;
 using Nur.Application.UseCases.Products.DTOs;
 using Nur.Application.UseCases.Payments.DTOs;
 using Nur.Application.UseCases.Vehicles.DTOs;
@@ -10,6 +11,7 @@ using Nur.Application.UseCases.Suppliers.DTOs;
 using Nur.Application.UseCases.Addresses.DTOs;
 using Nur.Application.UseCases.Users.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using Nur.Application.UseCases.Orders.Commands;
 using Nur.Application.UseCases.Products.Commands;
 using Nur.Application.UseCases.Vehicles.Commands;
 using Nur.Application.UseCases.Addresses.Queries;
@@ -19,6 +21,7 @@ using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Attachments.Commands;
 using Nur.Application.UseCases.Users.Queries.GetUsers;
 using Nur.Application.UseCases.ProductCategories.DTOs;
+using Nur.Application.UseCases.Orders.Queries.GetOrders;
 using Nur.Application.UseCases.ProductCategories.Queries;
 using Nur.Application.UseCases.ProductCategories.Commands;
 using Nur.Application.UseCases.Vehicles.Queries.GetVehicles;
@@ -76,6 +79,16 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetSupplierQuery, SupplierDTO>, GetSupplierQueryHandler>();
         services.AddScoped<IRequestHandler<GetByVehicleIdQuery, SupplierDTO>, GetByVehicleIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllSuppliersQuery, IEnumerable<SupplierDTO>>, GetAllSupplierQueryHandler>();
+
+        //Orders
+        services.AddScoped<IRequestHandler<OrderCreateCommand, OrderDTO>, OrderCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<OrderUpdateCommand, OrderDTO>, OrderUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<OrderDeleteCommand, bool>, OrderDeleteCommandHandler>();
+
+        services.AddScoped<IRequestHandler<GetOrderQuery, OrderDTO>, GetOrderQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByUserIdQuery, OrderDTO>, GetByUserIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetBySupplierIdQuery, OrderDTO>, GetBySupplierIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetAllOrdersQuery, IEnumerable<OrderDTO>>, GetAllOrderQueryHandler>();
 
         //Vehicles
         services.AddScoped<IRequestHandler<VehicleCreateCommand, VehicleDTO>, VehicleCreateCommandHandler>();

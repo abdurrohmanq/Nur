@@ -2,6 +2,7 @@
 using Nur.Application.UseCases.Users.DTOs;
 using Nur.Application.UseCases.Addresses.DTOs;
 using Nur.Application.UseCases.Suppliers.DTOs;
+using Nur.Application.UseCases.Payments.DTOs;
 
 namespace Nur.Application.UseCases.Orders.DTOs;
 
@@ -17,5 +18,5 @@ public class OrderDTO
     public UserDTO User { get; set; }
     public AddressDTO Address { get; set; }
     public SupplierDTO Supplier { get; set; }
-    public OrderDTO Payment { get; set; }
+    public PaymentDTO Payment { get; set; }
 }

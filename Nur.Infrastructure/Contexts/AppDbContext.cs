@@ -27,8 +27,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfiguration(new SupplierEntityTypeConfiguration());
-
         modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+
+        modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
+
+        modelBuilder.ApplyConfiguration(new SupplierEntityTypeConfiguration());
     }
 }
