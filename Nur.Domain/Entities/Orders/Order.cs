@@ -1,9 +1,9 @@
-﻿using Nur.Domain.Commons;
-using Nur.Domain.Entities.Addresses;
-using Nur.Domain.Entities.Payments;
-using Nur.Domain.Entities.Suppliers;
+﻿using Nur.Domain.Enums;
+using Nur.Domain.Commons;
 using Nur.Domain.Entities.Users;
-using Nur.Domain.Enums;
+using Nur.Domain.Entities.Payments;
+using Nur.Domain.Entities.Addresses;
+using Nur.Domain.Entities.Suppliers;
 
 namespace Nur.Domain.Entities.Orders;
 
