@@ -10,11 +10,11 @@ namespace Nur.WebAPI.Controllers.Vehicles;
 public class VehiclesController(IMediator mediator) : BaseController
 {
     [HttpPost("create")]
-    public async Task<IActionResult> PostAsync(VehicleCreateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> PostAsync([FromForm] VehicleCreateCommand command, CancellationToken cancellationToken)
        => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
 
     [HttpPut("update")]
-    public async Task<IActionResult> ModifyAsync(VehicleUpdateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> ModifyAsync([FromForm] VehicleUpdateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
 
     [HttpDelete("delete/{id:long}")]

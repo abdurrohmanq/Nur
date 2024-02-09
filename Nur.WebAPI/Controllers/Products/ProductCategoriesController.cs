@@ -10,11 +10,11 @@ namespace Nur.WebAPI.Controllers.Products;
 public class ProductCategoriesController(IMediator mediator) : BaseController
 {
     [HttpPost("create")]
-    public async Task<IActionResult> PostAsync(CategoryCreateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> PostAsync([FromForm] CategoryCreateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
 
     [HttpPut("update")]
-    public async Task<IActionResult> ModifyAsync(CategoryUpdateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> ModifyAsync([FromForm] CategoryUpdateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
 
     [HttpDelete("delete/{id:long}")]

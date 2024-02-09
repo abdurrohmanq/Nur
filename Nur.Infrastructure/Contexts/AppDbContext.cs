@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Nur.Domain.Entities.Addresses;
-using Nur.Domain.Entities.Attachments;
-using Nur.Domain.Entities.Orders;
+﻿using Nur.Domain.Entities.Orders;
+using Nur.Domain.Entities.Users;
 using Nur.Domain.Entities.Payments;
 using Nur.Domain.Entities.Products;
+using Nur.Domain.Entities.Addresses;
+using Microsoft.EntityFrameworkCore;
 using Nur.Domain.Entities.Suppliers;
-using Nur.Domain.Entities.Users;
+using Nur.Domain.Entities.Attachments;
 using Nur.Infrastructure.Persistence.EntityTypeConfiguration;
 
 namespace Nur.Infrastructure.Contexts;
@@ -28,5 +28,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new SupplierEntityTypeConfiguration());
+
+        modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
     }
 }

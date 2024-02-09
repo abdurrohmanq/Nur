@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Nur.WebAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Nur.WebAPI.Controllers.Commons;
 using Nur.Application.UseCases.Products.Commands;
 using Nur.Application.UseCases.Products.Queries.GetProducts;
@@ -10,11 +10,11 @@ namespace Nur.WebAPI.Controllers.Products;
 public class ProductsController(IMediator mediator) : BaseController
 {
     [HttpPost("create")]
-    public async Task<IActionResult> PostAsync(ProductCreateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> PostAsync([FromForm] ProductCreateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
 
     [HttpPut("update")]
-    public async Task<IActionResult> ModifyAsync(ProductUpdateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> ModifyAsync([FromForm] ProductUpdateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
 
     [HttpDelete("delete/{id:long}")]

@@ -1,20 +1,20 @@
 ﻿using MediatR;
+using Nur.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Nur.WebAPI.Controllers.Commons;
 using Nur.Application.UseCases.Users.Commands;
 using Nur.Application.UseCases.Users.Queries.GetUsers;
-using Nur.WebAPI.Controllers.Commons;
-using Nur.WebAPI.Models;
 
 namespace Nur.WebAPI.Controllers.Users;
 
 public class UsersController(IMediator mediator) : BaseController
 {
     [HttpPost("create")]
-    public async Task<IActionResult> PostAsync(UserCreateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> PostAsync([FromForm] UserCreateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
     
     [HttpPut("update")]
-    public async Task<IActionResult> ModifyAsync(UserUpdateCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> ModifyAsync([FromForm] UserUpdateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
 
     [HttpDelete("delete/{id:long}")]
