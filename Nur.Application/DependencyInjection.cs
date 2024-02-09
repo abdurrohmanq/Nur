@@ -4,6 +4,7 @@ using Nur.Application.Commons.Mappers;
 using Nur.Domain.Entities.Attachments;
 using Nur.Application.UseCases.Users.DTOs;
 using Nur.Application.UseCases.Products.DTOs;
+using Nur.Application.UseCases.Payments.DTOs;
 using Nur.Application.UseCases.Vehicles.DTOs;
 using Nur.Application.UseCases.Suppliers.DTOs;
 using Nur.Application.UseCases.Addresses.DTOs;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Nur.Application.UseCases.Products.Commands;
 using Nur.Application.UseCases.Vehicles.Commands;
 using Nur.Application.UseCases.Addresses.Queries;
+using Nur.Application.UseCases.Payments.Commands;
 using Nur.Application.UseCases.Suppliers.Commands;
 using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Attachments.Commands;
@@ -83,6 +85,11 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetVehicleQuery, VehicleDTO>, GetVehicleQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllVehiclesQuery, IEnumerable<VehicleDTO>>, GetAllVehicleQueryHandler>();
        
+        //Payments
+        services.AddScoped<IRequestHandler<PaymentCreateCommand, PaymentDTO>, PaymentCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<PaymentUpdateCommand, PaymentDTO>, PaymentUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<PaymentDeleteCommand, bool>, PaymentDeleteCommandHandler>();
+
         //Attachment
         services.AddScoped<IRequestHandler<AttachmentCreateCommand, Attachment>, AttachmentCreateCommandHandler>();
         services.AddScoped<IRequestHandler<AttachmentRemoveCommand, bool>, AttachmentRemoveCommandHandler>();
