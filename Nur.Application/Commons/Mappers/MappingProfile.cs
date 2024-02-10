@@ -1,28 +1,32 @@
 ﻿using AutoMapper;
-using Nur.Domain.Entities.Users;
+using Nur.Domain.Entities.Orders;
+using Nur.Domain.Entities.Payments;
 using Nur.Domain.Entities.Products;
-using Nur.Domain.Entities.Attachments;
-using Nur.Application.UseCases.Users.DTOs;
-using Nur.Application.UseCases.Products.DTOs;
-using Nur.Application.UseCases.Users.Commands;
-using Nur.Application.UseCases.Attachments.Commands;
-using Nur.Application.UseCases.ProductCategories.DTOs;
-using Nur.Application.UseCases.ProductCategories.Commands;
-using Nur.Application.UseCases.Attachments.DTOs;
+using Nur.Domain.Entities.Users;
 using Nur.Domain.Entities.Addresses;
 using Nur.Domain.Entities.Suppliers;
+using Nur.Domain.Entities.Attachments;
+using Nur.Application.UseCases.Users.DTOs;
+using Nur.Application.UseCases.Orders.DTOs;
+using Nur.Application.UseCases.Payments.DTOs;
+using Nur.Application.UseCases.Products.DTOs;
 using Nur.Application.UseCases.Vehicles.DTOs;
-using Nur.Application.UseCases.Addresses.DTOs;
 using Nur.Application.UseCases.Suppliers.DTOs;
+using Nur.Application.UseCases.Users.Commands;
+using Nur.Application.UseCases.Addresses.DTOs;
+using Nur.Application.UseCases.Orders.Commands;
+using Nur.Application.UseCases.Attachments.DTOs;
+using Nur.Application.UseCases.Payments.Commands;
 using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Vehicles.Commands;
 using Nur.Application.UseCases.Suppliers.Commands;
-using Nur.Application.UseCases.Payments.Commands;
-using Nur.Domain.Entities.Payments;
-using Nur.Application.UseCases.Payments.DTOs;
-using Nur.Application.UseCases.Orders.Commands;
-using Nur.Domain.Entities.Orders;
-using Nur.Application.UseCases.Orders.DTOs;
+using Nur.Application.UseCases.ProductCategories.DTOs;
+using Nur.Application.UseCases.Orders.OrderItems.DTOs;
+using Nur.Application.UseCases.ProductCategories.Commands;
+using Nur.Application.UseCases.Orders.OrderItems.Commands;
+using Nur.Application.UseCases.Carts.CartItems.DTOs;
+using Nur.Domain.Entities.Carts;
+using Nur.Application.UseCases.Carts.DTOs;
 
 namespace Nur.Application.Commons.Mappers;
 
@@ -66,7 +70,19 @@ public class MappingProfile : Profile
         //Orders
         CreateMap<OrderCreateCommand, Order>().ReverseMap();
         CreateMap<OrderUpdateCommand, Order>().ReverseMap();
-        CreateMap<OrderDTO, Order>().ReverseMap();  
+        CreateMap<OrderDTO, Order>().ReverseMap();
+
+        //OrderItems
+        CreateMap<OrderItemCreateCommand, OrderItem>().ReverseMap();
+        CreateMap<OrderItemUpdateCommand, OrderItem>().ReverseMap();
+        CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+
+        //Carts
+        CreateMap<Cart, CartDTO>().ReverseMap();
+
+        //CartItems
+        CreateMap<CartItem, CartItemDTO>().ReverseMap();
+
 
         //Attachment
         CreateMap<Attachment, AttachmentDTO>().ReverseMap();

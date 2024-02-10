@@ -27,6 +27,9 @@ using Nur.Application.UseCases.ProductCategories.Commands;
 using Nur.Application.UseCases.Vehicles.Queries.GetVehicles;
 using Nur.Application.UseCases.Products.Queries.GetProducts;
 using Nur.Application.UseCases.Suppliers.Queries.GetSuppliers;
+using Nur.Application.UseCases.Orders.OrderItems.Commands;
+using Nur.Application.UseCases.Orders.OrderItems.DTOs;
+using Nur.Application.UseCases.Orders.OrderItems.Queries.GetOrderItems;
 
 namespace Nur.Application;
 
@@ -102,6 +105,16 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<PaymentCreateCommand, PaymentDTO>, PaymentCreateCommandHandler>();
         services.AddScoped<IRequestHandler<PaymentUpdateCommand, PaymentDTO>, PaymentUpdateCommandHandler>();
         services.AddScoped<IRequestHandler<PaymentDeleteCommand, bool>, PaymentDeleteCommandHandler>();
+
+        //OrderItems
+        services.AddScoped<IRequestHandler<OrderItemCreateCommand, OrderItemDTO>, OrderItemCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<OrderItemUpdateCommand, OrderItemDTO>, OrderItemUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<OrderItemDeleteCommand, bool>, OrderItemDeleteCommandHandler>(); 
+
+        services.AddScoped<IRequestHandler<GetOrderItemQuery, OrderItemDTO>, GetOrderItemQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByOrderIdQuery, OrderItemDTO>, GetByOrderIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetOrderItemByProductIdQuery, OrderItemDTO>, GetOrderItemByProductIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetAllOrderItemsQuery, IEnumerable<OrderItemDTO>>, GetAllOrderItemQueryHandler>();
 
         //Attachment
         services.AddScoped<IRequestHandler<AttachmentCreateCommand, Attachment>, AttachmentCreateCommandHandler>();
