@@ -12,7 +12,6 @@ public class CartItemCreateCommand : IRequest<CartItemDTO>
 {
     public double Quantity { get; set; }
     public decimal Price { get; set; }
-    public decimal Sum { get; set; }
     public long CartId { get; set; }
     public long ProductId { get; set; }
 }
