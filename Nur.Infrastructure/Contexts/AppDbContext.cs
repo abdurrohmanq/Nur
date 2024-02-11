@@ -30,6 +30,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
 
         modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
+        
+        modelBuilder.ApplyConfiguration(new CartEntityTypeConfiguration());
 
         modelBuilder.ApplyConfiguration(new SupplierEntityTypeConfiguration());
     }

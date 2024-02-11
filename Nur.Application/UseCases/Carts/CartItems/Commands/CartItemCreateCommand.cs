@@ -28,7 +28,7 @@ public class CartItemCreateCommandHandler(IMapper mapper,
             ?? throw new NotFoundException($"This cart was not found with id: {request.CartId}");
         
         var product = await productRepository.SelectAsync(c => c.Id.Equals(request.ProductId))
-            ?? throw new NotFoundException($"This cart was not found with id: {request.ProductId}");
+            ?? throw new NotFoundException($"This product was not found with id: {request.ProductId}");
 
         if (request.Quantity > product.Quantity)
             return null;

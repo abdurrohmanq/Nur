@@ -1,12 +1,13 @@
-﻿using AutoMapper;
-using MediatR;
-using Nur.Application.Commons.Constants;
-using Nur.Application.Commons.Helpers;
-using Nur.Application.Commons.Interfaces;
-using Nur.Application.Exceptions;
-using Nur.Application.UseCases.Users.DTOs;
-using Nur.Domain.Entities.Users;
+﻿using MediatR;
+using AutoMapper;
 using Nur.Domain.Enums;
+using Nur.Application.Exceptions;
+using Nur.Domain.Entities.Carts;
+using Nur.Domain.Entities.Users;
+using Nur.Application.Commons.Helpers;
+using Nur.Application.Commons.Constants;
+using Nur.Application.Commons.Interfaces;
+using Nur.Application.UseCases.Users.DTOs;
 
 namespace Nur.Application.UseCases.Users.Commands;
 
@@ -25,7 +26,8 @@ public class UserCreateCommand : IRequest<UserDTO>
 }
 
 public class UserCreateCommandHandler(IMapper mapper,
-    IRepository<User> repository) : IRequestHandler<UserCreateCommand, UserDTO>
+    IRepository<User> repository,
+    IRepository<Cart> cartRepository) : IRequestHandler<UserCreateCommand, UserDTO>
 {
     public async Task<UserDTO> Handle(UserCreateCommand request, CancellationToken cancellationToken)
     {
@@ -37,7 +39,10 @@ public class UserCreateCommandHandler(IMapper mapper,
         entity.CreatedAt = TimeHelper.GetDateTime();
         entity.DateOfBirth = request.DateOfBirth.AddHours(TimeConstant.UTC);
 
+        var cart = new Cart { UserId = entity.Id, User = entity };
+
         await repository.InsertAsync(entity);
+        await cartRepository.InsertAsync(cart);
         await repository.SaveAsync();
 
         return mapper.Map<UserDTO>(entity);
