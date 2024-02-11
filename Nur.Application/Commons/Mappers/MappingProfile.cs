@@ -27,6 +27,7 @@ using Nur.Application.UseCases.Orders.OrderItems.Commands;
 using Nur.Application.UseCases.Carts.CartItems.DTOs;
 using Nur.Domain.Entities.Carts;
 using Nur.Application.UseCases.Carts.DTOs;
+using Nur.Application.UseCases.Carts.CartItems.Commands;
 
 namespace Nur.Application.Commons.Mappers;
 
@@ -81,8 +82,9 @@ public class MappingProfile : Profile
         CreateMap<Cart, CartDTO>().ReverseMap();
 
         //CartItems
+        CreateMap<CartItemCreateCommand, CartItem>().ReverseMap();
+        CreateMap<CartItemUpdateCommand, CartItem>().ReverseMap();
         CreateMap<CartItem, CartItemDTO>().ReverseMap();
-
 
         //Attachment
         CreateMap<Attachment, AttachmentDTO>().ReverseMap();

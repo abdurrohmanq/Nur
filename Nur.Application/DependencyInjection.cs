@@ -20,16 +20,21 @@ using Nur.Application.UseCases.Suppliers.Commands;
 using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Attachments.Commands;
 using Nur.Application.UseCases.Users.Queries.GetUsers;
+using Nur.Application.UseCases.Orders.OrderItems.DTOs;
 using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Application.UseCases.Orders.Queries.GetOrders;
 using Nur.Application.UseCases.ProductCategories.Queries;
+using Nur.Application.UseCases.Orders.OrderItems.Commands;
 using Nur.Application.UseCases.ProductCategories.Commands;
 using Nur.Application.UseCases.Vehicles.Queries.GetVehicles;
 using Nur.Application.UseCases.Products.Queries.GetProducts;
 using Nur.Application.UseCases.Suppliers.Queries.GetSuppliers;
-using Nur.Application.UseCases.Orders.OrderItems.Commands;
-using Nur.Application.UseCases.Orders.OrderItems.DTOs;
 using Nur.Application.UseCases.Orders.OrderItems.Queries.GetOrderItems;
+using Nur.Application.UseCases.Carts.Queries.GetCarts;
+using Nur.Application.UseCases.Carts.DTOs;
+using Nur.Application.UseCases.Carts.CartItems.Commands;
+using Nur.Application.UseCases.Carts.CartItems.DTOs;
+using Nur.Application.UseCases.Carts.CartItems.Queries.GetCartItems;
 
 namespace Nur.Application;
 
@@ -80,7 +85,7 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<SupplierDeleteCommand, bool>, SupplierDeleteCommandHandler>();
 
         services.AddScoped<IRequestHandler<GetSupplierQuery, SupplierDTO>, GetSupplierQueryHandler>();
-        services.AddScoped<IRequestHandler<GetByVehicleIdQuery, SupplierDTO>, GetByVehicleIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByVehicleIdQuery, IEnumerable<SupplierDTO>>, GetByVehicleIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllSuppliersQuery, IEnumerable<SupplierDTO>>, GetAllSupplierQueryHandler>();
 
         //Orders
@@ -89,8 +94,8 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<OrderDeleteCommand, bool>, OrderDeleteCommandHandler>();
 
         services.AddScoped<IRequestHandler<GetOrderQuery, OrderDTO>, GetOrderQueryHandler>();
-        services.AddScoped<IRequestHandler<GetByUserIdQuery, OrderDTO>, GetByUserIdQueryHandler>();
-        services.AddScoped<IRequestHandler<GetBySupplierIdQuery, OrderDTO>, GetBySupplierIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByUserIdQuery, IEnumerable<OrderDTO>>, GetByUserIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetBySupplierIdQuery, IEnumerable<OrderDTO>>, GetBySupplierIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllOrdersQuery, IEnumerable<OrderDTO>>, GetAllOrderQueryHandler>();
 
         //Vehicles
@@ -112,10 +117,21 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<OrderItemDeleteCommand, bool>, OrderItemDeleteCommandHandler>(); 
 
         services.AddScoped<IRequestHandler<GetOrderItemQuery, OrderItemDTO>, GetOrderItemQueryHandler>();
-        services.AddScoped<IRequestHandler<GetByOrderIdQuery, OrderItemDTO>, GetByOrderIdQueryHandler>();
-        services.AddScoped<IRequestHandler<GetOrderItemByProductIdQuery, OrderItemDTO>, GetOrderItemByProductIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByOrderIdQuery, IEnumerable<OrderItemDTO>>, GetByOrderIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetOrderItemByProductIdQuery, IEnumerable<OrderItemDTO>>, GetOrderItemByProductIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllOrderItemsQuery, IEnumerable<OrderItemDTO>>, GetAllOrderItemQueryHandler>();
 
+        //Cart
+        services.AddScoped<IRequestHandler<GetCartByUserIdQuery, CartDTO>, GetCartQueryHandler>();
+
+        //CartItems
+        services.AddScoped<IRequestHandler<CartItemCreateCommand, CartItemDTO>, CartItemCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<CartItemUpdateCommand, CartItemDTO>, CartItemUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<CartItemDeleteCommand, bool>, CartItemDeleteCommandHandler>();
+
+        services.AddScoped<IRequestHandler<GetCartItemQuery, CartItemDTO>, GetCartItemQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByCartIdQuery, IEnumerable<CartItemDTO>>, GetByCartIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetAllCartItemsQuery, IEnumerable<CartItemDTO>>, GetAllCartItemsQueryHandler>();
         //Attachment
         services.AddScoped<IRequestHandler<AttachmentCreateCommand, Attachment>, AttachmentCreateCommandHandler>();
         services.AddScoped<IRequestHandler<AttachmentRemoveCommand, bool>, AttachmentRemoveCommandHandler>();
