@@ -117,13 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnBack" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="btnFeedback" xml:space="preserve">
+    <value>✍️ Комментарий</value>
+  </data>
+  <data name="btnInfo" xml:space="preserve">
+    <value>ℹ️ Информация</value>
+  </data>
+  <data name="btnMainMenu" xml:space="preserve">
+    <value>🏠 Главное меню</value>
+  </data>
+  <data name="btnOrder" xml:space="preserve">
+    <value>🛍 Заказать</value>
+  </data>
+  <data name="btnPhone" xml:space="preserve">
+    <value>📞 Связаться с нами</value>
+  </data>
+  <data name="btnRequestContact" xml:space="preserve">
+    <value>Отправить номер телефона</value>
+  </data>
+  <data name="btnSetting" xml:space="preserve">
+    <value>⚙️ Настройки</value>
+  </data>
   <data name="choose-language" xml:space="preserve">
     <value>Выберите язык!</value>
+  </data>
+  <data name="GetContact" xml:space="preserve">
+    <value>Ваш номер принят!</value>
   </data>
   <data name="greeting" xml:space="preserve">
     <value>Добро пожаловать в Нур Кухню!</value>
   </data>
+  <data name="OpenToMenu" xml:space="preserve">
+    <value>Хорошо! С чего начать оформление заказа? 😊</value>
+  </data>
+  <data name="RequestForFullName" xml:space="preserve">
+    <value>Введите свое имя и фамилию:</value>
+  </data>
+  <data name="RequestToContact" xml:space="preserve">
+    <value>Пожалуйста! Нажмите кнопку ниже, чтобы отправить свой номер телефона!</value>
+  </data>
+  <data name="select-menu" xml:space="preserve">
+    <value>Отметьте свой выбор!</value>
+  </data>
+  <data name="txtBad" xml:space="preserve">
+    <value>Плохо 🚫</value>
+  </data>
+  <data name="txtContactInfo" xml:space="preserve">
+    <value>Вы можете позвонить &lt;&lt;+998905710460&gt;&gt;, чтобы связаться с нами!</value>
+  </data>
+  <data name="txtDislike" xml:space="preserve">
+    <value>Не понравилось 👎🏻</value>
+  </data>
+  <data name="txtFeedback" xml:space="preserve">
+    <value>Спасибо, что выбрали нас!
+\nОставьте отзыв или оцените наш сервис!</value>
+  </data>
+  <data name="txtGood" xml:space="preserve">
+    <value>Хорошо ✨</value>
+  </data>
+  <data name="txtInfo" xml:space="preserve">
+    <value>Это Телеграмм-бот Нур столовая!</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Очень хорошо, мы продолжим с вами на русском языке!</value>
+  </data>
+  <data name="txtThankFeedback" xml:space="preserve">
+    <value>Спасибо! Спасибо за ваши комментарии и отзывы!</value>
+  </data>
+  <data name="txtVeryGood" xml:space="preserve">
+    <value>Все понравилось 👍</value>
   </data>
 </root>

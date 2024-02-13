@@ -13,11 +13,19 @@ public partial class BotUpdateHandler
         ArgumentNullException.ThrowIfNull(message.Text);
         var from = message.From;
         logger.LogInformation("From: {from.FirstName}", from?.FirstName);
+
         var userState = userStates.TryGetValue(message.Chat.Id, out var state) ? state : UserState.None;
+        userState = message.Text.Equals("/start") ? UserState.None : userState;
 
         var handler = userState switch
         {
-            UserState.None => SendGreetingAsync(client, message, cancellationToken),
+            UserState.None => SendGreetingAsync(message, cancellationToken),
+            UserState.WaitingForFullName => HandleUserFullNameAsync(message, cancellationToken),
+            UserState.WaitingForSelectMainMenu => HandleMainMenuAsync(message, cancellationToken),
+            UserState.WaitingForHandlerFeedback => HandleFeedBackAsync(message, cancellationToken),
         };
+
+        try { await handler; }
+        catch (Exception ex) { logger.LogError(ex, "Error handling message from {user.FirstName}", user[message.Chat.Id].FirstName); }
     }
 }

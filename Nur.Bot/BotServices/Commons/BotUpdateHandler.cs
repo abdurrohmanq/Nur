@@ -11,6 +11,7 @@ using Telegram.Bot.Types.Enums;
 namespace Nur.Bot.BotServices;
 
 public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
+    ITelegramBotClient botClient,
     IServiceScopeFactory scopeFactory,
     IUserService userService) : IUpdateHandler
 {
@@ -21,7 +22,7 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
     {
         using var scope = scopeFactory.CreateScope();
         localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer<BotLocalizer>>();
-        if (update.Type != UpdateType.CallbackQuery)
+        if (update.Type == UpdateType.Message)
         {
             user[update.Message.Chat.Id] = await GetUserAsync(update, cancellationToken);
 
@@ -68,7 +69,7 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
                 Username = from.Username,
                 FirstName = from.FirstName,
                 ChatId = update.Message!.Chat.Id,
-                LanguageCode = from.LanguageCode
+                LanguageCode = from.LanguageCode,
             }, cancellationToken);
     }
 

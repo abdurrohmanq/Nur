@@ -117,8 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnBack" xml:space="preserve">
+    <value>⬅️ Ortga</value>
+  </data>
+  <data name="btnFeedback" xml:space="preserve">
+    <value>✍️ Fikr bildirish</value>
+  </data>
+  <data name="btnInfo" xml:space="preserve">
+    <value>ℹ️ Ma'lumot</value>
+  </data>
+  <data name="btnMainMenu" xml:space="preserve">
+    <value>🏠 Asosiy menu</value>
+  </data>
+  <data name="btnOrder" xml:space="preserve">
+    <value>🛍 Buyurtma berish</value>
+  </data>
+  <data name="btnPhone" xml:space="preserve">
+    <value>📞 Biz bilan aloqa</value>
+  </data>
+  <data name="btnRequestContact" xml:space="preserve">
+    <value>Telefon raqamni jo'natish</value>
+  </data>
+  <data name="btnSetting" xml:space="preserve">
+    <value>⚙️ Sozlamalar</value>
+  </data>
   <data name="choose-language" xml:space="preserve">
     <value>Tilni tanlang!</value>
+  </data>
+  <data name="GetContact" xml:space="preserve">
+    <value>Sizning raqamingiz qabul qilindi!</value>
   </data>
   <data name="greeting" xml:space="preserve">
     <value>Assalomu Alaykum! Nur oshxonasiga xush kelibsiz!</value>
@@ -132,7 +159,43 @@
   <data name="ibtnUz" xml:space="preserve">
     <value>🇺🇿  o'zbek tili</value>
   </data>
+  <data name="OpenToMenu" xml:space="preserve">
+    <value>Yaxshi! Buyurtma berishni nimadan boshlaymizmi? 😊</value>
+  </data>
+  <data name="RequestForFullName" xml:space="preserve">
+    <value>Ism familiyangizni kiriting:</value>
+  </data>
+  <data name="RequestToContact" xml:space="preserve">
+    <value>Iltimos! Telefon raqamingizni jo'natish uchun quyidagi tugmani bosing!</value>
+  </data>
+  <data name="select-menu" xml:space="preserve">
+    <value>Tanlovingizni belgilang!</value>
+  </data>
+  <data name="txtBad" xml:space="preserve">
+    <value>Yomon 🚫</value>
+  </data>
+  <data name="txtContactInfo" xml:space="preserve">
+    <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
+  </data>
+  <data name="txtDislike" xml:space="preserve">
+    <value>Yoqmadi 👎🏻</value>
+  </data>
+  <data name="txtFeedback" xml:space="preserve">
+    <value>Bizni tanlagingiz uchun tashakkur!\nFikr bildiring yoki xizmatimizni baholang!</value>
+  </data>
+  <data name="txtGood" xml:space="preserve">
+    <value>Yaxshi ✨</value>
+  </data>
+  <data name="txtInfo" xml:space="preserve">
+    <value>Bu Nur oshxonasi Telegram boti!</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Yaxshi siz bilan o'zbek tilida davom etamiz!</value>
+  </data>
+  <data name="txtThankFeedback" xml:space="preserve">
+    <value>Rahmat! Fikr va mulohazangiz uchun tashakkur!</value>
+  </data>
+  <data name="txtVeryGood" xml:space="preserve">
+    <value>Hammasi yoqdi 👍</value>
   </data>
 </root>

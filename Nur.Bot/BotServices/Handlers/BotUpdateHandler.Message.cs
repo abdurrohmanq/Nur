@@ -18,9 +18,11 @@ public partial class BotUpdateHandler
         var handlerUserMessage = message.Type switch
         {
             MessageType.Text => HandleTextMessageAsync(client, message, cancellationToken),
-            MessageType.Contact => HandleContactAsync(message, cancellationToken),
+            MessageType.Contact => HandleContactAsync(client, message, cancellationToken),
             _ => HandleUnknownMessageAsync(client, message, cancellationToken)
         };
+
+        await handlerUserMessage;
     }
 
     private Task HandleUnknownMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)

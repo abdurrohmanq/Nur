@@ -117,13 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnBack" xml:space="preserve">
+    <value>⬅️ Back</value>
+  </data>
+  <data name="btnFeedback" xml:space="preserve">
+    <value>✍️ Comment</value>
+  </data>
+  <data name="btnInfo" xml:space="preserve">
+    <value>ℹ️ Information</value>
+  </data>
+  <data name="btnMainMenu" xml:space="preserve">
+    <value>🏠 Main menu</value>
+  </data>
+  <data name="btnOrder" xml:space="preserve">
+    <value>🛍 Place an order</value>
+  </data>
+  <data name="btnPhone" xml:space="preserve">
+    <value>📞 Contact us</value>
+  </data>
+  <data name="btnRequestContact" xml:space="preserve">
+    <value>Send phone number</value>
+  </data>
+  <data name="btnSetting" xml:space="preserve">
+    <value>⚙️ Settings</value>
+  </data>
   <data name="choose-language" xml:space="preserve">
     <value>Select Language</value>
+  </data>
+  <data name="GetContact" xml:space="preserve">
+    <value>Your number has been accepted!</value>
   </data>
   <data name="greeting" xml:space="preserve">
     <value>Hello! Welcome to Nur canteen</value>
   </data>
+  <data name="OpenToMenu" xml:space="preserve">
+    <value>Good! Where do we start ordering? 😊</value>
+  </data>
+  <data name="RequestForFullName" xml:space="preserve">
+    <value>Enter your full name:</value>
+  </data>
+  <data name="RequestToContact" xml:space="preserve">
+    <value>Please! Click the button below to submit your phone number!</value>
+  </data>
+  <data name="select-menu" xml:space="preserve">
+    <value>Make your choice!</value>
+  </data>
+  <data name="txtBad" xml:space="preserve">
+    <value>Bad 🚫</value>
+  </data>
+  <data name="txtContactInfo" xml:space="preserve">
+    <value>You can call &lt;&lt;+998905710460&gt;&gt; to contact us!</value>
+  </data>
+  <data name="txtDislike" xml:space="preserve">
+    <value>Dislike 👎🏻</value>
+  </data>
+  <data name="txtFeedback" xml:space="preserve">
+    <value>Thank you for choosing us!\n
+Leave a comment or rate our service!</value>
+  </data>
+  <data name="txtGood" xml:space="preserve">
+    <value>Good ✨</value>
+  </data>
+  <data name="txtInfo" xml:space="preserve">
+    <value>This is Nur National foods Telegram bot!</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Well, we will continue with you in English!</value>
+  </data>
+  <data name="txtThankFeedback" xml:space="preserve">
+    <value>Thank you! Thanks for your thoughts and feedback!</value>
+  </data>
+  <data name="txtVeryGood" xml:space="preserve">
+    <value>I liked everything 👍</value>
   </data>
 </root>
