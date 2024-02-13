@@ -1,4 +1,5 @@
-﻿using Nur.APIService.Models.Users;
+﻿using Nur.APIService.Models.CartItems;
+using Nur.APIService.Models.Users;
 
 namespace Nur.APIService.Models.Carts;
 
@@ -8,5 +9,5 @@ public class CartDTO
     public decimal TotalPrice { get; set; }
     public UserDTO User { get; set; }
 
-    public ICollection<CartItemDTO> CartItems { get; set; }
+    public ICollection<CartItemResultDTO> CartItems { get; set; }
 }

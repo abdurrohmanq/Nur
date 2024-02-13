@@ -1,4 +1,4 @@
-﻿using Nur.Domain.Enums;
+﻿using Nur.APIService.Models.Enums;
 
 namespace Nur.APIService.Models.Users;
 
@@ -8,6 +8,7 @@ public class UserDTO
     public long? TelegramId { get; set; }
     public string Username { get; set; }
     public long ChatId { get; set; }
+    public string LanguageCode { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }

@@ -1,9 +1,4 @@
 ﻿using Nur.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nur.Application.UseCases.Users.DTOs;
 
@@ -13,6 +8,7 @@ public class UserDTO
     public long? TelegramId { get; set; }
     public string Username { get; set; }
     public long ChatId { get; set; }
+    public string LanguageCode { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }

@@ -12,6 +12,7 @@ public class UsersController(IMediator mediator) : BaseController
     [HttpPost("create")]
     public async Task<IActionResult> PostAsync([FromForm] UserCreateCommand command, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(command, cancellationToken) });
+
     
     [HttpPut("update")]
     public async Task<IActionResult> ModifyAsync([FromForm] UserUpdateCommand command, CancellationToken cancellationToken)
