@@ -3,6 +3,7 @@ using Telegram.Bot;
 using Nur.Bot.Models.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Nur.APIService.Constants;
+using System.Linq;
 
 namespace Nur.Bot.BotServices;
 
@@ -56,6 +57,8 @@ public partial class BotUpdateHandler
             text: localizer["RequestToContact"],
             replyMarkup: replyKeyboard,
             cancellationToken: cancellationToken);
+
+        userStates[message.Chat.Id] = UserState.None;
     }
 
     private async Task SendMainMenuAsync(Message message, CancellationToken cancellationToken)
@@ -133,5 +136,106 @@ public partial class BotUpdateHandler
                 chatId: message.Chat.Id,
                 text: localizer["txtInfo"],
                 cancellationToken: cancellationToken);
+    }
+
+    private async Task SendMenuSettingsAsync(Message message, CancellationToken cancellationToken)
+    {
+        var keyboard = new ReplyKeyboardMarkup(new[]
+       {
+        new[] { new KeyboardButton(localizer["btnEditPersonalInfo"]), new KeyboardButton(localizer["btnEditLanguage"]) },
+        new[] { new KeyboardButton(localizer["btnBack"]) },
+        })
+        {
+            ResizeKeyboard = true
+        };
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtSettings"],
+            replyMarkup: keyboard,
+            cancellationToken: cancellationToken
+        );
+
+        userStates[message.Chat.Id] = UserState.WaitingForSelectSettings;
+    }
+
+    private async Task SendMenuEditPersonalInfoAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+    {
+        var replyKeyboard = new ReplyKeyboardMarkup(new KeyboardButton[][]
+        {
+            [new(localizer["btnPhoneNumber"]), new(localizer["btnFullName"])],
+            [new(localizer["btnBack"])]
+        })
+        { ResizeKeyboard = true };
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtMenuPersonalInfo"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken
+        );
+
+        userStates[message.Chat.Id] = UserState.WaitingForSelectPersonalInfo;
+    }
+
+    private async Task SendRequestForPhoneNumberAsync(Message message, CancellationToken cancellationToken)
+    {
+        var replyKeyboard = new ReplyKeyboardMarkup(new KeyboardButton[][]
+        {
+            [new(localizer["btnRequestContact"]) { RequestContact = true }],
+            [new(localizer["btnCancel"])]
+        })
+        { ResizeKeyboard = true };
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["RequestToContact"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken
+        );
+
+        userStates[message.Chat.Id] = UserState.WaitingForEnterPhoneNumber;
+    }
+
+    private async Task SendRequestForFullNameAsync(Message message, CancellationToken cancellationToken)
+    {
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtCurrentFullName", user[message.Chat.Id].FullName],
+            cancellationToken: cancellationToken);
+
+        var replyKeyboard = new ReplyKeyboardMarkup(new KeyboardButton[][]
+        {
+            [new(localizer["btnCancel"])]
+        })
+        { ResizeKeyboard = true };
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtNewFullName"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+        userStates[message.Chat.Id] = UserState.WaitingForEnterFullName;
+    }
+
+    private async Task SendSelectLanguageQueryAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+    {
+        var replyKeyboard = new ReplyKeyboardMarkup(new KeyboardButton[][]
+        {
+            [new(localizer["ibtnUz"])],
+            [new(localizer["ibtnRu"])],
+            [new(localizer["ibtnEn"])],
+            [new(localizer["btnBack"])]
+        })
+        { ResizeKeyboard = true };
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["choose-language"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+        userStates[message.Chat.Id] = UserState.WaitingForSelectLanguage;
     }
 }

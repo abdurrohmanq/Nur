@@ -6,5 +6,9 @@ public enum UserState
     WaitingForFullName,
     WaitingForSelectLanguage,
     WaitingForSelectMainMenu,
-    WaitingForHandlerFeedback
+    WaitingForHandlerFeedback,
+    WaitingForSelectSettings,
+    WaitingForSelectPersonalInfo,
+    WaitingForEnterPhoneNumber,
+    WaitingForEnterFullName
 }

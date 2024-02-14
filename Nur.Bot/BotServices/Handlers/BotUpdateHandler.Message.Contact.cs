@@ -6,25 +6,29 @@ namespace Nur.Bot.BotServices;
 
 public partial class BotUpdateHandler
 {
-    private Dictionary<long, string> userPhoneNumber = new Dictionary<long, string>();
-
     private async Task HandleContactAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         var contact = message.Contact;
-        userPhoneNumber[message.Chat.Id] = contact.PhoneNumber;
-        logger.LogInformation("User's phone number: {userPhoneNumber}", userPhoneNumber);
+        user[message.Chat.Id].Phone = contact.PhoneNumber;
+        logger.LogInformation("User's phone number: {userPhoneNumber}", contact.PhoneNumber);
 
         await client.SendTextMessageAsync(
             chatId: message.Chat.Id,
             text: localizer["GetContact"],
             cancellationToken: cancellationToken);
 
-        await client.SendTextMessageAsync(
-           chatId: message.Chat.Id,
-           text: localizer["RequestForFullName"],
-           cancellationToken: cancellationToken);
+        await userService.UpdateAsync(user[message.Chat.Id], cancellationToken);
+        await SendMainMenuAsync(message, cancellationToken);
+        
+        if (userStates[message.Chat.Id] == UserState.None)
+        {
+            await client.SendTextMessageAsync(
+               chatId: message.Chat.Id,
+               text: localizer["RequestForFullName"],
+               cancellationToken: cancellationToken);
 
-        userStates[message.Chat.Id] = UserState.WaitingForFullName;
+            userStates[message.Chat.Id] = UserState.WaitingForFullName;
+        }
     }
 
     private async Task HandleUserFullNameAsync(Message message, CancellationToken cancellationToken)
@@ -32,11 +36,15 @@ public partial class BotUpdateHandler
         var fullName = message.Text;
         logger.LogInformation("User's fullName: {fullName}", fullName);
 
-        user[message.Chat.Id].FullName = fullName;
-        user[message.Chat.Id].Phone = userPhoneNumber[message.Chat.Id];
+        if (message.Text.Equals(localizer["btnCancel"]))
+            await SendMenuSettingsAsync(message, cancellationToken);
+        else
+        {
+            user[message.Chat.Id].FullName = fullName;
 
-        await userService.UpdateAsync(user[message.Chat.Id], cancellationToken);
+            await userService.UpdateAsync(user[message.Chat.Id], cancellationToken);
 
-        await SendMainMenuAsync(message, cancellationToken);
+            await SendMainMenuAsync(message, cancellationToken);
+        }
     }
 }

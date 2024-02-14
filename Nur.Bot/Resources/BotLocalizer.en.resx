@@ -120,8 +120,20 @@
   <data name="btnBack" xml:space="preserve">
     <value>⬅️ Back</value>
   </data>
+  <data name="btnCancel" xml:space="preserve">
+    <value>Cancel 🔴</value>
+  </data>
+  <data name="btnEditLanguage" xml:space="preserve">
+    <value>🇬🇧 Select language!</value>
+  </data>
+  <data name="btnEditPersonalInfo" xml:space="preserve">
+    <value>🔄 Change personal information</value>
+  </data>
   <data name="btnFeedback" xml:space="preserve">
     <value>✍️ Comment</value>
+  </data>
+  <data name="btnFullName" xml:space="preserve">
+    <value>Edit Full Name</value>
   </data>
   <data name="btnInfo" xml:space="preserve">
     <value>ℹ️ Information</value>
@@ -134,6 +146,9 @@
   </data>
   <data name="btnPhone" xml:space="preserve">
     <value>📞 Contact us</value>
+  </data>
+  <data name="btnPhoneNumber" xml:space="preserve">
+    <value>Edit phone number</value>
   </data>
   <data name="btnRequestContact" xml:space="preserve">
     <value>Send phone number</value>
@@ -150,6 +165,15 @@
   <data name="greeting" xml:space="preserve">
     <value>Hello! Welcome to Nur canteen</value>
   </data>
+  <data name="ibtnEn" xml:space="preserve">
+    <value>🇬🇧  english language</value>
+  </data>
+  <data name="ibtnRu" xml:space="preserve">
+    <value>🇷🇺  русский язык</value>
+  </data>
+  <data name="ibtnUz" xml:space="preserve">
+    <value>🇺🇿  o'zbek tili</value>
+  </data>
   <data name="OpenToMenu" xml:space="preserve">
     <value>Good! Where do we start ordering? 😊</value>
   </data>
@@ -157,7 +181,7 @@
     <value>Enter your full name:</value>
   </data>
   <data name="RequestToContact" xml:space="preserve">
-    <value>Please! Click the button below to submit your phone number!</value>
+    <value>Enter your phone number or submit by clicking the button below!</value>
   </data>
   <data name="select-menu" xml:space="preserve">
     <value>Make your choice!</value>
@@ -167,6 +191,9 @@
   </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>You can call &lt;&lt;+998905710460&gt;&gt; to contact us!</value>
+  </data>
+  <data name="txtCurrentFullName" xml:space="preserve">
+    <value>Your current full name: {0}</value>
   </data>
   <data name="txtDislike" xml:space="preserve">
     <value>Dislike 👎🏻</value>
@@ -181,8 +208,21 @@ Leave a comment or rate our service!</value>
   <data name="txtInfo" xml:space="preserve">
     <value>This is Nur National foods Telegram bot!</value>
   </data>
+  <data name="txtMenuPersonalInfo" xml:space="preserve">
+    <value>Choose to change your personal information</value>
+  </data>
+  <data name="txtNewFullName" xml:space="preserve">
+    <value>Enter your new Full Name:</value>
+  </data>
+  <data name="txtPhoneError" xml:space="preserve">
+    <value>The number was entered incorrectly!
+Example: "+998901234567"</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Well, we will continue with you in English!</value>
+  </data>
+  <data name="txtSettings" xml:space="preserve">
+    <value>⚙️ Settings</value>
   </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Thank you! Thanks for your thoughts and feedback!</value>

@@ -17,12 +17,18 @@ public partial class BotUpdateHandler
         var userState = userStates.TryGetValue(message.Chat.Id, out var state) ? state : UserState.None;
         userState = message.Text.Equals("/start") ? UserState.None : userState;
 
+        if (message.Text.Equals(localizer["btnMainMenu"])) await SendMainMenuAsync(message, cancellationToken);
         var handler = userState switch
         {
             UserState.None => SendGreetingAsync(message, cancellationToken),
             UserState.WaitingForFullName => HandleUserFullNameAsync(message, cancellationToken),
             UserState.WaitingForSelectMainMenu => HandleMainMenuAsync(message, cancellationToken),
             UserState.WaitingForHandlerFeedback => HandleFeedBackAsync(message, cancellationToken),
+            UserState.WaitingForSelectSettings => HandleSelectedSettingsAsync(message, cancellationToken),
+            UserState.WaitingForSelectPersonalInfo => HandleSelectedPersonalInfoAsync(message, cancellationToken),
+            UserState.WaitingForEnterPhoneNumber => HandlePhoneNumberAsync(message, cancellationToken),
+            UserState.WaitingForSelectLanguage => HandleSentLanguageAsync(message, cancellationToken),
+            _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 
         try { await handler; }

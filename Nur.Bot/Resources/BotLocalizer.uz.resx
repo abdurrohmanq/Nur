@@ -120,8 +120,20 @@
   <data name="btnBack" xml:space="preserve">
     <value>⬅️ Ortga</value>
   </data>
+  <data name="btnCancel" xml:space="preserve">
+    <value>Bekor qilish 🔴</value>
+  </data>
+  <data name="btnEditLanguage" xml:space="preserve">
+    <value>🇺🇿  Tilni tanlang!</value>
+  </data>
+  <data name="btnEditPersonalInfo" xml:space="preserve">
+    <value>🔄 Shaxsiy ma'lumotlarni o'zgartirish</value>
+  </data>
   <data name="btnFeedback" xml:space="preserve">
     <value>✍️ Fikr bildirish</value>
+  </data>
+  <data name="btnFullName" xml:space="preserve">
+    <value>Ism sharifni o'zgartirish</value>
   </data>
   <data name="btnInfo" xml:space="preserve">
     <value>ℹ️ Ma'lumot</value>
@@ -135,8 +147,11 @@
   <data name="btnPhone" xml:space="preserve">
     <value>📞 Biz bilan aloqa</value>
   </data>
+  <data name="btnPhoneNumber" xml:space="preserve">
+    <value>Raqamni o'zgartirish</value>
+  </data>
   <data name="btnRequestContact" xml:space="preserve">
-    <value>Telefon raqamni jo'natish</value>
+    <value>📞 Telefon raqamni jo'natish</value>
   </data>
   <data name="btnSetting" xml:space="preserve">
     <value>⚙️ Sozlamalar</value>
@@ -166,16 +181,22 @@
     <value>Ism familiyangizni kiriting:</value>
   </data>
   <data name="RequestToContact" xml:space="preserve">
-    <value>Iltimos! Telefon raqamingizni jo'natish uchun quyidagi tugmani bosing!</value>
+    <value>Telefon raqamingizni kiriting yoki quyidagi tugmani bosish orqali yuboring!</value>
   </data>
   <data name="select-menu" xml:space="preserve">
     <value>Tanlovingizni belgilang!</value>
+  </data>
+  <data name="string" xml:space="preserve">
+    <value />
   </data>
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
   </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
+  </data>
+  <data name="txtCurrentFullName" xml:space="preserve">
+    <value>Hozirgi ism sharifingiz: {0}</value>
   </data>
   <data name="txtDislike" xml:space="preserve">
     <value>Yoqmadi 👎🏻</value>
@@ -189,8 +210,21 @@
   <data name="txtInfo" xml:space="preserve">
     <value>Bu Nur oshxonasi Telegram boti!</value>
   </data>
+  <data name="txtMenuPersonalInfo" xml:space="preserve">
+    <value>Shaxsiy ma'lumotlarni o'zgartirish uchun tanlang</value>
+  </data>
+  <data name="txtNewFullName" xml:space="preserve">
+    <value>Yangi ism sharifingizni kiriting:</value>
+  </data>
+  <data name="txtPhoneError" xml:space="preserve">
+    <value>Raqam xato kiritildi!
+Na'muna: "+998901234567"</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Yaxshi siz bilan o'zbek tilida davom etamiz!</value>
+  </data>
+  <data name="txtSettings" xml:space="preserve">
+    <value>⚙️ Sozlamalar</value>
   </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Rahmat! Fikr va mulohazangiz uchun tashakkur!</value>
