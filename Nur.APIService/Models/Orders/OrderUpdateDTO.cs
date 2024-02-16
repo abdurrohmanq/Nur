@@ -10,6 +10,7 @@ public class OrderUpdateDTO
     public Status Status { get; set; }
     public decimal DeliveryFee { get; set; }
     public decimal TotalPrice { get; set; }
+    public OrderType OrderType { get; set; }
     public long UserId { get; set; }
     public long AddressId { get; set; }
     public long SupplierId { get; set; }

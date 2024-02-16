@@ -123,6 +123,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Cancel 🔴</value>
   </data>
+  <data name="btnDelivery" xml:space="preserve">
+    <value>🚖 Delivery</value>
+  </data>
   <data name="btnEditLanguage" xml:space="preserve">
     <value>🇬🇧 Select language!</value>
   </data>
@@ -156,6 +159,9 @@
   <data name="btnSetting" xml:space="preserve">
     <value>⚙️ Settings</value>
   </data>
+  <data name="btnTakeAway" xml:space="preserve">
+    <value>🏃 Take away</value>
+  </data>
   <data name="choose-language" xml:space="preserve">
     <value>Select Language</value>
   </data>
@@ -175,7 +181,7 @@
     <value>🇺🇿  o'zbek tili</value>
   </data>
   <data name="OpenToMenu" xml:space="preserve">
-    <value>Good! Where do we start ordering? 😊</value>
+    <value>Start ordering! 😊</value>
   </data>
   <data name="RequestForFullName" xml:space="preserve">
     <value>Enter your full name:</value>
@@ -214,12 +220,27 @@ Leave a comment or rate our service!</value>
   <data name="txtNewFullName" xml:space="preserve">
     <value>Enter your new Full Name:</value>
   </data>
+  <data name="txtNotReceiveLocation" xml:space="preserve">
+    <value>No address information found. Send it again!</value>
+  </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>The number was entered incorrectly!
 Example: "+998901234567"</value>
   </data>
+  <data name="txtReceiveLocation" xml:space="preserve">
+    <value>Your address has been accepted!</value>
+  </data>
+  <data name="txtRequestForLocation" xml:space="preserve">
+    <value>Where should your order be delivered 🚙?</value>
+  </data>
+  <data name="txtRequestToOrderType" xml:space="preserve">
+    <value>Pick up your order yourself or choose 'Delivery'</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Well, we will continue with you in English!</value>
+  </data>
+  <data name="txtSendLocation" xml:space="preserve">
+    <value>📍 Send current address</value>
   </data>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Settings</value>

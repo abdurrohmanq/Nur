@@ -28,6 +28,7 @@ public partial class BotUpdateHandler
             UserState.WaitingForSelectPersonalInfo => HandleSelectedPersonalInfoAsync(message, cancellationToken),
             UserState.WaitingForEnterPhoneNumber => HandlePhoneNumberAsync(message, cancellationToken),
             UserState.WaitingForSelectLanguage => HandleSentLanguageAsync(message, cancellationToken),
+            UserState.WaitingForSelectOrderType => HandleOrderTypeAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

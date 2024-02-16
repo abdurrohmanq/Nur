@@ -1,9 +1,8 @@
-﻿using Telegram.Bot.Types;
-using Telegram.Bot;
+﻿using Telegram.Bot;
+using Telegram.Bot.Types;
 using Nur.Bot.Models.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 using Nur.APIService.Constants;
-using System.Linq;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Nur.Bot.BotServices;
 
@@ -87,6 +86,28 @@ public partial class BotUpdateHandler
              cancellationToken: cancellationToken);
 
         userStates[message.Chat.Id] = UserState.WaitingForSelectMainMenu;
+    }
+
+    private async Task SendOrderTypeAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendOrderTypeAsync is working..");
+
+        var replyKeyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new[] { new KeyboardButton(localizer["btnDelivery"]),  new KeyboardButton(localizer["btnTakeAway"]) },
+            new[] { new KeyboardButton(localizer["btnBack"]) }
+        })
+        {
+            ResizeKeyboard = true
+        };
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtRequestToOrderType"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+        userStates[message.Chat.Id] = UserState.WaitingForSelectOrderType;
     }
 
     private async Task SendContactAsync(Message message, CancellationToken cancellationToken)

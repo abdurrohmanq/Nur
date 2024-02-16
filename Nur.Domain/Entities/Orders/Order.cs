@@ -14,6 +14,7 @@ public class Order : Auditable
     public Status Status { get; set; }
     public decimal DeliveryFee { get; set; }
     public decimal TotalPrice { get; set; }
+    public OrderType OrderType { get; set; }
     public long UserId { get; set; }
     public User User { get; set; }
 

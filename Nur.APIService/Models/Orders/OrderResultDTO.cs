@@ -14,6 +14,7 @@ public class OrderResultDTO
     public Status Status { get; set; }
     public decimal DeliveryFee { get; set; }
     public decimal TotalPrice { get; set; }
+    public OrderType OrderType { get; set; }
     public UserDTO User { get; set; }
     public AddressDTO Address { get; set; }
     public SupplierResultDTO Supplier { get; set; }

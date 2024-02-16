@@ -123,6 +123,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Bekor qilish 🔴</value>
   </data>
+  <data name="btnDelivery" xml:space="preserve">
+    <value>🚖 Yetkazib berish</value>
+  </data>
   <data name="btnEditLanguage" xml:space="preserve">
     <value>🇺🇿  Tilni tanlang!</value>
   </data>
@@ -156,6 +159,9 @@
   <data name="btnSetting" xml:space="preserve">
     <value>⚙️ Sozlamalar</value>
   </data>
+  <data name="btnTakeAway" xml:space="preserve">
+    <value>🏃 Olib ketish</value>
+  </data>
   <data name="choose-language" xml:space="preserve">
     <value>Tilni tanlang!</value>
   </data>
@@ -175,7 +181,7 @@
     <value>🇺🇿  o'zbek tili</value>
   </data>
   <data name="OpenToMenu" xml:space="preserve">
-    <value>Yaxshi! Buyurtma berishni nimadan boshlaymizmi? 😊</value>
+    <value>Buyurtma berishni boshlang! 😊</value>
   </data>
   <data name="RequestForFullName" xml:space="preserve">
     <value>Ism familiyangizni kiriting:</value>
@@ -185,9 +191,6 @@
   </data>
   <data name="select-menu" xml:space="preserve">
     <value>Tanlovingizni belgilang!</value>
-  </data>
-  <data name="string" xml:space="preserve">
-    <value />
   </data>
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
@@ -216,12 +219,27 @@
   <data name="txtNewFullName" xml:space="preserve">
     <value>Yangi ism sharifingizni kiriting:</value>
   </data>
+  <data name="txtNotReceiveLocation" xml:space="preserve">
+    <value>Manzil ma'lumotlari topilmadi. Qaytadan yuboring!</value>
+  </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>Raqam xato kiritildi!
 Na'muna: "+998901234567"</value>
   </data>
+  <data name="txtReceiveLocation" xml:space="preserve">
+    <value>Manzilingiz qabul qilindi!</value>
+  </data>
+  <data name="txtRequestForLocation" xml:space="preserve">
+    <value>Buyurtmangizni qayerga yetkazib berish kerak 🚙?</value>
+  </data>
+  <data name="txtRequestToOrderType" xml:space="preserve">
+    <value>Buyurtmani o'zingiz olib keting yoki 'Yetkazib berish' ni tanlang!</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Yaxshi siz bilan o'zbek tilida davom etamiz!</value>
+  </data>
+  <data name="txtSendLocation" xml:space="preserve">
+    <value>📍 Joriy manzilni yuborish</value>
   </data>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Sozlamalar</value>

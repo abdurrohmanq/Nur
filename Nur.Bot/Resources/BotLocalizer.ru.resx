@@ -123,6 +123,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Отмена 🔴</value>
   </data>
+  <data name="btnDelivery" xml:space="preserve">
+    <value>🚖 Доставка</value>
+  </data>
   <data name="btnEditLanguage" xml:space="preserve">
     <value>🇷🇺  Выберите язык!</value>
   </data>
@@ -156,6 +159,9 @@
   <data name="btnSetting" xml:space="preserve">
     <value>⚙️ Настройки</value>
   </data>
+  <data name="btnTakeAway" xml:space="preserve">
+    <value>🏃 Забрать</value>
+  </data>
   <data name="choose-language" xml:space="preserve">
     <value>Выберите язык!</value>
   </data>
@@ -175,7 +181,7 @@
     <value>🇺🇿  o'zbek tili</value>
   </data>
   <data name="OpenToMenu" xml:space="preserve">
-    <value>Хорошо! С чего начать оформление заказа? 😊</value>
+    <value>Начать заказывать! 😊</value>
   </data>
   <data name="RequestForFullName" xml:space="preserve">
     <value>Введите свое имя и фамилию:</value>
@@ -214,12 +220,27 @@
   <data name="txtNewFullName" xml:space="preserve">
     <value>Введите свое новое имя:</value>
   </data>
+  <data name="txtNotReceiveLocation" xml:space="preserve">
+    <value>Адресная информация не найдена. Отправить снова!</value>
+  </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>Номер введен с ошибкой!
 Пример: "+998901234567"</value>
   </data>
+  <data name="txtReceiveLocation" xml:space="preserve">
+    <value>Ваш адрес принят!</value>
+  </data>
+  <data name="txtRequestForLocation" xml:space="preserve">
+    <value>🚙 Куда доставить заказ?</value>
+  </data>
+  <data name="txtRequestToOrderType" xml:space="preserve">
+    <value>Заберите заказ самостоятельно или выберите "доставка"</value>
+  </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Очень хорошо, мы продолжим с вами на русском языке!</value>
+  </data>
+  <data name="txtSendLocation" xml:space="preserve">
+    <value>📍 Отправить текущий адрес</value>
   </data>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Настройки</value>

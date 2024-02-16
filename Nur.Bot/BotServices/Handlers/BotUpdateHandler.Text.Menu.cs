@@ -1,9 +1,9 @@
-﻿using Telegram.Bot.Types;
-using Telegram.Bot;
-using Nur.Bot.Models.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
-using Nur.APIService.Helpers;
+﻿using Telegram.Bot;
+using Telegram.Bot.Types;
 using System.Globalization;
+using Nur.APIService.Helpers;
+using Telegram.Bot.Types.ReplyMarkups;
+using Nur.Bot.Models.Enums;
 
 namespace Nur.Bot.BotServices;
 
@@ -13,7 +13,7 @@ public partial class BotUpdateHandler
     {
         var handle = message.Text switch
         {
-            //{ } text when text == localizer["btnOrder"] => SendMenuProfessionsAsync(botClient, message, cancellationToken),
+            { } text when text == localizer["btnOrder"] => SendOrderTypeAsync(message, cancellationToken),
             { } text when text == localizer["btnSetting"] => SendMenuSettingsAsync(message, cancellationToken),
             _ when message.Text == localizer["btnInfo"] => SendInfoAsync(message, cancellationToken),
             { } text when text == localizer["btnFeedback"] => ShowFeedbackAsync(message, cancellationToken),
@@ -24,24 +24,31 @@ public partial class BotUpdateHandler
         try { await handle; }
         catch (Exception ex) { logger.LogError(ex, "Error handling message from {user.FirstName}", user[message.Chat.Id].FirstName); }
     }
-
+    
     private async Task HandleFeedBackAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("HandleFeedBackAsync is working...");
 
-        string userFeedback = message.Text;
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await SendMainMenuAsync(message, cancellationToken);
+        }
+        else
+        {
+            string userFeedback = message.Text;
 
-        await botClient.SendTextMessageAsync(
-            chatId: "@OnlineMarketFeedBack",
-            text: $"Yangi Fikr-mulohaza:\n\n{userFeedback}",
-            cancellationToken: cancellationToken);
+            await botClient.SendTextMessageAsync(
+                chatId: "@OnlineMarketFeedBack",
+                text: $"Yangi Fikr-mulohaza:\n\n{userFeedback}",
+                cancellationToken: cancellationToken);
 
-        await botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
-            text: localizer["txtThankFeedback"],
-            cancellationToken: cancellationToken);
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtThankFeedback"],
+                cancellationToken: cancellationToken);
 
-        await SendMainMenuAsync(message, cancellationToken);
+            await SendMainMenuAsync(message, cancellationToken);
+        }
     }
 
     private async Task HandleSelectedSettingsAsync(Message message, CancellationToken cancellationToken)
