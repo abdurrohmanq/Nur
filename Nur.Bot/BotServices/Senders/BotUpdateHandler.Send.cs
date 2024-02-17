@@ -30,7 +30,9 @@ public partial class BotUpdateHandler
                replyMarkup: keyboard,
                cancellationToken: cancellationToken);
 
+            commonUserStates[message.Chat.Id] = CommonUserState.CreatingUser;
             userStates[message.Chat.Id] = UserState.WaitingForSelectLanguage;
+
         }
         else
             await SendMainMenuAsync(message, cancellationToken);
@@ -57,7 +59,7 @@ public partial class BotUpdateHandler
             replyMarkup: replyKeyboard,
             cancellationToken: cancellationToken);
 
-        userStates[message.Chat.Id] = UserState.None;
+        userStates[message.Chat.Id] = UserState.WaitingForEnterPhoneNumber;
     }
 
     private async Task SendMainMenuAsync(Message message, CancellationToken cancellationToken)
@@ -237,7 +239,7 @@ public partial class BotUpdateHandler
             replyMarkup: replyKeyboard,
             cancellationToken: cancellationToken);
 
-        userStates[message.Chat.Id] = UserState.WaitingForEnterFullName;
+        userStates[message.Chat.Id] = UserState.WaitingForFullName;
     }
 
     private async Task SendSelectLanguageQueryAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)

@@ -18,9 +18,8 @@ public partial class BotUpdateHandler
             cancellationToken: cancellationToken);
 
         await userService.UpdateAsync(user[message.Chat.Id], cancellationToken);
-        await SendMainMenuAsync(message, cancellationToken);
         
-        if (userStates[message.Chat.Id] == UserState.None)
+        if (commonUserStates[message.Chat.Id] == CommonUserState.CreatingUser)
         {
             await client.SendTextMessageAsync(
                chatId: message.Chat.Id,
@@ -28,7 +27,10 @@ public partial class BotUpdateHandler
                cancellationToken: cancellationToken);
 
             userStates[message.Chat.Id] = UserState.WaitingForFullName;
+            commonUserStates[message.Chat.Id] = CommonUserState.None;
         }
+        else
+            await SendMainMenuAsync(message, cancellationToken);
     }
 
     private async Task HandleUserFullNameAsync(Message message, CancellationToken cancellationToken)

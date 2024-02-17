@@ -1,19 +1,22 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Telegram.Bot;
+using Nur.Bot.Resources;
+using Telegram.Bot.Types;
+using System.Globalization;
+using Telegram.Bot.Polling;
+using Telegram.Bot.Types.Enums;
 using Nur.APIService.Interfaces;
 using Nur.APIService.Models.Users;
-using Nur.Bot.Resources;
-using System.Globalization;
-using Telegram.Bot;
-using Telegram.Bot.Polling;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
+using Microsoft.Extensions.Localization;
+using Nur.Bot.Models.Enums;
 
 namespace Nur.Bot.BotServices;
 
 public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
     ITelegramBotClient botClient,
     IServiceScopeFactory scopeFactory,
-    IUserService userService) : IUpdateHandler
+    IUserService userService,
+    IAddressService addressService,
+    IOrderService orderService) : IUpdateHandler
 {
     private IStringLocalizer localizer = default!;
     private Dictionary<long, UserDTO> user = new Dictionary<long, UserDTO>();

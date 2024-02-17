@@ -1,8 +1,9 @@
 ﻿using Telegram.Bot.Types.ReplyMarkups;
-using Telegram.Bot.Types;
 using Telegram.Bot;
-using Nur.APIService.Models.Orders;
+using Telegram.Bot.Types;
+using Nur.Bot.Models.Enums;
 using Nur.APIService.Models.Enums;
+using Nur.APIService.Models.Orders;
 
 namespace Nur.Bot.BotServices;
 
@@ -12,7 +13,7 @@ public partial class BotUpdateHandler
 
     private async Task SendDeliveryAsync(Message message, CancellationToken cancellationToken)
     {
-        logger.LogInformation("HandleDeliveryAsync is working..");
+        logger.LogInformation("SendDeliveryAsync is working..");
 
         var replyKeyboard = new ReplyKeyboardMarkup(new[]
         {
@@ -26,6 +27,7 @@ public partial class BotUpdateHandler
             ResizeKeyboard = true
         };
 
+        createOrder[message.Chat.Id] = new OrderCreationDTO();
         createOrder[message.Chat.Id].OrderType = OrderType.Delivery;
 
         await botClient.SendTextMessageAsync(
@@ -33,5 +35,7 @@ public partial class BotUpdateHandler
             text: localizer["txtRequestForLocation"],
             replyMarkup: replyKeyboard,
             cancellationToken: cancellationToken);
+
+        userStates[message.Chat.Id] = UserState.WaitingForHandleTextLocation;
     }
 }

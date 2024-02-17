@@ -4,7 +4,6 @@ public enum UserState
 {
     None,
     WaitingForFullName,
-    WaitingForEnterFullName,
     WaitingForSelectLanguage,
     WaitingForSelectMainMenu,
     WaitingForSelectSettings,
@@ -12,4 +11,5 @@ public enum UserState
     WaitingForSelectOrderType,
     WaitingForEnterPhoneNumber,
     WaitingForSelectPersonalInfo,
+    WaitingForHandleTextLocation,
 }

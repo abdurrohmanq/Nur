@@ -245,6 +245,9 @@
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Настройки</value>
   </data>
+  <data name="txtTextLocation" xml:space="preserve">
+    <value>Адрес нельзя вводить в текстовом виде!</value>
+  </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Спасибо! Спасибо за ваши комментарии и отзывы!</value>
   </data>

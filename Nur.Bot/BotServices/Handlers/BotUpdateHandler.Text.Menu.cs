@@ -102,8 +102,18 @@ public partial class BotUpdateHandler
                     chatId: message.Chat.Id,
                     text: localizer["GetContact"],
                     cancellationToken: cancellationToken);
+                    if (commonUserStates[message.Chat.Id] == CommonUserState.CreatingUser)
+                    {
+                        await botClient.SendTextMessageAsync(
+                              chatId: message.Chat.Id,
+                              text: localizer["RequestForFullName"],
+                              cancellationToken: cancellationToken);
 
-                    await SendMenuSettingsAsync(message, cancellationToken);
+                        userStates[message.Chat.Id] = UserState.WaitingForFullName;
+                        commonUserStates[message.Chat.Id] = CommonUserState.None;
+                    }
+                    else
+                        await SendMainMenuAsync(message, cancellationToken);
                 }
                 else
                 {

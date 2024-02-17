@@ -1,5 +1,5 @@
-﻿using Telegram.Bot.Types;
-using Telegram.Bot;
+﻿using Telegram.Bot;
+using Telegram.Bot.Types;
 using Nur.Bot.Models.Enums;
 
 namespace Nur.Bot.BotServices;
@@ -7,6 +7,7 @@ namespace Nur.Bot.BotServices;
 public partial class BotUpdateHandler
 {
     private Dictionary<long, UserState> userStates = new Dictionary<long, UserState>();
+    private Dictionary<long, CommonUserState> commonUserStates = new Dictionary<long, CommonUserState>();
 
     private async Task HandleTextMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
@@ -29,6 +30,7 @@ public partial class BotUpdateHandler
             UserState.WaitingForEnterPhoneNumber => HandlePhoneNumberAsync(message, cancellationToken),
             UserState.WaitingForSelectLanguage => HandleSentLanguageAsync(message, cancellationToken),
             UserState.WaitingForSelectOrderType => HandleOrderTypeAsync(message, cancellationToken),
+            UserState.WaitingForHandleTextLocation => HandleTextLocationAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

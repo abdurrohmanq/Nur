@@ -244,6 +244,9 @@ Na'muna: "+998901234567"</value>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Sozlamalar</value>
   </data>
+  <data name="txtTextLocation" xml:space="preserve">
+    <value>Manzilni matn ko'rinishida kiritish mumkin emas!</value>
+  </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Rahmat! Fikr va mulohazangiz uchun tashakkur!</value>
   </data>

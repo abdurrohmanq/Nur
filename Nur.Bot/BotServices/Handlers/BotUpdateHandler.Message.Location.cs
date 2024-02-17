@@ -11,13 +11,19 @@ public partial class BotUpdateHandler
     private async Task HandleLocationAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("HandleLocationAsync is working..");
+        createAddress[message.Chat.Id] = new AddressCreationDTO()
+        {
+            City = "Andijan",
+            State = "Andijan State",
+            Street = "Ahmad Street",
+            DoorCode = "212",
+            Latitude = message.Location.Latitude,
+            Longitude = message.Location.Longitude,
+        };
 
-        createAddress[message.Chat.Id].Latitude = message.Location.Latitude;
-        createAddress[message.Chat.Id].Longitude += message.Location.Longitude;
+        var result = await addressService.AddAsync(createAddress[message.Chat.Id], cancellationToken);
 
-
-
-        if (createAddress[message.Chat.Id] != null)
+        if (result != null)
         {
             await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
@@ -31,5 +37,17 @@ public partial class BotUpdateHandler
                 text: localizer["txtNotReceiveLocation"],
                 cancellationToken: cancellationToken);
         }
+    }
+
+    private async Task HandleTextLocationAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("HandleTextLocationAsync is working..");
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtTextLocation"],
+            cancellationToken: cancellationToken);
+
+        await SendDeliveryAsync(message, cancellationToken);
     }
 }

@@ -245,6 +245,9 @@ Example: "+998901234567"</value>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Settings</value>
   </data>
+  <data name="txtTextLocation" xml:space="preserve">
+    <value>Address in text view is not possible!</value>
+  </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Thank you! Thanks for your thoughts and feedback!</value>
   </data>
