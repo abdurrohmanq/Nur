@@ -4,6 +4,7 @@ using Nur.Bot.Models.Enums;
 using Nur.APIService.Models.Enums;
 using Nur.APIService.Models.Orders;
 using Telegram.Bot.Types.ReplyMarkups;
+using Nur.APIService.Models.Products;
 
 namespace Nur.Bot.BotServices;
 
@@ -43,6 +44,7 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("SendTakeAwayAsync is working..");
 
+        createOrder[message.Chat.Id] = new OrderCreationDTO();
         createOrder[message.Chat.Id].OrderType = OrderType.TakeAway;
 
         await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
@@ -90,5 +92,47 @@ public partial class BotUpdateHandler
             cancellationToken: cancellationToken);
 
         userStates[chatId] = UserState.WaitingForCategorySelection;
+    }
+
+    private async Task SendProductsKeyboardAsync(long chatId, IEnumerable<ProductResultDTO> products, CancellationToken cancellationToken)
+    {
+        var additionalButtons = new List<KeyboardButton>
+        {
+        new KeyboardButton(localizer["btnMainMenu"]),
+        new KeyboardButton(localizer["btnBack"]),
+        new KeyboardButton(localizer["btnBasket"])
+        };
+
+        var allButtons = new List<KeyboardButton[]>();
+        var rowButtons = new List<KeyboardButton>();
+
+        foreach (var product in products)
+        {
+            var button = new KeyboardButton(product.Name);
+            rowButtons.Add(button);
+
+            if (rowButtons.Count == 2)
+            {
+                allButtons.Add(rowButtons.ToArray());
+                rowButtons.Clear();
+            }
+        }
+
+        if (rowButtons.Any())
+        {
+            allButtons.Add(rowButtons.ToArray());
+        }
+
+        allButtons.Add(additionalButtons.ToArray());
+
+        var replyKeyboard = new ReplyKeyboardMarkup(allButtons) { ResizeKeyboard = true };
+
+        await botClient.SendTextMessageAsync(
+            chatId: chatId,
+            text: localizer["txtSelectProduct"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+        userStates[chatId] = UserState.WaitingForProductSelection;
     }
 }

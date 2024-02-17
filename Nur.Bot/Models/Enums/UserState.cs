@@ -11,6 +11,7 @@ public enum UserState
     WaitingForSelectOrderType,
     WaitingForEnterPhoneNumber,
     WaitingForSelectPersonalInfo,
-    WaitingForHandleTextLocation,
     WaitingForCategorySelection,
+    WaitingForProductSelection,
+    WaitingForHandleTextLocation,
 }

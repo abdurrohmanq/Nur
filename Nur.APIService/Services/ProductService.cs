@@ -96,7 +96,7 @@ public class ProductService(HttpClient httpClient, ILogger<ProductService> logge
 
     public async Task<IEnumerable<ProductResultDTO>> GetByCategoryNameAsync(string categoryName, CancellationToken cancellationToken)
     {
-        using var response = await httpClient.GetAsync($"get-by-category-name/{categoryName}", cancellationToken);
+        using var response = await httpClient.GetAsync($"get-by-category-name?categoryName={categoryName}", cancellationToken);
         if (!response.IsSuccessStatusCode)
             return default!;
 

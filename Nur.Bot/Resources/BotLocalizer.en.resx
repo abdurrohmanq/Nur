@@ -210,6 +210,9 @@
   <data name="txtDislike" xml:space="preserve">
     <value>Dislike 👎🏻</value>
   </data>
+  <data name="txtEmptyCategory" xml:space="preserve">
+    <value>There are currently no products in this category.</value>
+  </data>
   <data name="txtFeedback" xml:space="preserve">
     <value>Thank you for choosing us!\n
 Leave a comment or rate our service!</value>
@@ -247,6 +250,9 @@ Example: "+998901234567"</value>
   </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Well, we will continue with you in English!</value>
+  </data>
+  <data name="txtSelectProduct" xml:space="preserve">
+    <value>Select product!</value>
   </data>
   <data name="txtSendLocation" xml:space="preserve">
     <value>📍 Send current address</value>

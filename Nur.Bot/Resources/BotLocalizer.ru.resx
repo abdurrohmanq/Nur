@@ -210,6 +210,9 @@
   <data name="txtDislike" xml:space="preserve">
     <value>Не понравилось 👎🏻</value>
   </data>
+  <data name="txtEmptyCategory" xml:space="preserve">
+    <value>Пока в этой категории нет продуктов.</value>
+  </data>
   <data name="txtFeedback" xml:space="preserve">
     <value>Спасибо, что выбрали нас!
 \nОставьте отзыв или оцените наш сервис!</value>
@@ -247,6 +250,9 @@
   </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Очень хорошо, мы продолжим с вами на русском языке!</value>
+  </data>
+  <data name="txtSelectProduct" xml:space="preserve">
+    <value>Выберите товар!</value>
   </data>
   <data name="txtSendLocation" xml:space="preserve">
     <value>📍 Отправить текущий адрес</value>

@@ -15,8 +15,9 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
     ITelegramBotClient botClient,
     IServiceScopeFactory scopeFactory,
     IUserService userService,
-    IAddressService addressService,
     IOrderService orderService,
+    IAddressService addressService,
+    IProductService productService,
     IProductCategoryService categoryService) : IUpdateHandler
 {
     private IStringLocalizer localizer = default!;

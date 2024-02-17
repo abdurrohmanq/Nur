@@ -210,6 +210,9 @@
   <data name="txtDislike" xml:space="preserve">
     <value>Yoqmadi 👎🏻</value>
   </data>
+  <data name="txtEmptyCategory" xml:space="preserve">
+    <value>Hozircha bu categoryda mahsulot yo'q.</value>
+  </data>
   <data name="txtFeedback" xml:space="preserve">
     <value>Bizni tanlagingiz uchun tashakkur!\nFikr bildiring yoki xizmatimizni baholang!</value>
   </data>
@@ -246,6 +249,9 @@ Na'muna: "+998901234567"</value>
   </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Yaxshi siz bilan o'zbek tilida davom etamiz!</value>
+  </data>
+  <data name="txtSelectProduct" xml:space="preserve">
+    <value>Mahsulot tanlang!</value>
   </data>
   <data name="txtSendLocation" xml:space="preserve">
     <value>📍 Joriy manzilni yuborish</value>
