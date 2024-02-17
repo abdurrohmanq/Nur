@@ -29,6 +29,8 @@ public partial class BotUpdateHandler
                 chatId: message.Chat.Id,
                 text: localizer["txtReceiveLocation"],
                 cancellationToken: cancellationToken);
+
+            await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);    
         }
         else
         {

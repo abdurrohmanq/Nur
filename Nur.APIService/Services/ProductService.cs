@@ -93,5 +93,19 @@ public class ProductService(HttpClient httpClient, ILogger<ProductService> logge
         logger.LogInformation(message: result.Message);
         return default!;
     }
+
+    public async Task<IEnumerable<ProductResultDTO>> GetByCategoryNameAsync(string categoryName, CancellationToken cancellationToken)
+    {
+        using var response = await httpClient.GetAsync($"get-by-category-name/{categoryName}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            return default!;
+
+        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<ProductResultDTO>>>(cancellationToken: cancellationToken);
+        if (result!.Status == 200)
+            return result.Data;
+
+        logger.LogInformation(message: result.Message);
+        return default!;
+    }
 }
 

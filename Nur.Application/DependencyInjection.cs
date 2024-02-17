@@ -62,6 +62,7 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetProductQuery, ProductDTO>, GetProductQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllProductsQuery, IEnumerable<ProductDTO>>, GetAllProductQueryHandler>();
         services.AddScoped<IRequestHandler<GetByCategoryIdQuery, IEnumerable<ProductDTO>>, GetByCategoryIdQueryHandler>();
+        services.AddScoped<IRequestHandler<GetByCategoryNameQuery, IEnumerable<ProductDTO>>, GetByCategoryNameQueryHandler>();
 
         //ProductCategories
         services.AddScoped<IRequestHandler<CategoryCreateCommand, ProductCategoryDTO>, CategoryCreateCommandHandler>();

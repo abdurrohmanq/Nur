@@ -120,6 +120,9 @@
   <data name="btnBack" xml:space="preserve">
     <value>⬅️ Ortga</value>
   </data>
+  <data name="btnBasket" xml:space="preserve">
+    <value>🛒 Savat</value>
+  </data>
   <data name="btnCancel" xml:space="preserve">
     <value>Bekor qilish 🔴</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="btnPhoneNumber" xml:space="preserve">
     <value>Raqamni o'zgartirish</value>
+  </data>
+  <data name="btnPlaceOrder" xml:space="preserve">
+    <value>🚖 Buyurtma berish</value>
   </data>
   <data name="btnRequestContact" xml:space="preserve">
     <value>📞 Telefon raqamni jo'natish</value>
@@ -234,6 +240,9 @@ Na'muna: "+998901234567"</value>
   </data>
   <data name="txtRequestToOrderType" xml:space="preserve">
     <value>Buyurtmani o'zingiz olib keting yoki 'Yetkazib berish' ni tanlang!</value>
+  </data>
+  <data name="txtSelectCategory" xml:space="preserve">
+    <value>Mahsulot categoriyasini tanlang!</value>
   </data>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Yaxshi siz bilan o'zbek tilida davom etamiz!</value>

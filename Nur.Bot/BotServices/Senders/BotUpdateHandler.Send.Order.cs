@@ -1,9 +1,9 @@
-﻿using Telegram.Bot.Types.ReplyMarkups;
-using Telegram.Bot;
+﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using Nur.Bot.Models.Enums;
 using Nur.APIService.Models.Enums;
 using Nur.APIService.Models.Orders;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Nur.Bot.BotServices;
 
@@ -37,5 +37,58 @@ public partial class BotUpdateHandler
             cancellationToken: cancellationToken);
 
         userStates[message.Chat.Id] = UserState.WaitingForHandleTextLocation;
+    }
+
+    private async Task SendTakeAwayAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendTakeAwayAsync is working..");
+
+        createOrder[message.Chat.Id].OrderType = OrderType.TakeAway;
+
+        await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+    }
+
+    private async Task SendCategoryKeyboardAsync(long chatId, CancellationToken cancellationToken)
+    {
+        var categories = await categoryService.GetAllAsync(cancellationToken);
+
+        var additionalButtons = new List<KeyboardButton>
+        {
+        new KeyboardButton(localizer["btnBack"]),
+        new KeyboardButton(localizer["btnPlaceOrder"]),
+        new KeyboardButton(localizer["btnBasket"])
+        };
+
+        var allButtons = new List<KeyboardButton[]>();
+        var rowButtons = new List<KeyboardButton>();
+
+        foreach (var category in categories)
+        {
+            var button = new KeyboardButton(category.Name);
+            rowButtons.Add(button);
+
+            if (rowButtons.Count == 2)
+            {
+                allButtons.Add(rowButtons.ToArray());
+                rowButtons.Clear();
+            }
+        }
+
+        if (rowButtons.Any())
+        {
+            allButtons.Add(rowButtons.ToArray());
+        }
+
+        allButtons.Add(additionalButtons.ToArray());
+
+        var replyKeyboard = new ReplyKeyboardMarkup(allButtons) { ResizeKeyboard = true };
+
+        await botClient.SendTextMessageAsync(
+            chatId: chatId,
+            text: localizer["txtSelectCategory"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+        userStates[chatId] = UserState.WaitingForCategorySelection;
     }
 }

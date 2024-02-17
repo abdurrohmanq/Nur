@@ -9,7 +9,7 @@ public partial class BotUpdateHandler
         var handle = message.Text switch
         {
             { } text when text == localizer["btnDelivery"] => SendDeliveryAsync(message, cancellationToken),
-            { } text when text == localizer["btnTakeAway"] => SendMenuSettingsAsync(message, cancellationToken),
+            { } text when text == localizer["btnTakeAway"] => SendTakeAwayAsync(message, cancellationToken),
             { } text when text == localizer["btnBack"] => SendMainMenuAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };

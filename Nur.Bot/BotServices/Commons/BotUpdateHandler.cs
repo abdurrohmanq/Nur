@@ -16,7 +16,8 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
     IServiceScopeFactory scopeFactory,
     IUserService userService,
     IAddressService addressService,
-    IOrderService orderService) : IUpdateHandler
+    IOrderService orderService,
+    IProductCategoryService categoryService) : IUpdateHandler
 {
     private IStringLocalizer localizer = default!;
     private Dictionary<long, UserDTO> user = new Dictionary<long, UserDTO>();
