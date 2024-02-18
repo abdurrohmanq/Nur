@@ -4,6 +4,8 @@ using Nur.APIService.Interfaces;
 using Nur.APIService.Models.Users;
 using Microsoft.Extensions.Logging;
 using Nur.APIService.Models.Response;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Nur.APIService.Services;
 
@@ -72,7 +74,14 @@ public class UserService(HttpClient httpClient, ILogger<UserService> logger) : I
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<UserDTO>>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<UserDTO>>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 

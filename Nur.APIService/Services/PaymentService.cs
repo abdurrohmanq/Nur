@@ -4,6 +4,8 @@ using Nur.APIService.Interfaces;
 using Nur.APIService.Models.Payments;
 using Nur.APIService.Models.Response;
 using System.Net.Http.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Nur.APIService.Services;
 
@@ -73,7 +75,14 @@ public class PaymentService(HttpClient httpClient, ILogger<PaymentService> logge
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<PaymentDTO>>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<PaymentDTO>>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 

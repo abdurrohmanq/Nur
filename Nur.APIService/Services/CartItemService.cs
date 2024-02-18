@@ -4,6 +4,8 @@ using Nur.APIService.Interfaces;
 using Microsoft.Extensions.Logging;
 using Nur.APIService.Models.CartItems;
 using Nur.APIService.Models.Response;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Nur.APIService.Services;
 
@@ -73,7 +75,14 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<CartItemResultDTO>>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<CartItemResultDTO>>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 
@@ -87,7 +96,14 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<CartItemResultDTO>>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<CartItemResultDTO>>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 

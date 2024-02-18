@@ -23,6 +23,12 @@ public partial class BotUpdateHandler
 
     private async Task HandleCategorySelectionAsync(Message message, CancellationToken cancellationToken)
     {
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await SendOrderTypeAsync(message, cancellationToken);
+            return;
+        }
+
         var selectedCategoryName = message.Text;
 
         products[message.Chat.Id] = await productService.GetByCategoryNameAsync(selectedCategoryName, cancellationToken);

@@ -1,5 +1,4 @@
 ﻿using Nur.Application.UseCases.Products.DTOs;
-using System.Text.Json.Serialization;
 
 namespace Nur.Application.UseCases.ProductCategories.DTOs;
 

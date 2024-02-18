@@ -1,7 +1,6 @@
 ﻿using Nur.Application.UseCases.Attachments.DTOs;
 using Nur.Application.UseCases.ProductCategories.DTOs;
 using Nur.Domain.Enums;
-using System.Text.Json.Serialization;
 
 namespace Nur.Application.UseCases.Products.DTOs;
 
