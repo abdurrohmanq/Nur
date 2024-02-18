@@ -14,4 +14,5 @@ public enum UserState
     WaitingForCategorySelection,
     WaitingForProductSelection,
     WaitingForHandleTextLocation,
+    WaitingForQuantityInput,
 }

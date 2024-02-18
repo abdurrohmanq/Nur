@@ -32,6 +32,8 @@ public partial class BotUpdateHandler
             UserState.WaitingForSelectOrderType => HandleOrderTypeAsync(message, cancellationToken),
             UserState.WaitingForHandleTextLocation => HandleTextLocationAsync(message, cancellationToken),
             UserState.WaitingForCategorySelection => HandleCategorySelectionAsync(message, cancellationToken),
+            UserState.WaitingForProductSelection => HandleProductSelectionAsync(message, cancellationToken),
+            UserState.WaitingForQuantityInput => HandleQuantityInputAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

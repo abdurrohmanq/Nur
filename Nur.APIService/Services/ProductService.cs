@@ -89,6 +89,48 @@ public class ProductService(HttpClient httpClient, ILogger<ProductService> logge
         return default!;
     }
 
+    public async Task<IEnumerable<ProductResultDTO>> GetByCategoryNameAsync(string categoryName, CancellationToken cancellationToken)
+    {
+        using var response = await httpClient.GetAsync($"get-by-category-name?categoryName={categoryName}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            return default!;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<ProductResultDTO>>>(options, cancellationToken);
+        if (result!.Status == 200)
+            return result.Data;
+
+        logger.LogInformation(message: result.Message);
+        return default!;
+    }
+
+    public async Task<ProductResultDTO> GetByProductNameAsync(string productName, CancellationToken cancellationToken)
+    {
+        using var response = await httpClient.GetAsync($"get-by-product-name?productName={productName}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            return default!;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<ProductResultDTO>>(options, cancellationToken);
+        if (result!.Status == 200)
+            return result.Data;
+
+        logger.LogInformation(message: result.Message);
+        return default!;
+    }
+
     public async Task<IEnumerable<ProductResultDTO>> GetAllAsync(CancellationToken cancellationToken)
     {
         using var response = await httpClient.GetAsync("get-all", cancellationToken);
@@ -110,25 +152,5 @@ public class ProductService(HttpClient httpClient, ILogger<ProductService> logge
         return default!;
     }
 
-    public async Task<IEnumerable<ProductResultDTO>> GetByCategoryNameAsync(string categoryName, CancellationToken cancellationToken)
-    {
-        using var response = await httpClient.GetAsync($"get-by-category-name?categoryName={categoryName}", cancellationToken);
-        if (!response.IsSuccessStatusCode)
-            return default!;
-
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-            Converters = { new JsonStringEnumConverter() },
-            ReferenceHandler = ReferenceHandler.Preserve
-        };
-
-        var result = await response.Content.ReadFromJsonAsync<Response<IEnumerable<ProductResultDTO>>>(options, cancellationToken);
-        if (result!.Status == 200)
-            return result.Data;
-
-        logger.LogInformation(message: result.Message);
-        return default!;
-    }
 }
 

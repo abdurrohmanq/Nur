@@ -45,6 +45,12 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("HandleTextLocationAsync is working..");
 
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await SendOrderTypeAsync(message, cancellationToken);
+            return;
+        }
+
         await botClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
             text: localizer["txtTextLocation"],

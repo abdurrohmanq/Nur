@@ -198,6 +198,9 @@
   <data name="select-menu" xml:space="preserve">
     <value>Make your choice!</value>
   </data>
+  <data name="txtAddedProductInCart" xml:space="preserve">
+    <value>{0} {1} added to cart!</value>
+  </data>
   <data name="txtBad" xml:space="preserve">
     <value>Bad 🚫</value>
   </data>
@@ -223,11 +226,20 @@ Leave a comment or rate our service!</value>
   <data name="txtInfo" xml:space="preserve">
     <value>This is Nur National foods Telegram bot!</value>
   </data>
+  <data name="txtInputProductQuantity" xml:space="preserve">
+    <value>Enter the quantity of the selected product or select one of the buttons below!</value>
+  </data>
   <data name="txtMenuPersonalInfo" xml:space="preserve">
     <value>Choose to change your personal information</value>
   </data>
   <data name="txtNewFullName" xml:space="preserve">
     <value>Enter your new Full Name:</value>
+  </data>
+  <data name="txtNotEnoughProduct" xml:space="preserve">
+    <value>We do not have the product in the quantity you entered!</value>
+  </data>
+  <data name="txtNotFoundProduct" xml:space="preserve">
+    <value>There is no such product!</value>
   </data>
   <data name="txtNotReceiveLocation" xml:space="preserve">
     <value>No address information found. Send it again!</value>
@@ -235,6 +247,9 @@ Leave a comment or rate our service!</value>
   <data name="txtPhoneError" xml:space="preserve">
     <value>The number was entered incorrectly!
 Example: "+998901234567"</value>
+  </data>
+  <data name="txtProductPrice" xml:space="preserve">
+    <value>💰 *Price:* {0}</value>
   </data>
   <data name="txtReceiveLocation" xml:space="preserve">
     <value>Your address has been accepted!</value>
@@ -268,5 +283,8 @@ Example: "+998901234567"</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>I liked everything 👍</value>
+  </data>
+  <data name="txtWrongQuantity" xml:space="preserve">
+    <value>Invalid amount entered. Please enter a valid number!</value>
   </data>
 </root>

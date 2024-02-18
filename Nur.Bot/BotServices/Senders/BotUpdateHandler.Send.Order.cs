@@ -135,4 +135,46 @@ public partial class BotUpdateHandler
 
         userStates[chatId] = UserState.WaitingForProductSelection;
     }
+
+    private async Task SendProductInputQuantityAsync(Message message, CancellationToken cancellationToken)
+    {
+        var replyKeyboard = new ReplyKeyboardMarkup(new[]
+        {
+        new[]
+        {
+            new KeyboardButton("1"),
+            new KeyboardButton("2"),
+            new KeyboardButton("3"),
+        },
+        new[]
+        {
+            new KeyboardButton("4"),
+            new KeyboardButton("5"),
+            new KeyboardButton("6"),
+        },
+        new[]
+        {
+            new KeyboardButton("7"),
+            new KeyboardButton("8"),
+            new KeyboardButton("9"),
+        },
+        new[]
+        {
+        new KeyboardButton(localizer["btnMainMenu"]),
+        new KeyboardButton(localizer["btnBack"]),
+        new KeyboardButton(localizer["btnBasket"])
+        }
+        })
+        {
+            ResizeKeyboard = true
+        };
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtInputProductQuantity"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+        userStates[message.Chat.Id] = UserState.WaitingForQuantityInput;
+    }
 }

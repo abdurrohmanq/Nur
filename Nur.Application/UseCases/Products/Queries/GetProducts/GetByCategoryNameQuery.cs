@@ -2,7 +2,6 @@
 using AutoMapper;
 using Nur.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Products.DTOs;
 
@@ -10,7 +9,7 @@ namespace Nur.Application.UseCases.Products.Queries.GetProducts;
 
 public class GetByCategoryNameQuery : IRequest<IEnumerable<ProductDTO>>
 {
-    public GetByCategoryNameQuery(string categoryName) { CategoryName = Regex.Replace(categoryName, @"[^a-zA-Z]", ""); }
+    public GetByCategoryNameQuery(string categoryName) { CategoryName = categoryName; }
     public string CategoryName { get; set; }
 }
 

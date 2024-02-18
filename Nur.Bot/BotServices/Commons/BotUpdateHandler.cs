@@ -1,23 +1,24 @@
-﻿using Telegram.Bot;
-using Nur.Bot.Resources;
-using Telegram.Bot.Types;
-using System.Globalization;
-using Telegram.Bot.Polling;
-using Telegram.Bot.Types.Enums;
+﻿using Microsoft.Extensions.Localization;
 using Nur.APIService.Interfaces;
 using Nur.APIService.Models.Users;
-using Microsoft.Extensions.Localization;
-using Nur.Bot.Models.Enums;
+using Nur.Bot.Resources;
+using System.Globalization;
+using Telegram.Bot;
+using Telegram.Bot.Polling;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace Nur.Bot.BotServices;
 
 public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
     ITelegramBotClient botClient,
     IServiceScopeFactory scopeFactory,
+    ICartService cartService,
     IUserService userService,
     IOrderService orderService,
     IAddressService addressService,
     IProductService productService,
+    ICartItemService cartItemService,
     IProductCategoryService categoryService) : IUpdateHandler
 {
     private IStringLocalizer localizer = default!;

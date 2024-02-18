@@ -198,6 +198,12 @@
   <data name="select-menu" xml:space="preserve">
     <value>Tanlovingizni belgilang!</value>
   </data>
+  <data name="string" xml:space="preserve">
+    <value />
+  </data>
+  <data name="txtAddedProductInCart" xml:space="preserve">
+    <value>{0} ta {1} savatga qo'shildi!</value>
+  </data>
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
   </data>
@@ -222,11 +228,20 @@
   <data name="txtInfo" xml:space="preserve">
     <value>Bu Nur oshxonasi Telegram boti!</value>
   </data>
+  <data name="txtInputProductQuantity" xml:space="preserve">
+    <value>Tanlangan mahsulot miqdorini kiriting yoki quyidagi tugmalardan birini tanlang!</value>
+  </data>
   <data name="txtMenuPersonalInfo" xml:space="preserve">
     <value>Shaxsiy ma'lumotlarni o'zgartirish uchun tanlang</value>
   </data>
   <data name="txtNewFullName" xml:space="preserve">
     <value>Yangi ism sharifingizni kiriting:</value>
+  </data>
+  <data name="txtNotEnoughProduct" xml:space="preserve">
+    <value>Buncha miqdorda mahsulot yo'q!</value>
+  </data>
+  <data name="txtNotFoundProduct" xml:space="preserve">
+    <value>Bunday mahsulot yo'q!</value>
   </data>
   <data name="txtNotReceiveLocation" xml:space="preserve">
     <value>Manzil ma'lumotlari topilmadi. Qaytadan yuboring!</value>
@@ -234,6 +249,9 @@
   <data name="txtPhoneError" xml:space="preserve">
     <value>Raqam xato kiritildi!
 Na'muna: "+998901234567"</value>
+  </data>
+  <data name="txtProductPrice" xml:space="preserve">
+    <value>💰 *Narxi:* {0}</value>
   </data>
   <data name="txtReceiveLocation" xml:space="preserve">
     <value>Manzilingiz qabul qilindi!</value>
@@ -267,5 +285,8 @@ Na'muna: "+998901234567"</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>Hammasi yoqdi 👍</value>
+  </data>
+  <data name="txtWrongQuantity" xml:space="preserve">
+    <value>Noto'g'ri miqdor kiritildi. Iltimos, haqiqiy son kiriting!</value>
   </data>
 </root>

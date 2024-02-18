@@ -2,6 +2,7 @@
 using System.Reflection;
 using Nur.Application.Commons.Mappers;
 using Nur.Domain.Entities.Attachments;
+using Nur.Application.UseCases.Carts.DTOs;
 using Nur.Application.UseCases.Users.DTOs;
 using Nur.Application.UseCases.Orders.DTOs;
 using Nur.Application.UseCases.Products.DTOs;
@@ -19,22 +20,21 @@ using Nur.Application.UseCases.Payments.Commands;
 using Nur.Application.UseCases.Suppliers.Commands;
 using Nur.Application.UseCases.Addresses.Commands;
 using Nur.Application.UseCases.Attachments.Commands;
-using Nur.Application.UseCases.Users.Queries.GetUsers;
+using Nur.Application.UseCases.Carts.CartItems.DTOs;
 using Nur.Application.UseCases.Orders.OrderItems.DTOs;
+using Nur.Application.UseCases.Carts.Queries.GetCarts;
 using Nur.Application.UseCases.ProductCategories.DTOs;
+using Nur.Application.UseCases.Users.Queries.GetUsers;
+using Nur.Application.UseCases.Carts.CartItems.Commands;
 using Nur.Application.UseCases.Orders.Queries.GetOrders;
 using Nur.Application.UseCases.ProductCategories.Queries;
 using Nur.Application.UseCases.Orders.OrderItems.Commands;
 using Nur.Application.UseCases.ProductCategories.Commands;
-using Nur.Application.UseCases.Vehicles.Queries.GetVehicles;
 using Nur.Application.UseCases.Products.Queries.GetProducts;
+using Nur.Application.UseCases.Vehicles.Queries.GetVehicles;
 using Nur.Application.UseCases.Suppliers.Queries.GetSuppliers;
-using Nur.Application.UseCases.Orders.OrderItems.Queries.GetOrderItems;
-using Nur.Application.UseCases.Carts.Queries.GetCarts;
-using Nur.Application.UseCases.Carts.DTOs;
-using Nur.Application.UseCases.Carts.CartItems.Commands;
-using Nur.Application.UseCases.Carts.CartItems.DTOs;
 using Nur.Application.UseCases.Carts.CartItems.Queries.GetCartItems;
+using Nur.Application.UseCases.Orders.OrderItems.Queries.GetOrderItems;
 
 namespace Nur.Application;
 
@@ -60,6 +60,7 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<ProductDeleteCommand, bool>, ProductDeleteCommandHandler>();
 
         services.AddScoped<IRequestHandler<GetProductQuery, ProductDTO>, GetProductQueryHandler>();
+        services.AddScoped<IRequestHandler<GetProductByNameQuery, ProductDTO>, GetProductByNameQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllProductsQuery, IEnumerable<ProductDTO>>, GetAllProductQueryHandler>();
         services.AddScoped<IRequestHandler<GetByCategoryIdQuery, IEnumerable<ProductDTO>>, GetByCategoryIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetByCategoryNameQuery, IEnumerable<ProductDTO>>, GetByCategoryNameQueryHandler>();

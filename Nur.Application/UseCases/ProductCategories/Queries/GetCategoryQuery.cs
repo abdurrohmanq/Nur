@@ -18,6 +18,6 @@ public class GetCategoryQueryHandler(IMapper mapper,
 {
     public async Task<ProductCategoryDTO> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         => mapper.Map<ProductCategoryDTO>(await repository.SelectAsync(u => u.Id.Equals(request.Id),
-            includes: new[] { "Products" })
+            includes: new[] { "Products.Attachment" })
             ?? throw new NotFoundException($"This category is not found with id: {request.Id}"));
 }
