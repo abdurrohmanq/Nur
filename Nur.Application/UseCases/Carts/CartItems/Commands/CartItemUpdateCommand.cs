@@ -24,7 +24,8 @@ public class CartItemUpdateCommandHandler(IMapper mapper,
 {
     public async Task<CartItemDTO> Handle(CartItemUpdateCommand request, CancellationToken cancellationToken)
     {
-        var cartItem = await cartItemRepository.SelectAsync(c => c.Id.Equals(request.Id))
+        var cartItem = await cartItemRepository.SelectAsync(c => c.Id.Equals(request.Id),
+            includes: new[] {"Cart", "Product"})
             ?? throw new NotFoundException($"This cartItem was not found with id: {request.Id}");
 
         if (request.CartId != cartItem.CartId)
@@ -38,6 +39,7 @@ public class CartItemUpdateCommandHandler(IMapper mapper,
                 ?? throw new NotFoundException($"This product was not found with id: {request.ProductId}");
         }
 
+        cartItem.Cart.TotalPrice -= cartItem.Sum;
         cartItem = mapper.Map(request, cartItem);
         cartItem.Sum = (decimal)cartItem.Quantity * cartItem.Price;
         cartItem.Cart.TotalPrice += cartItem.Sum;

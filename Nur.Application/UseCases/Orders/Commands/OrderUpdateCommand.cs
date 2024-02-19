@@ -38,7 +38,8 @@ public class OrderUpdateCommandHandler(IMapper mapper,
 {
     public async Task<OrderDTO> Handle(OrderUpdateCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.SelectAsync(o => o.Id.Equals(request.Id), includes: new[] {"OrderItems.Product"})
+        var order = await orderRepository.SelectAsync(o => o.Id.Equals(request.Id),
+            includes: new[] {"User", "Address", "Supplier", "Payment", "OrderItems.Product"})
             ?? throw new NotFoundException($"This order was not found with id: {request.Id}");
 
         if (order.UserId != request.UserId)

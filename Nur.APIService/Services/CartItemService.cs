@@ -40,7 +40,14 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<CartItemResultDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<CartItemResultDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 

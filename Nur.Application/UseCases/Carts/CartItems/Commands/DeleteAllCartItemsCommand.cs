@@ -20,6 +20,8 @@ public class DeleteAllCartItemsCommandHandler(IRepository<CartItem> repository,
             return false;
 
         repository.Delete(c => c.CartId.Equals(request.CartId));
+        cart.TotalPrice = 0;
+        cartRepository.Update(cart);
         await repository.SaveAsync();
         return true;
     }

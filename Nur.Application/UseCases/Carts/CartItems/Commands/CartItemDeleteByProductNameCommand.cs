@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using Nur.Application.Commons.Interfaces;
 using Nur.Domain.Entities.Carts;
+using Nur.Application.Commons.Interfaces;
 
 namespace Nur.Application.UseCases.Carts.CartItems.Commands;
 
