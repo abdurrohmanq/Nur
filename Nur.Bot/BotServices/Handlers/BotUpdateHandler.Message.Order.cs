@@ -1,10 +1,12 @@
-﻿using Telegram.Bot;
-using Telegram.Bot.Types;
+﻿using Nur.APIService.Models.CartItems;
+using Nur.APIService.Models.Enums;
+using Nur.APIService.Models.Payments;
 using Nur.APIService.Models.Products;
-using System.Net;
+using Nur.Bot.Models.Enums;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Nur.APIService.Models.CartItems;
-using Nur.APIService.Services;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Nur.Bot.BotServices;
 
@@ -141,7 +143,7 @@ public partial class BotUpdateHandler
                     chatId: message.Chat.Id,
                     text: localizer["txtAddedProductInCart", quantity, product.Name],
                     cancellationToken: cancellationToken);
-                
+
                 await botClient.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: localizer["txtContinueOrder"],
@@ -179,7 +181,94 @@ public partial class BotUpdateHandler
         };
 
         try { await handle; }
-        catch (Exception ex) { logger.LogError(ex,
-            "Error handling message from {user.FirstName}", user[message.Chat.Id].FirstName); }
+        catch (Exception ex)
+        {
+            logger.LogError(ex,
+            "Error handling message from {user.FirstName}", user[message.Chat.Id].FirstName);
+        }
+    }
+
+    private async Task HandleDescriptionAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("HandleDescriptionAsync is working...");
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await SendProductsKeyboardAsync(message.Chat.Id, products[message.Chat.Id], cancellationToken);
+        }
+        else
+        {
+            createOrder[message.Chat.Id].Description = message.Text;
+
+            var replyKeyboard = new ReplyKeyboardMarkup(new[]
+                {
+            new[] { new KeyboardButton(localizer["btnPaymentTypeCash"]) },
+            new[] { new KeyboardButton(localizer["btnPaymentTypePayme"]),
+                    new KeyboardButton(localizer["btnPaymentTypeClick"]) },
+            new[] { new KeyboardButton(localizer["btnMainMenu"]), new KeyboardButton(localizer["btnBack"]) }
+            })
+            {
+                ResizeKeyboard = true
+            };
+
+            await botClient.SendTextMessageAsync(
+               chatId: message.Chat.Id,
+               text: localizer["txtSelectPaymentType"],
+               replyMarkup: replyKeyboard,
+               cancellationToken: cancellationToken);
+
+            userStates[message.Chat.Id] = UserState.WaitingForPaymentTypeAction;
+        }
+    }
+
+    private Dictionary<long, PaymentCreationDTO> payment = new Dictionary<long, PaymentCreationDTO>();
+    private async Task HandlePaymentMethodAsync(Message message, CancellationToken cancellationToken)
+    {
+        payment[message.Chat.Id] = new PaymentCreationDTO();
+        string paymentType = string.Empty;
+        if (message.Text.Equals(localizer["btnPaymentTypeCash"]))
+        { 
+            payment[message.Chat.Id].Type = PaymentType.Cash;
+            paymentType = localizer["btnPaymentTypeCash"];
+        }
+        else if (message.Text.Equals(localizer["btnPaymentTypePayme"]))
+        {
+            payment[message.Chat.Id].Type = PaymentType.Payme;
+            paymentType = localizer["btnPaymentTypePayme"];
+        }
+        else if (message.Text.Equals(localizer["btnPaymentTypeClick"]))
+        {
+            payment[message.Chat.Id].Type = PaymentType.Click;
+            paymentType = localizer["btnPaymentTypeClick"];
+        }
+
+        var cartItems = await cartItemService.GetByCartIdAsync(cart[message.Chat.Id].Id, cancellationToken);
+
+        var cartItemsText = string.Join("\n\n", cartItems.Select(item => 
+        $"{item.Product.Name}: {item.Quantity} x {item.Price} = {item.Sum}"));
+        cartItemsText = $"{localizer["btnBasket"]}\n\n" + cartItemsText;
+        string orderType = createOrder[message.Chat.Id].OrderType == OrderType.Delivery?
+            localizer["btnDelivery"]: localizer["btnTakeAway"];
+
+        cartItemsText = $"{localizer["txtYourOrder"]}\n\n {localizer["txtOrderType"]} {orderType}\n\n " +
+            $"{localizer["txtPhone"]} {user[message.Chat.Id].Phone}\n\n {localizer["txtPaymentType"]} " +
+            $"{paymentType}\n\n {localizer["txtComments"]} {createOrder[message.Chat.Id].Description}\n\n" + cartItemsText;
+        cartItemsText += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
+
+        var replyKeyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new[] {new KeyboardButton(localizer["btnConfirmation"]) },
+            new[] {new KeyboardButton(localizer["btnCancel"]) }
+        })
+        {
+            ResizeKeyboard = true
+        };
+
+        userStates[message.Chat.Id] = UserState.WaitingForOrderSaveAction;
+
+        await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: cartItemsText,
+                    replyMarkup: replyKeyboard,
+                    cancellationToken: cancellationToken);
     }
 }

@@ -129,6 +129,9 @@
   <data name="btnClearCart" xml:space="preserve">
     <value>🧹 Уборка</value>
   </data>
+  <data name="btnConfirmation" xml:space="preserve">
+    <value>✅ Подтверждение</value>
+  </data>
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Доставка</value>
   </data>
@@ -152,6 +155,15 @@
   </data>
   <data name="btnOrder" xml:space="preserve">
     <value>🛍 Заказать</value>
+  </data>
+  <data name="btnPaymentTypeCash" xml:space="preserve">
+    <value>Наличные</value>
+  </data>
+  <data name="btnPaymentTypeClick" xml:space="preserve">
+    <value>💳 Click</value>
+  </data>
+  <data name="btnPaymentTypePayme" xml:space="preserve">
+    <value>💳 Payme</value>
   </data>
   <data name="btnPhone" xml:space="preserve">
     <value>📞 Связаться с нами</value>
@@ -220,6 +232,9 @@
     <value>"❌ &lt;Название товара&gt; - удалить из корзины\n" +
  "🧹 Уборка" - полностью опорожнить корзину",</value>
   </data>
+  <data name="txtComments" xml:space="preserve">
+    <value>Примечания:</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Вы можете позвонить &lt;&lt;+998905710460&gt;&gt;, чтобы связаться с нами!</value>
   </data>
@@ -257,6 +272,9 @@
   <data name="txtNewFullName" xml:space="preserve">
     <value>Введите свое новое имя:</value>
   </data>
+  <data name="txtNoComment" xml:space="preserve">
+    <value>Никаких дополнительных комментариев</value>
+  </data>
   <data name="txtNotEnoughProduct" xml:space="preserve">
     <value>Нет такого количества продукта!</value>
   </data>
@@ -268,6 +286,15 @@
   </data>
   <data name="txtOccureErrorInputQuantity" xml:space="preserve">
     <value>Невозможно добавить товар в корзину! Попробуйте еще раз!</value>
+  </data>
+  <data name="txtOrderType" xml:space="preserve">
+    <value>Тип заказа:</value>
+  </data>
+  <data name="txtPaymentType" xml:space="preserve">
+    <value>💴 Тип оплаты:</value>
+  </data>
+  <data name="txtPhone" xml:space="preserve">
+    <value>☎️ Телефон</value>
   </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>Номер введен с ошибкой!
@@ -294,6 +321,9 @@
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Очень хорошо, мы продолжим с вами на русском языке!</value>
   </data>
+  <data name="txtSelectPaymentType" xml:space="preserve">
+    <value>Выберите тип оплаты для вашего заказа!</value>
+  </data>
   <data name="txtSelectProduct" xml:space="preserve">
     <value>Выберите товар!</value>
   </data>
@@ -315,10 +345,16 @@
   <data name="txtVeryGood" xml:space="preserve">
     <value>Все понравилось 👍</value>
   </data>
+  <data name="txtWriteCommentForOrder" xml:space="preserve">
+    <value>Если у вас есть дополнительные комментари, запишите их:</value>
+  </data>
   <data name="txtWrongInputProduct" xml:space="preserve">
     <value>Просто выключите его, нажав кнопку!</value>
   </data>
   <data name="txtWrongQuantity" xml:space="preserve">
     <value>Введена неправильная сумма. Пожалуйста, введите действительное число.</value>
+  </data>
+  <data name="txtYourOrder" xml:space="preserve">
+    <value>Ваш заказ:</value>
   </data>
 </root>

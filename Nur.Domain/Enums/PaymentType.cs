@@ -3,8 +3,6 @@
 public enum PaymentType
 {
     Cash = 1,
-    Humo,
-    Uzcard,
-    VISA,
-    MasterCard
+    Click,
+    Payme
 }

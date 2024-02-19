@@ -16,4 +16,7 @@ public enum UserState
     WaitingForHandleTextLocation,
     WaitingForQuantityInput,
     WaitingForCartAction,
+    WaitingForCommentAction,
+    WaitingForPaymentTypeAction,
+    WaitingForOrderSaveAction,
 }

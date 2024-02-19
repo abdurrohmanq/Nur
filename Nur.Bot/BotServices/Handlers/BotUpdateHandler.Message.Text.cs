@@ -19,7 +19,8 @@ public partial class BotUpdateHandler
         userState = message.Text.Equals("/start") ? UserState.None : userState;
 
         if (message.Text.Equals(localizer["btnMainMenu"])) await SendMainMenuAsync(message, cancellationToken);
-        if (message.Text.Equals(localizer["btnBasket"])) { await SendCartAsync(message, cancellationToken); return; }
+        if (message.Text.Equals(localizer["btnBasket"])) { await SendCartAsync(message, cancellationToken); return; };
+        if (message.Text.Equals(localizer["btnPlaceOrder"])) { await SendOrderActionAsync(message, cancellationToken); return; };
         var handler = userState switch
         {
             UserState.None => SendGreetingAsync(message, cancellationToken),
@@ -36,6 +37,8 @@ public partial class BotUpdateHandler
             UserState.WaitingForProductSelection => HandleProductSelectionAsync(message, cancellationToken),
             UserState.WaitingForQuantityInput => HandleQuantityInputAsync(message, cancellationToken),
             UserState.WaitingForCartAction => HandleCartActionAsync(message, cancellationToken),
+            UserState.WaitingForCommentAction => HandleDescriptionAsync(message, cancellationToken),
+            UserState.WaitingForPaymentTypeAction => HandlePaymentMethodAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

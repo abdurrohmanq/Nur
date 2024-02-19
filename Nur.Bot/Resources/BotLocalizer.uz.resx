@@ -129,6 +129,9 @@
   <data name="btnClearCart" xml:space="preserve">
     <value>🧹 Tozalash</value>
   </data>
+  <data name="btnConfirmation" xml:space="preserve">
+    <value>✅ Tasdiqlash</value>
+  </data>
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Yetkazib berish</value>
   </data>
@@ -152,6 +155,15 @@
   </data>
   <data name="btnOrder" xml:space="preserve">
     <value>🛍 Buyurtma berish</value>
+  </data>
+  <data name="btnPaymentTypeCash" xml:space="preserve">
+    <value>💵 Naqd pul</value>
+  </data>
+  <data name="btnPaymentTypeClick" xml:space="preserve">
+    <value>💳 Click</value>
+  </data>
+  <data name="btnPaymentTypePayme" xml:space="preserve">
+    <value>💳 Payme</value>
   </data>
   <data name="btnPhone" xml:space="preserve">
     <value>📞 Biz bilan aloqa</value>
@@ -223,6 +235,9 @@
     <value>"❌ &lt;Mahsulot nomi&gt; - savatdan o'chirish\n" +
  "«🧹 Tozalash» - savatni butunlay bo'shatish"</value>
   </data>
+  <data name="txtComments" xml:space="preserve">
+    <value>Izohlar:</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
   </data>
@@ -259,6 +274,9 @@
   <data name="txtNewFullName" xml:space="preserve">
     <value>Yangi ism sharifingizni kiriting:</value>
   </data>
+  <data name="txtNoComment" xml:space="preserve">
+    <value>Qo'shimcha izoh yo'q</value>
+  </data>
   <data name="txtNotEnoughProduct" xml:space="preserve">
     <value>Buncha miqdorda mahsulot yo'q!</value>
   </data>
@@ -270,6 +288,15 @@
   </data>
   <data name="txtOccureErrorInputQuantity" xml:space="preserve">
     <value>Mahsulotni savatga qo'shib bo'lmadi! Qaytadan urinib ko'ring!</value>
+  </data>
+  <data name="txtOrderType" xml:space="preserve">
+    <value>Buyurtma turi:</value>
+  </data>
+  <data name="txtPaymentType" xml:space="preserve">
+    <value>💴 To'lov turi:</value>
+  </data>
+  <data name="txtPhone" xml:space="preserve">
+    <value>☎️ Telefon:</value>
   </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>Raqam xato kiritildi!
@@ -296,6 +323,9 @@ Na'muna: "+998901234567"</value>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Yaxshi siz bilan o'zbek tilida davom etamiz!</value>
   </data>
+  <data name="txtSelectPaymentType" xml:space="preserve">
+    <value>Buyurtmangiz uchun to'lov turini tanlang!</value>
+  </data>
   <data name="txtSelectProduct" xml:space="preserve">
     <value>Mahsulot tanlang!</value>
   </data>
@@ -317,10 +347,16 @@ Na'muna: "+998901234567"</value>
   <data name="txtVeryGood" xml:space="preserve">
     <value>Hammasi yoqdi 👍</value>
   </data>
+  <data name="txtWriteCommentForOrder" xml:space="preserve">
+    <value>Qo'shimcha fikrlaringiz bo'lsa, yozib qoldiring:</value>
+  </data>
   <data name="txtWrongInputProduct" xml:space="preserve">
     <value>Faqat tugmani bosish orqali o'chiring!</value>
   </data>
   <data name="txtWrongQuantity" xml:space="preserve">
     <value>Noto'g'ri miqdor kiritildi. Iltimos, haqiqiy son kiriting!</value>
+  </data>
+  <data name="txtYourOrder" xml:space="preserve">
+    <value>Sizning buyurtmangiz:</value>
   </data>
 </root>

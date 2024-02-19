@@ -129,6 +129,9 @@
   <data name="btnClearCart" xml:space="preserve">
     <value>🧹 Cleaning</value>
   </data>
+  <data name="btnConfirmation" xml:space="preserve">
+    <value>✅ Confirmation</value>
+  </data>
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Delivery</value>
   </data>
@@ -152,6 +155,15 @@
   </data>
   <data name="btnOrder" xml:space="preserve">
     <value>🛍 Place an order</value>
+  </data>
+  <data name="btnPaymentTypeCash" xml:space="preserve">
+    <value>cash</value>
+  </data>
+  <data name="btnPaymentTypeClick" xml:space="preserve">
+    <value>💳 Click</value>
+  </data>
+  <data name="btnPaymentTypePayme" xml:space="preserve">
+    <value>💳 Payme</value>
   </data>
   <data name="btnPhone" xml:space="preserve">
     <value>📞 Contact us</value>
@@ -220,6 +232,9 @@
     <value>"❌ &lt;Product name&gt; - remove from cart\n" +
 "🧹 Cleaning" - completely empty the basket",</value>
   </data>
+  <data name="txtComments" xml:space="preserve">
+    <value>Comments:</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>You can call &lt;&lt;+998905710460&gt;&gt; to contact us!</value>
   </data>
@@ -257,6 +272,9 @@ Leave a comment or rate our service!</value>
   <data name="txtNewFullName" xml:space="preserve">
     <value>Enter your new Full Name:</value>
   </data>
+  <data name="txtNoComment" xml:space="preserve">
+    <value>No further comment</value>
+  </data>
   <data name="txtNotEnoughProduct" xml:space="preserve">
     <value>We do not have the product in the quantity you entered!</value>
   </data>
@@ -268,6 +286,15 @@ Leave a comment or rate our service!</value>
   </data>
   <data name="txtOccureErrorInputQuantity" xml:space="preserve">
     <value>Could not add product to cart! Please try again!</value>
+  </data>
+  <data name="txtOrderType" xml:space="preserve">
+    <value>Order type:</value>
+  </data>
+  <data name="txtPaymentType" xml:space="preserve">
+    <value>💴 Payment type:</value>
+  </data>
+  <data name="txtPhone" xml:space="preserve">
+    <value>☎️ Phone:</value>
   </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>The number was entered incorrectly!
@@ -294,6 +321,9 @@ Example: "+998901234567"</value>
   <data name="txtSelectedLanguage" xml:space="preserve">
     <value>Well, we will continue with you in English!</value>
   </data>
+  <data name="txtSelectPaymentType" xml:space="preserve">
+    <value>Choose a payment method for your order!</value>
+  </data>
   <data name="txtSelectProduct" xml:space="preserve">
     <value>Select product!</value>
   </data>
@@ -315,10 +345,16 @@ Example: "+998901234567"</value>
   <data name="txtVeryGood" xml:space="preserve">
     <value>I liked everything 👍</value>
   </data>
+  <data name="txtWriteCommentForOrder" xml:space="preserve">
+    <value>If you have any additional comments, please leave a comment:</value>
+  </data>
   <data name="txtWrongInputProduct" xml:space="preserve">
     <value>Delete with just a click of a button!</value>
   </data>
   <data name="txtWrongQuantity" xml:space="preserve">
     <value>Invalid amount entered. Please enter a valid number!</value>
+  </data>
+  <data name="txtYourOrder" xml:space="preserve">
+    <value>Your order:</value>
   </data>
 </root>

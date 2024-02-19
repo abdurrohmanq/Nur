@@ -30,6 +30,8 @@ public partial class BotUpdateHandler
                 text: localizer["txtReceiveLocation"],
                 cancellationToken: cancellationToken);
 
+            createOrder[message.Chat.Id].AddressId = result.Id;
+
             await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);    
         }
         else

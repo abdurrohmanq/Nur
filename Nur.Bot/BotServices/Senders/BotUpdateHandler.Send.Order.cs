@@ -301,4 +301,38 @@ public partial class BotUpdateHandler
                 text: localizer["txtErrorDeleteCart"],
                 cancellationToken: cancellationToken);
     }
+
+    private async Task SendOrderActionAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendOrderActionAsync is working...");
+
+        if (cart[message.Chat.Id].CartItems.Count() > 0)
+        {
+            var replyKeyboard = new ReplyKeyboardMarkup(new[]
+            {
+            new[] { new KeyboardButton(localizer["txtNoComment"])},
+            new[] { new KeyboardButton(localizer["btnMainMenu"]), new KeyboardButton(localizer["btnBack"]) }
+            })
+            {
+                ResizeKeyboard = true
+            };
+
+            await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtWriteCommentForOrder"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+            userStates[message.Chat.Id] = UserState.WaitingForCommentAction;
+        }
+        else
+        {
+            await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtCartEmptyInfo"],
+            cancellationToken: cancellationToken);
+
+            await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+        }
+    }
 }
