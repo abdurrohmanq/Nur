@@ -24,6 +24,10 @@ public class CartItemsController(IMediator mediator) : BaseController
     [HttpDelete("delete-by-product-name")]
     public async Task<IActionResult> DeleteByProductNameAsync(string productName, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new CartItemDeleteByProductNameCommand(productName), cancellationToken) });
+    
+    [HttpDelete("delete-all/{cartId:long}")]
+    public async Task<IActionResult> DeleteAllAsync(long cartId,CancellationToken cancellationToken)
+        => Ok(new Response { Data = await mediator.Send(new DeleteAllCartItemsCommand(cartId), cancellationToken) });
 
     [HttpGet("get/{id:long}")]
     public async Task<IActionResult> GetAsync(long id, CancellationToken cancellationToken)
@@ -32,6 +36,10 @@ public class CartItemsController(IMediator mediator) : BaseController
     [HttpGet("get-by-cart-id/{cartId:long}")]
     public async Task<IActionResult> GetByCartIdAsync(long cartId, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new GetByCartIdQuery(cartId), cancellationToken) });
+    
+    [HttpGet("get-by-product-id/{productId:long}")]
+    public async Task<IActionResult> GetByProductIdAsync(long productId, CancellationToken cancellationToken)
+        => Ok(new Response { Data = await mediator.Send(new GetByProductIdQuery(productId), cancellationToken) });
 
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)

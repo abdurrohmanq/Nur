@@ -111,6 +111,41 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         return default!;
     }
 
+    public async Task<CartItemResultDTO> GetByProductIdAsync(long productId, CancellationToken cancellationToken)
+    {
+        using var response = await httpClient.GetAsync($"get-by-product-id/{productId}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            return default!;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<CartItemResultDTO>>(options, cancellationToken);
+        if (result!.Status == 200)
+            return result.Data;
+
+        logger.LogInformation(message: result.Message);
+        return default!;
+    }
+
+    public async Task<bool> DeleteAllAsync(long cartId, CancellationToken cancellationToken)
+    {
+        using var response = await httpClient.DeleteAsync($"delete-all/{cartId}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            return default!;
+
+        var result = await response.Content.ReadFromJsonAsync<Response<bool>>(cancellationToken: cancellationToken);
+        if (result!.Status == 200)
+            return result.Data;
+
+        logger.LogInformation(message: result.Message);
+        return default!;
+    }
+
     public async Task<IEnumerable<CartItemResultDTO>> GetAllAsync(CancellationToken cancellationToken)
     {
         using var response = await httpClient.GetAsync("get-all", cancellationToken);

@@ -5,6 +5,7 @@ using Nur.APIService.Models.Enums;
 using Nur.APIService.Models.Orders;
 using Telegram.Bot.Types.ReplyMarkups;
 using Nur.APIService.Models.Products;
+using Nur.APIService.Models.Carts;
 
 namespace Nur.Bot.BotServices;
 
@@ -178,18 +179,19 @@ public partial class BotUpdateHandler
         userStates[message.Chat.Id] = UserState.WaitingForQuantityInput;
     }
 
+    public Dictionary<long, CartDTO> cart = new Dictionary<long, CartDTO>();
     private async Task SendCartAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("SendCartAsync is working..");
 
-        var cart = await cartService.GetByUserIdAsync(user[message.Chat.Id].Id, cancellationToken);
+        cart[message.Chat.Id] = await cartService.GetByUserIdAsync(user[message.Chat.Id].Id, cancellationToken);
 
-        var cartItems = await cartItemService.GetByCartIdAsync(cart.Id, cancellationToken);
+        var cartItems = await cartItemService.GetByCartIdAsync(cart[message.Chat.Id].Id, cancellationToken);
         if (cartItems.Count() > 0)
         {
             var cartItemsText = string.Join("\n\n", cartItems.Select(item => 
             $"{item.Product.Name}: {item.Quantity} x {item.Price} = {item.Sum}"));
-            cartItemsText = localizer["btnBasket\n\n"] + cartItemsText;
+            cartItemsText = $"{localizer["btnBasket"]}\n\n" + cartItemsText;
 
             var additionalButtons = new List<KeyboardButton>
             {
@@ -222,7 +224,7 @@ public partial class BotUpdateHandler
 
             var replyKeyboard = new ReplyKeyboardMarkup(allButtons) { ResizeKeyboard = true };
 
-            cartItemsText += $"\n\n {localizer["txtTotalPrice", cart.TotalPrice]}";
+            cartItemsText += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
 
             await botClient.SendTextMessageAsync(
                chatId: message.Chat.Id,
@@ -243,8 +245,60 @@ public partial class BotUpdateHandler
                 chatId: message.Chat.Id,
                 text: localizer["txtCartEmptyInfo"],
                 cancellationToken: cancellationToken);
+        }
+    }
+
+    private async Task RequestProductFromDeleteCartAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("HandleProductFromDeleteCartAsync is working..");
+        var productName = message.Text;
+
+        var wasDeleted = await cartItemService.DeleteByProductNameAsync(productName, cancellationToken);
+        if (wasDeleted)
+        {
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtRemovedCartItem", productName],
+                cancellationToken: cancellationToken);
+
+            if (cart[message.Chat.Id].CartItems.Count() == 0)
+                await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+            else
+                await SendCartAsync(message, cancellationToken);
+        }
+        else
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtWrongInputProduct"],
+                cancellationToken: cancellationToken);
+    }
+
+    private async Task RequestCleanCartAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("RequestCleanCartAsync is working...");
+
+        if (cart[message.Chat.Id].CartItems.Count() == 0)
+        {
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtCartEmpty"],
+                cancellationToken: cancellationToken);
+            return;
+        }
+        var isTrue = await cartItemService.DeleteAllAsync(cart[message.Chat.Id].Id, cancellationToken);
+        if (isTrue)
+        {
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtCartReleased"],
+                cancellationToken: cancellationToken);
 
             await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
         }
+        else
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtErrorDeleteCart"],
+                cancellationToken: cancellationToken);
     }
 }

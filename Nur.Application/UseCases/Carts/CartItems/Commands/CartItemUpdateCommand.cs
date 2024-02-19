@@ -39,7 +39,10 @@ public class CartItemUpdateCommandHandler(IMapper mapper,
         }
 
         cartItem = mapper.Map(request, cartItem);
+        cartItem.Sum = (decimal)cartItem.Quantity * cartItem.Price;
+        cartItem.Cart.TotalPrice += cartItem.Sum;
 
+        cartRepository.Update(cartItem.Cart);
         cartItemRepository.Update(cartItem);
         await cartItemRepository.SaveAsync();
 

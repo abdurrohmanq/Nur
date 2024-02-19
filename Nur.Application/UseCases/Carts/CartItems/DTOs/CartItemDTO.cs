@@ -1,5 +1,5 @@
-﻿using Nur.Domain.Entities.Carts;
-using Nur.Domain.Entities.Products;
+﻿using Nur.Application.UseCases.Carts.DTOs;
+using Nur.Application.UseCases.Products.DTOs;
 
 namespace Nur.Application.UseCases.Carts.CartItems.DTOs;
 
@@ -9,9 +9,7 @@ public class CartItemDTO
     public double Quantity { get; set; }
     public decimal Price { get; set; }
     public decimal Sum { get; set; }
-    public long CartId { get; set; }
-    public Cart Cart { get; set; }
+    public CartDTO Cart { get; set; }
 
-    public long ProductId { get; set; }
-    public Product Product { get; set; }
+    public ProductDTO Product { get; set; }
 }

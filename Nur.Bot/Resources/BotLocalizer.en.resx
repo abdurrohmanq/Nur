@@ -207,8 +207,14 @@
   <data name="txtBad" xml:space="preserve">
     <value>Bad 🚫</value>
   </data>
+  <data name="txtCartEmpty" xml:space="preserve">
+    <value>Cart is empty</value>
+  </data>
   <data name="txtCartEmptyInfo" xml:space="preserve">
     <value>Your cart is empty. Choose a product to order!</value>
+  </data>
+  <data name="txtCartReleased" xml:space="preserve">
+    <value>Cart was empty!</value>
   </data>
   <data name="txtCleanCartInfo" xml:space="preserve">
     <value>"❌ &lt;Product name&gt; - remove from cart\n" +
@@ -228,6 +234,9 @@
   </data>
   <data name="txtEmptyCategory" xml:space="preserve">
     <value>There are currently no products in this category.</value>
+  </data>
+  <data name="txtErrorDeleteCart" xml:space="preserve">
+    <value>Cart not cleared! Please try again if there is a problem!</value>
   </data>
   <data name="txtFeedback" xml:space="preserve">
     <value>Thank you for choosing us!\n
@@ -305,6 +314,9 @@ Example: "+998901234567"</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>I liked everything 👍</value>
+  </data>
+  <data name="txtWrongInputProduct" xml:space="preserve">
+    <value>Delete with just a click of a button!</value>
   </data>
   <data name="txtWrongQuantity" xml:space="preserve">
     <value>Invalid amount entered. Please enter a valid number!</value>

@@ -106,17 +106,34 @@ public partial class BotUpdateHandler
         if (int.TryParse(message.Text, out int quantity) && quantity > 0)
         {
             var product = selectedProduct[message.Chat.Id];
-            var cart = await cartService.GetByUserIdAsync(user[message.Chat.Id].Id, cancellationToken);
+            cart[message.Chat.Id] = await cartService.GetByUserIdAsync(user[message.Chat.Id].Id, cancellationToken);
+            var cartItem = await cartItemService.GetByProductIdAsync(product.Id, cancellationToken);
 
-            var cartItemDto = new CartItemCreationDTO
+            if (cartItem is null)
             {
-                Quantity = quantity,
-                ProductId = product.Id,
-                CartId = cart.Id,
-                Price = product.Price
-            };
+                var cartItemCreate = new CartItemCreationDTO
+                {
+                    Quantity = quantity,
+                    ProductId = product.Id,
+                    CartId = cart[message.Chat.Id].Id,
+                    Price = product.Price
+                };
 
-            var cartItem = await cartItemService.AddAsync(cartItemDto, cancellationToken);
+                cartItem = await cartItemService.AddAsync(cartItemCreate, cancellationToken);
+            }
+            else
+            {
+                var cartItemUpdate = new CartItemUpdateDTO
+                {
+                    Id = cartItem.Id,
+                    Quantity = cartItem.Quantity + quantity,
+                    ProductId = product.Id,
+                    CartId = cart[message.Chat.Id].Id,
+                    Price = cartItem.Price,
+                };
+
+                cartItem = await cartItemService.UpdateAsync(cartItemUpdate, cancellationToken);
+            }
 
             if (cartItem is not null)
             {
@@ -153,26 +170,16 @@ public partial class BotUpdateHandler
 
     private async Task HandleCartActionAsync(Message message, CancellationToken cancellationToken)
     {
-
-    }
-
-    private async Task HandleProductFromDeleteCartAsync(Message message, CancellationToken cancellationToken)
-    {
-        logger.LogInformation("HandleProductFromDeleteCartAsync is working..");
-        var productName = message.Text;
-
-        var wasDeleted = await cartItemService.DeleteByProductNameAsync(productName, cancellationToken);
-        if (wasDeleted)
+        var handle = message.Text switch
         {
-            await botClient.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: localizer["txtRemovedCartItem", productName],
-                cancellationToken: cancellationToken);
+            { } text when text.Contains("❌") => RequestProductFromDeleteCartAsync(message, cancellationToken),
+            { } text when text == localizer["btnClearCart"] => RequestCleanCartAsync(message, cancellationToken),
+            { } text when text == localizer["btnBack"] => SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken),
+            _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
+        };
 
-            if (cart.Items.Count == 1)
-                await DisplayCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
-            else
-                await HandleCartAsync(message, cancellationToken);
-        }
+        try { await handle; }
+        catch (Exception ex) { logger.LogError(ex,
+            "Error handling message from {user.FirstName}", user[message.Chat.Id].FirstName); }
     }
 }

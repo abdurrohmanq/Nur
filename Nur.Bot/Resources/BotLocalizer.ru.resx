@@ -207,8 +207,14 @@
   <data name="txtBad" xml:space="preserve">
     <value>Плохо 🚫</value>
   </data>
+  <data name="txtCartEmpty" xml:space="preserve">
+    <value>В корзине ничего нет</value>
+  </data>
   <data name="txtCartEmptyInfo" xml:space="preserve">
     <value>Ваша корзина пуста. Выберите товар для заказа!</value>
+  </data>
+  <data name="txtCartReleased" xml:space="preserve">
+    <value>Корзинка опустошена!</value>
   </data>
   <data name="txtCleanCartInfo" xml:space="preserve">
     <value>"❌ &lt;Название товара&gt; - удалить из корзины\n" +
@@ -228,6 +234,9 @@
   </data>
   <data name="txtEmptyCategory" xml:space="preserve">
     <value>Пока в этой категории нет продуктов.</value>
+  </data>
+  <data name="txtErrorDeleteCart" xml:space="preserve">
+    <value>Корзина не убиралась! Попробуйте еще раз, чтобы решить проблему!</value>
   </data>
   <data name="txtFeedback" xml:space="preserve">
     <value>Спасибо, что выбрали нас!
@@ -305,6 +314,9 @@
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>Все понравилось 👍</value>
+  </data>
+  <data name="txtWrongInputProduct" xml:space="preserve">
+    <value>Просто выключите его, нажав кнопку!</value>
   </data>
   <data name="txtWrongQuantity" xml:space="preserve">
     <value>Введена неправильная сумма. Пожалуйста, введите действительное число.</value>
