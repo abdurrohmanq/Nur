@@ -19,6 +19,7 @@ public partial class BotUpdateHandler
         userState = message.Text.Equals("/start") ? UserState.None : userState;
 
         if (message.Text.Equals(localizer["btnMainMenu"])) await SendMainMenuAsync(message, cancellationToken);
+        if (message.Text.Equals(localizer["btnBasket"])) await SendCartAsync(message, cancellationToken);
         var handler = userState switch
         {
             UserState.None => SendGreetingAsync(message, cancellationToken),

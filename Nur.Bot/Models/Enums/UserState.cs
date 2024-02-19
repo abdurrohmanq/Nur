@@ -15,4 +15,5 @@ public enum UserState
     WaitingForProductSelection,
     WaitingForHandleTextLocation,
     WaitingForQuantityInput,
+    WaitingForCartAction,
 }

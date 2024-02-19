@@ -177,4 +177,74 @@ public partial class BotUpdateHandler
 
         userStates[message.Chat.Id] = UserState.WaitingForQuantityInput;
     }
+
+    private async Task SendCartAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendCartAsync is working..");
+
+        var cart = await cartService.GetByUserIdAsync(user[message.Chat.Id].Id, cancellationToken);
+
+        var cartItems = await cartItemService.GetByCartIdAsync(cart.Id, cancellationToken);
+        if (cartItems.Count() > 0)
+        {
+            var cartItemsText = string.Join("\n\n", cartItems.Select(item => 
+            $"{item.Product.Name}: {item.Quantity} x {item.Price} = {item.Sum}"));
+            cartItemsText = localizer["btnBasket\n\n"] + cartItemsText;
+
+            var additionalButtons = new List<KeyboardButton>
+            {
+            new KeyboardButton(localizer["btnClearCart"]),
+            new KeyboardButton(localizer["btnPlaceOrder"]),
+            new KeyboardButton(localizer["btnBack"])
+            };
+
+            var allButtons = new List<KeyboardButton[]>();
+            var rowButtons = new List<KeyboardButton>();
+
+            foreach (var item in cartItems)
+            {
+                var button = new KeyboardButton($"❌ {item.Product.Name}");
+                rowButtons.Add(button);
+
+                if (rowButtons.Count == 2)
+                {
+                    allButtons.Add(rowButtons.ToArray());
+                    rowButtons.Clear();
+                }
+            }
+
+            if (rowButtons.Any())
+            {
+                allButtons.Add(rowButtons.ToArray());
+            }
+
+            allButtons.Add(additionalButtons.ToArray());
+
+            var replyKeyboard = new ReplyKeyboardMarkup(allButtons) { ResizeKeyboard = true };
+
+            cartItemsText += $"\n\n {localizer["txtTotalPrice", cart.TotalPrice]}";
+
+            await botClient.SendTextMessageAsync(
+               chatId: message.Chat.Id,
+               text: localizer["txtCleanCartInfo"],
+               cancellationToken: cancellationToken);
+
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: cartItemsText,
+                replyMarkup: replyKeyboard,
+                cancellationToken: cancellationToken);
+
+            userStates[message.Chat.Id] = UserState.WaitingForCartAction;
+        }
+        else
+        {
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtCartEmptyInfo"],
+                cancellationToken: cancellationToken);
+
+            await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+        }
+    }
 }

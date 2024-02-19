@@ -29,8 +29,11 @@ public class CartItemCreateCommandHandler(IMapper mapper,
         var product = await productRepository.SelectAsync(c => c.Id.Equals(request.ProductId))
             ?? throw new NotFoundException($"This product was not found with id: {request.ProductId}");
 
-        if (request.Quantity > product.Quantity)
-            return null;
+        if (product.Quantity != null)
+        {
+            if (request.Quantity > product.Quantity)
+                return null;
+        }
 
         var cartItem = mapper.Map<CartItem>(request);
         cartItem.Sum = (decimal)cartItem.Quantity * cartItem.Price;

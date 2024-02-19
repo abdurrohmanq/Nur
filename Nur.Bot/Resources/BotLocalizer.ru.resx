@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btnBack" xml:space="preserve">
-    <value>Назад</value>
+    <value>⬅️ Назад</value>
   </data>
   <data name="btnBasket" xml:space="preserve">
     <value>🛒 корзинка</value>
   </data>
   <data name="btnCancel" xml:space="preserve">
     <value>Отмена 🔴</value>
+  </data>
+  <data name="btnClearCart" xml:space="preserve">
+    <value>🧹 Уборка</value>
   </data>
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Доставка</value>
@@ -204,8 +207,18 @@
   <data name="txtBad" xml:space="preserve">
     <value>Плохо 🚫</value>
   </data>
+  <data name="txtCartEmptyInfo" xml:space="preserve">
+    <value>Ваша корзина пуста. Выберите товар для заказа!</value>
+  </data>
+  <data name="txtCleanCartInfo" xml:space="preserve">
+    <value>"❌ &lt;Название товара&gt; - удалить из корзины\n" +
+ "🧹 Уборка" - полностью опорожнить корзину",</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Вы можете позвонить &lt;&lt;+998905710460&gt;&gt;, чтобы связаться с нами!</value>
+  </data>
+  <data name="txtContinueOrder" xml:space="preserve">
+    <value>Продолжаем заказывать? 😋</value>
   </data>
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Ваше текущее имя: {0}</value>
@@ -244,6 +257,9 @@
   <data name="txtNotReceiveLocation" xml:space="preserve">
     <value>Адресная информация не найдена. Отправить снова!</value>
   </data>
+  <data name="txtOccureErrorInputQuantity" xml:space="preserve">
+    <value>Невозможно добавить товар в корзину! Попробуйте еще раз!</value>
+  </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>Номер введен с ошибкой!
 Пример: "+998901234567"</value>
@@ -253,6 +269,9 @@
   </data>
   <data name="txtReceiveLocation" xml:space="preserve">
     <value>Ваш адрес принят!</value>
+  </data>
+  <data name="txtRemovedCartItem" xml:space="preserve">
+    <value>{0} удалено из корзины!</value>
   </data>
   <data name="txtRequestForLocation" xml:space="preserve">
     <value>🚙 Куда доставить заказ?</value>
@@ -280,6 +299,9 @@
   </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Спасибо! Спасибо за ваши комментарии и отзывы!</value>
+  </data>
+  <data name="txtTotalPrice" xml:space="preserve">
+    <value>Итого: {0} Сум</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>Все понравилось 👍</value>

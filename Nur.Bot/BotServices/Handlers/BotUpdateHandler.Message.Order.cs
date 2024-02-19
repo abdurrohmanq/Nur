@@ -97,6 +97,12 @@ public partial class BotUpdateHandler
 
     private async Task HandleQuantityInputAsync(Message message, CancellationToken cancellationToken)
     {
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await SendProductsKeyboardAsync(message.Chat.Id, products[message.Chat.Id], cancellationToken);
+            return;
+        }
+
         if (int.TryParse(message.Text, out int quantity) && quantity > 0)
         {
             var product = selectedProduct[message.Chat.Id];
@@ -118,6 +124,13 @@ public partial class BotUpdateHandler
                     chatId: message.Chat.Id,
                     text: localizer["txtAddedProductInCart", quantity, product.Name],
                     cancellationToken: cancellationToken);
+                
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: localizer["txtContinueOrder"],
+                    cancellationToken: cancellationToken);
+
+                await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
             }
             else
             {
@@ -133,7 +146,33 @@ public partial class BotUpdateHandler
                 chatId: message.Chat.Id,
                 text: localizer["txtWrongQuantity"],
                 cancellationToken: cancellationToken);
+
+            await SendProductInputQuantityAsync(message, cancellationToken);
         }
     }
 
+    private async Task HandleCartActionAsync(Message message, CancellationToken cancellationToken)
+    {
+
+    }
+
+    private async Task HandleProductFromDeleteCartAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("HandleProductFromDeleteCartAsync is working..");
+        var productName = message.Text;
+
+        var wasDeleted = await cartItemService.DeleteByProductNameAsync(productName, cancellationToken);
+        if (wasDeleted)
+        {
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtRemovedCartItem", productName],
+                cancellationToken: cancellationToken);
+
+            if (cart.Items.Count == 1)
+                await DisplayCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+            else
+                await HandleCartAsync(message, cancellationToken);
+        }
+    }
 }

@@ -18,7 +18,14 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<CartItemResultDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<CartItemResultDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 
@@ -55,6 +62,20 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         return default!;
     }
 
+    public async Task<bool> DeleteByProductNameAsync(string productName, CancellationToken cancellationToken)
+    {
+        using var response = await httpClient.DeleteAsync($"delete-by-product-name?productName={productName}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            return default!;
+
+        var result = await response.Content.ReadFromJsonAsync<Response<bool>>(cancellationToken: cancellationToken);
+        if (result!.Status == 200)
+            return result.Data;
+
+        logger.LogInformation(message: result.Message);
+        return default!;
+    }
+
     public async Task<CartItemResultDTO> GetAsync(long id, CancellationToken cancellationToken)
     {
         using var response = await httpClient.GetAsync($"get/{id}", cancellationToken);
@@ -69,9 +90,9 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         return default!;
     }
 
-    public async Task<IEnumerable<CartItemResultDTO>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<CartItemResultDTO>> GetByCartIdAsync(long id, CancellationToken cancellationToken)
     {
-        using var response = await httpClient.GetAsync("get-all", cancellationToken);
+        using var response = await httpClient.GetAsync($"get-by-cart-id/{id}", cancellationToken);
         if (!response.IsSuccessStatusCode)
             return default!;
 
@@ -90,9 +111,9 @@ public class CartItemService(HttpClient httpClient, ILogger<CartItemService> log
         return default!;
     }
 
-    public async Task<IEnumerable<CartItemResultDTO>> GetByCartIdAsync(long id, CancellationToken cancellationToken)
+    public async Task<IEnumerable<CartItemResultDTO>> GetAllAsync(CancellationToken cancellationToken)
     {
-        using var response = await httpClient.GetAsync($"get-by-cart-id/{id}", cancellationToken);
+        using var response = await httpClient.GetAsync("get-all", cancellationToken);
         if (!response.IsSuccessStatusCode)
             return default!;
 

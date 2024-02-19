@@ -126,6 +126,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Bekor qilish 🔴</value>
   </data>
+  <data name="btnClearCart" xml:space="preserve">
+    <value>🧹 Tozalash</value>
+  </data>
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Yetkazib berish</value>
   </data>
@@ -207,8 +210,18 @@
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
   </data>
+  <data name="txtCartEmptyInfo" xml:space="preserve">
+    <value>Sizning savatingiz bo'sh. Buyurtma berish uchun mahsulot tanlang!</value>
+  </data>
+  <data name="txtCleanCartInfo" xml:space="preserve">
+    <value>"❌ &lt;Mahsulot nomi&gt; - savatdan o'chirish\n" +
+ "«🧹 Tozalash» - savatni butunlay bo'shatish"</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
+  </data>
+  <data name="txtContinueOrder" xml:space="preserve">
+    <value>Buyurtma berishda davom etamizmi? 😋</value>
   </data>
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Hozirgi ism sharifingiz: {0}</value>
@@ -246,6 +259,9 @@
   <data name="txtNotReceiveLocation" xml:space="preserve">
     <value>Manzil ma'lumotlari topilmadi. Qaytadan yuboring!</value>
   </data>
+  <data name="txtOccureErrorInputQuantity" xml:space="preserve">
+    <value>Mahsulotni savatga qo'shib bo'lmadi! Qaytadan urinib ko'ring!</value>
+  </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>Raqam xato kiritildi!
 Na'muna: "+998901234567"</value>
@@ -255,6 +271,9 @@ Na'muna: "+998901234567"</value>
   </data>
   <data name="txtReceiveLocation" xml:space="preserve">
     <value>Manzilingiz qabul qilindi!</value>
+  </data>
+  <data name="txtRemovedCartItem" xml:space="preserve">
+    <value>{0} savatdan o'chdi!</value>
   </data>
   <data name="txtRequestForLocation" xml:space="preserve">
     <value>Buyurtmangizni qayerga yetkazib berish kerak 🚙?</value>
@@ -282,6 +301,9 @@ Na'muna: "+998901234567"</value>
   </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Rahmat! Fikr va mulohazangiz uchun tashakkur!</value>
+  </data>
+  <data name="txtTotalPrice" xml:space="preserve">
+    <value>Jami: {0} so'm</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>Hammasi yoqdi 👍</value>

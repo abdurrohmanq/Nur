@@ -65,8 +65,11 @@ public class OrderUpdateCommandHandler(IMapper mapper,
         {
             foreach(var item in order.OrderItems)
             {
-                item.Product.Quantity -= item.Quantity;
-                productRepository.Update(item.Product);
+                if (item.Product.Quantity != null)
+                {
+                    item.Product.Quantity -= item.Quantity;
+                    productRepository.Update(item.Product);
+                }
             }
         }
         order = mapper.Map(request, order);

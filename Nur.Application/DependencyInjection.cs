@@ -130,6 +130,7 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<CartItemCreateCommand, CartItemDTO>, CartItemCreateCommandHandler>();
         services.AddScoped<IRequestHandler<CartItemUpdateCommand, CartItemDTO>, CartItemUpdateCommandHandler>();
         services.AddScoped<IRequestHandler<CartItemDeleteCommand, bool>, CartItemDeleteCommandHandler>();
+        services.AddScoped<IRequestHandler<CartItemDeleteByProductNameCommand, bool>, CartItemDeleteByProductNameCommandHandler>();
 
         services.AddScoped<IRequestHandler<GetCartItemQuery, CartItemDTO>, GetCartItemQueryHandler>();
         services.AddScoped<IRequestHandler<GetByCartIdQuery, IEnumerable<CartItemDTO>>, GetByCartIdQueryHandler>();

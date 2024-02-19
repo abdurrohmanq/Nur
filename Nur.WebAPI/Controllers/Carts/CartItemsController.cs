@@ -20,6 +20,10 @@ public class CartItemsController(IMediator mediator) : BaseController
     [HttpDelete("delete/{id:long}")]
     public async Task<IActionResult> DeleteAsync(long id, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new CartItemDeleteCommand(id), cancellationToken) });
+    
+    [HttpDelete("delete-by-product-name")]
+    public async Task<IActionResult> DeleteByProductNameAsync(string productName, CancellationToken cancellationToken)
+        => Ok(new Response { Data = await mediator.Send(new CartItemDeleteByProductNameCommand(productName), cancellationToken) });
 
     [HttpGet("get/{id:long}")]
     public async Task<IActionResult> GetAsync(long id, CancellationToken cancellationToken)

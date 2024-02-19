@@ -126,6 +126,9 @@
   <data name="btnCancel" xml:space="preserve">
     <value>Cancel 🔴</value>
   </data>
+  <data name="btnClearCart" xml:space="preserve">
+    <value>🧹 Cleaning</value>
+  </data>
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Delivery</value>
   </data>
@@ -204,8 +207,18 @@
   <data name="txtBad" xml:space="preserve">
     <value>Bad 🚫</value>
   </data>
+  <data name="txtCartEmptyInfo" xml:space="preserve">
+    <value>Your cart is empty. Choose a product to order!</value>
+  </data>
+  <data name="txtCleanCartInfo" xml:space="preserve">
+    <value>"❌ &lt;Product name&gt; - remove from cart\n" +
+"🧹 Cleaning" - completely empty the basket",</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>You can call &lt;&lt;+998905710460&gt;&gt; to contact us!</value>
+  </data>
+  <data name="txtContinueOrder" xml:space="preserve">
+    <value>Do we continue to order? 😋</value>
   </data>
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Your current full name: {0}</value>
@@ -244,6 +257,9 @@ Leave a comment or rate our service!</value>
   <data name="txtNotReceiveLocation" xml:space="preserve">
     <value>No address information found. Send it again!</value>
   </data>
+  <data name="txtOccureErrorInputQuantity" xml:space="preserve">
+    <value>Could not add product to cart! Please try again!</value>
+  </data>
   <data name="txtPhoneError" xml:space="preserve">
     <value>The number was entered incorrectly!
 Example: "+998901234567"</value>
@@ -253,6 +269,9 @@ Example: "+998901234567"</value>
   </data>
   <data name="txtReceiveLocation" xml:space="preserve">
     <value>Your address has been accepted!</value>
+  </data>
+  <data name="txtRemovedCartItem" xml:space="preserve">
+    <value>{0} removed from cart!</value>
   </data>
   <data name="txtRequestForLocation" xml:space="preserve">
     <value>Where should your order be delivered 🚙?</value>
@@ -280,6 +299,9 @@ Example: "+998901234567"</value>
   </data>
   <data name="txtThankFeedback" xml:space="preserve">
     <value>Thank you! Thanks for your thoughts and feedback!</value>
+  </data>
+  <data name="txtTotalPrice" xml:space="preserve">
+    <value>Total: {0} soums</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>I liked everything 👍</value>
