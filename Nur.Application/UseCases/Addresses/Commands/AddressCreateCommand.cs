@@ -21,15 +21,7 @@ public class AddressCreateCommandHandler(IMapper mapper,
 {
     public async Task<AddressDTO> Handle(AddressCreateCommand request, CancellationToken cancellationToken)
     {
-        var address = await repository.SelectAsync(a => a.Street.ToLower().Equals(request.Street.ToLower())
-                           && a.City.ToLower().Equals(request.Street.ToLower())
-                           && a.State.ToLower().Equals(request.State.ToLower())
-                           && a.DoorCode.ToLower().Equals(request.DoorCode.ToLower()));
-
-        if (address != null)
-            return mapper.Map<AddressDTO>(address);
-
-        address = mapper.Map<Address>(request);
+        var address = mapper.Map<Address>(request);
         await repository.InsertAsync(address);
         await repository.SaveAsync();
 

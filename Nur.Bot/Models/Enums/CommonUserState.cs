@@ -3,5 +3,6 @@
 public enum CommonUserState
 {
     None,
-    CreatingUser
+    CreatingUser,
+    WaitingForAdminConfirmation
 }

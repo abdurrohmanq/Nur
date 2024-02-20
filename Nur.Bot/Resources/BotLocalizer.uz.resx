@@ -296,11 +296,21 @@ Biznnig manzil 👇</value>
   <data name="txtOccureErrorInputQuantity" xml:space="preserve">
     <value>Mahsulotni savatga qo'shib bo'lmadi! Qaytadan urinib ko'ring!</value>
   </data>
+  <data name="txtOnRoad" xml:space="preserve">
+    <value>Buyurtma yo'lda...
+Bir necha daqiqada yetib boradi!</value>
+  </data>
+  <data name="txtOrderCancel" xml:space="preserve">
+    <value>Buyurtma bekor qilindi.</value>
+  </data>
   <data name="txtOrderType" xml:space="preserve">
     <value>Buyurtma turi:</value>
   </data>
   <data name="txtPaymentType" xml:space="preserve">
     <value>💴 To'lov turi:</value>
+  </data>
+  <data name="txtPendingOrder" xml:space="preserve">
+    <value>Buyurtma kutish holatiga o'tkazildi. Iltimos biroz kuting.</value>
   </data>
   <data name="txtPhone" xml:space="preserve">
     <value>☎️ Telefon:</value>
@@ -308,6 +318,12 @@ Biznnig manzil 👇</value>
   <data name="txtPhoneError" xml:space="preserve">
     <value>Raqam xato kiritildi!
 Na'muna: "+998901234567"</value>
+  </data>
+  <data name="txtPrepared" xml:space="preserve">
+    <value>Buyurtma tayyor! Tez orada yetkazib beriladi.</value>
+  </data>
+  <data name="txtPreparing" xml:space="preserve">
+    <value>Buyurtma tayyorlanyapti. Tez orada yetkaziladi.</value>
   </data>
   <data name="txtProductPrice" xml:space="preserve">
     <value>💰 *Narxi:* {0}</value>

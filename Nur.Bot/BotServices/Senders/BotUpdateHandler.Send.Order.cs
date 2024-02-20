@@ -335,6 +335,7 @@ public partial class BotUpdateHandler
         }
     }
 
+    public Dictionary<long, OrderResultDTO> order = new Dictionary<long, OrderResultDTO>();
     public async Task SendOrderToAdminAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("SendOrderToAdminAsync is working...");
@@ -356,7 +357,7 @@ public partial class BotUpdateHandler
             createOrder[message.Chat.Id].PaymentId = createdPayment.Id;
             createOrder[message.Chat.Id].Status = Status.Pending;
 
-            var order = await orderService.AddAsync(createOrder[message.Chat.Id], cancellationToken);
+            order[message.Chat.Id] = await orderService.AddAsync(createOrder[message.Chat.Id], cancellationToken);
             var cartItems = cart[message.Chat.Id].CartItems;
 
             foreach (var cartItem in cartItems)
@@ -366,7 +367,7 @@ public partial class BotUpdateHandler
                     Quantity = cartItem.Quantity,
                     Price = cartItem.Price,
                     Sum = cartItem.Sum,
-                    OrderId = order.Id, 
+                    OrderId = order[message.Chat.Id].Id, 
                     ProductId = cartItem.Product.Id,
                 };
 
@@ -390,7 +391,7 @@ public partial class BotUpdateHandler
                 replyMarkup: keyboard,
                 cancellationToken: cancellationToken);
 
-            if(order.Address.Id != 0)
+            if(order[message.Chat.Id].Address.Id != 0)
             {
                 await botClient.SendTextMessageAsync(
                 chatId: "@NurOrders",
@@ -398,13 +399,18 @@ public partial class BotUpdateHandler
                 replyToMessageId: orderMessage.MessageId,
                 cancellationToken: cancellationToken);
 
+                double latitude = order[message.Chat.Id].Address.Latitude / 1000000.0; 
+                double longitude = order[message.Chat.Id].Address.Longitude / 1000000.0; 
+
+
                 await botClient.SendLocationAsync(
                 chatId: "@NurOrders",
-                latitude: order.Address.Latitude,
-                longitude: order.Address.Longitude,
+                latitude: latitude,
+                longitude: longitude,
                 cancellationToken: cancellationToken);
             }
 
+            userStates[orderMessage.Chat.Id] = UserState.WaitingForAdminConfirmation;
         }
         else if (message.Text.Equals(localizer["btnCancel"]))
         {

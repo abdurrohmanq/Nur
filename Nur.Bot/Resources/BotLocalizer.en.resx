@@ -293,11 +293,21 @@ Our address is 👇</value>
   <data name="txtOccureErrorInputQuantity" xml:space="preserve">
     <value>Could not add product to cart! Please try again!</value>
   </data>
+  <data name="txtOnRoad" xml:space="preserve">
+    <value>Order on the way...
+Arrives in minutes!</value>
+  </data>
+  <data name="txtOrderCancel" xml:space="preserve">
+    <value>Order cancelled.</value>
+  </data>
   <data name="txtOrderType" xml:space="preserve">
     <value>Order type:</value>
   </data>
   <data name="txtPaymentType" xml:space="preserve">
     <value>💴 Payment type:</value>
+  </data>
+  <data name="txtPendingOrder" xml:space="preserve">
+    <value>The order has been placed on pending. Please wait a moment.</value>
   </data>
   <data name="txtPhone" xml:space="preserve">
     <value>☎️ Phone:</value>
@@ -305,6 +315,12 @@ Our address is 👇</value>
   <data name="txtPhoneError" xml:space="preserve">
     <value>The number was entered incorrectly!
 Example: "+998901234567"</value>
+  </data>
+  <data name="txtPrepared" xml:space="preserve">
+    <value>The order is ready! Will be delivered soon.</value>
+  </data>
+  <data name="txtPreparing" xml:space="preserve">
+    <value>Order is being prepared. Will be delivered soon.</value>
   </data>
   <data name="txtProductPrice" xml:space="preserve">
     <value>💰 *Price:* {0}</value>

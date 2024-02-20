@@ -295,11 +295,21 @@
   <data name="txtOccureErrorInputQuantity" xml:space="preserve">
     <value>Невозможно добавить товар в корзину! Попробуйте еще раз!</value>
   </data>
+  <data name="txtOnRoad" xml:space="preserve">
+    <value>Заказ уже в пути...
+Достигается за считанные минуты!</value>
+  </data>
+  <data name="txtOrderCancel" xml:space="preserve">
+    <value>Приказ был отменен.</value>
+  </data>
   <data name="txtOrderType" xml:space="preserve">
     <value>Тип заказа:</value>
   </data>
   <data name="txtPaymentType" xml:space="preserve">
     <value>💴 Тип оплаты:</value>
+  </data>
+  <data name="txtPendingOrder" xml:space="preserve">
+    <value>Заказ был переведен в режим ожидания. Пожалуйста, подождите немного.</value>
   </data>
   <data name="txtPhone" xml:space="preserve">
     <value>☎️ Телефон</value>
@@ -307,6 +317,12 @@
   <data name="txtPhoneError" xml:space="preserve">
     <value>Номер введен с ошибкой!
 Пример: "+998901234567"</value>
+  </data>
+  <data name="txtPrepared" xml:space="preserve">
+    <value>Заказ готов! Скоро будет доставлено.</value>
+  </data>
+  <data name="txtPreparing" xml:space="preserve">
+    <value>Заказ готовится. Скоро будет доставлено.</value>
   </data>
   <data name="txtProductPrice" xml:space="preserve">
     <value>💰 *Цена:* {0}</value>
