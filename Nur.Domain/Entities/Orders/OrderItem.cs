@@ -14,7 +14,4 @@ public class OrderItem : Auditable
 
     public long ProductId { get; set; }
     public Product Product { get; set; }
-
-    public long CartItemId { get; set; }
-    public CartItem CartItem { get; set; }
 }

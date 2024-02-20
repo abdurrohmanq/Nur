@@ -280,17 +280,21 @@ public partial class BotUpdateHandler
                         replyMarkup: replyKeyboard,
                         cancellationToken: cancellationToken);
 
-            await botClient.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: localizer["txtTakeAwayLocation"],
-                        replyMarkup: replyKeyboard,
-                        cancellationToken: cancellationToken);
+            if (createOrder[message.Chat.Id].OrderType == OrderType.TakeAway)
+            {
 
-            await botClient.SendLocationAsync(
-                chatId: message.Chat.Id,
-                latitude: 40.72803040927073,
-                longitude: 72.31086991903557,
-                cancellationToken: cancellationToken);
+                await botClient.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: localizer["txtTakeAwayLocation"],
+                            replyMarkup: replyKeyboard,
+                            cancellationToken: cancellationToken);
+
+                await botClient.SendLocationAsync(
+                    chatId: message.Chat.Id,
+                    latitude: 40.72803040927073,
+                    longitude: 72.31086991903557,
+                    cancellationToken: cancellationToken);
+            }
 
             orderText[message.Chat.Id] = cartItemsText;
         }

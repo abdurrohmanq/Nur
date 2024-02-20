@@ -8,5 +8,4 @@ public class OrderItemUpdateDTO
     public decimal Sum { get; set; }
     public long OrderId { get; set; }
     public long ProductId { get; set; }
-    public long CartItemId { get; set; }
 }

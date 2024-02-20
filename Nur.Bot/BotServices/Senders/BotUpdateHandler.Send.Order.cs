@@ -368,10 +368,9 @@ public partial class BotUpdateHandler
                     Sum = cartItem.Sum,
                     OrderId = order.Id, 
                     ProductId = cartItem.Product.Id,
-                    CartItemId = cartItem.Id
                 };
 
-                await orderItemService.AddAsync(orderItem, cancellationToken);
+                var result =await orderItemService.AddAsync(orderItem, cancellationToken);
             }
 
             await cartItemService.DeleteAllAsync(cart[message.Chat.Id].Id, cancellationToken);
@@ -385,11 +384,26 @@ public partial class BotUpdateHandler
                     orderText[message.Chat.Id].Substring(startIndex + remove.Length);
                 orderText[message.Chat.Id] = result;
             }
-            await botClient.SendTextMessageAsync(
+            var orderMessage = await botClient.SendTextMessageAsync(
                 chatId: "@NurOrders",
                 text: orderText[message.Chat.Id],
                 replyMarkup: keyboard,
                 cancellationToken: cancellationToken);
+
+            if(order.Address.Id != 0)
+            {
+                await botClient.SendTextMessageAsync(
+                chatId: "@NurOrders",
+                text: "lokatsiya 👇",
+                replyToMessageId: orderMessage.MessageId,
+                cancellationToken: cancellationToken);
+
+                await botClient.SendLocationAsync(
+                chatId: "@NurOrders",
+                latitude: order.Address.Latitude,
+                longitude: order.Address.Longitude,
+                cancellationToken: cancellationToken);
+            }
 
         }
         else if (message.Text.Equals(localizer["btnCancel"]))

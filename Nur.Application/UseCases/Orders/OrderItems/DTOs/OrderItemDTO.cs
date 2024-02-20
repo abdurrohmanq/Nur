@@ -1,6 +1,5 @@
 ﻿using Nur.Application.UseCases.Orders.DTOs;
 using Nur.Application.UseCases.Products.DTOs;
-using Nur.Application.UseCases.Carts.CartItems.DTOs;
 
 namespace Nur.Application.UseCases.Orders.OrderItems.DTOs;
 
@@ -13,5 +12,4 @@ public class OrderItemDTO
 
     public OrderDTO Order { get; set; }
     public ProductDTO Product { get; set; }
-    public CartItemDTO CartItem { get; set; }
 }

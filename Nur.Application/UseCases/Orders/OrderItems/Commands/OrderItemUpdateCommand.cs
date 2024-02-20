@@ -16,13 +16,11 @@ public class OrderItemUpdateCommand : IRequest<OrderItemDTO>
     public decimal Sum { get; set; }
     public long OrderId { get; set; }
     public long ProductId { get; set; }
-    public long CartItemId { get; set; }
 }
 
 public class OrderItemUpdateCommandHandler(IMapper mapper,
     IRepository<Order> orderRepository,
     IRepository<Product> productRepository,
-    IRepository<CartItem> cartItemRepository,
     IRepository<OrderItem> orderItemRepository) : IRequestHandler<OrderItemUpdateCommand, OrderItemDTO>
 {
     public async Task<OrderItemDTO> Handle(OrderItemUpdateCommand request, CancellationToken cancellationToken)
@@ -40,12 +38,6 @@ public class OrderItemUpdateCommandHandler(IMapper mapper,
         {
             orderItem.Product = await productRepository.SelectAsync(u => u.Id.Equals(request.ProductId))
                 ?? throw new NotFoundException($"This product was not found with id: {request.ProductId}");
-        }
-
-        if (orderItem.CartItemId != request.CartItemId)
-        {
-            orderItem.CartItem = await cartItemRepository.SelectAsync(u => u.Id.Equals(request.CartItemId))
-                ?? throw new NotFoundException($"This cart Item was not found with id: {request.CartItemId}");
         }
 
         orderItem = mapper.Map(request, orderItem);

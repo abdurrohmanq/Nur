@@ -12,5 +12,4 @@ public class OrderItemResultDTO
     public decimal Sum { get; set; }
     public OrderResultDTO Order { get; set; }
     public ProductResultDTO Product { get; set; }
-    public CartItemResultDTO CartItem { get; set; }
 }

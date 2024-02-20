@@ -15,13 +15,11 @@ public class OrderItemCreateCommand : IRequest<OrderItemDTO>
     public decimal Sum { get; set; }
     public long OrderId { get; set; }
     public long ProductId { get; set; }
-    public long CartItemId { get; set; }
 }
 
 public class OrderItemCreateCommandHandler(IMapper mapper,
     IRepository<Order> orderRepository,
     IRepository<Product> productRepository,
-    IRepository<CartItem> cartItemRepository,
     IRepository<OrderItem> orderItemRepository) : IRequestHandler<OrderItemCreateCommand, OrderItemDTO>
 {
     public async Task<OrderItemDTO> Handle(OrderItemCreateCommand request, CancellationToken cancellationToken)
@@ -32,10 +30,9 @@ public class OrderItemCreateCommandHandler(IMapper mapper,
         var product = await productRepository.SelectAsync(o => o.Id.Equals(request.ProductId))
             ?? throw new NotFoundException($"This product was not found with id: {request.ProductId}");
 
-        var cartItem = await cartItemRepository.SelectAsync(c => c.Id.Equals(request.CartItemId))
-            ?? throw new NotFoundException($"This cartItem was not found with id: {request.CartItemId}");
-
         var orderItem = mapper.Map<OrderItem>(request);
+        orderItem.Product = product;
+        orderItem.Order = order;
 
         await orderItemRepository.InsertAsync(orderItem);
         await orderItemRepository.SaveAsync();
