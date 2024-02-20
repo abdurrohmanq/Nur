@@ -12,7 +12,7 @@ public class OrderResultDTO
     public DateTime StartAt { get; set; }
     public DateTime EndAt { get; set; }
     public Status Status { get; set; }
-    public decimal DeliveryFee { get; set; }
+    public decimal? DeliveryFee { get; set; }
     public decimal TotalPrice { get; set; }
     public OrderType OrderType { get; set; }
     public string Description { get; set; }

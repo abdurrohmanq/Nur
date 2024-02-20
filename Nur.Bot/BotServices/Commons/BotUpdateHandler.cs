@@ -18,7 +18,9 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
     IOrderService orderService,
     IAddressService addressService,
     IProductService productService,
+    IPaymentService paymentService,
     ICartItemService cartItemService,
+    IOrderItemService orderItemService,
     IProductCategoryService categoryService) : IUpdateHandler
 {
     private IStringLocalizer localizer = default!;

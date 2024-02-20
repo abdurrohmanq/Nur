@@ -3,6 +3,7 @@ using Telegram.Bot.Types;
 using Nur.Bot.Models.Enums;
 using Nur.APIService.Constants;
 using Telegram.Bot.Types.ReplyMarkups;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Nur.Bot.BotServices;
 
@@ -32,7 +33,6 @@ public partial class BotUpdateHandler
 
             commonUserStates[message.Chat.Id] = CommonUserState.CreatingUser;
             userStates[message.Chat.Id] = UserState.WaitingForSelectLanguage;
-
         }
         else
             await SendMainMenuAsync(message, cancellationToken);
@@ -119,12 +119,6 @@ public partial class BotUpdateHandler
             text: localizer["txtContactInfo"],
             cancellationToken: cancellationToken
         );
-
-        await botClient.SendLocationAsync(
-            chatId: message.Chat.Id,
-            latitude: 41.31255776545841,
-            longitude: 69.24048566441775,
-            cancellationToken: cancellationToken);
     }
 
     private async Task ShowFeedbackAsync(Message message, CancellationToken cancellationToken)
@@ -159,6 +153,12 @@ public partial class BotUpdateHandler
                 chatId: message.Chat.Id,
                 text: localizer["txtInfo"],
                 cancellationToken: cancellationToken);
+
+        await botClient.SendLocationAsync(
+            chatId: message.Chat.Id,
+            latitude: 40.72803040927073,
+            longitude: 72.31086991903557,
+            cancellationToken: cancellationToken);
     }
 
     private async Task SendMenuSettingsAsync(Message message, CancellationToken cancellationToken)

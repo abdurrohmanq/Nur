@@ -219,6 +219,9 @@
   <data name="txtAddedProductInCart" xml:space="preserve">
     <value>{0} ta {1} savatga qo'shildi!</value>
   </data>
+  <data name="txtAnew" xml:space="preserve">
+    <value>Qaytadan boshlaymizmi?</value>
+  </data>
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
   </data>
@@ -263,7 +266,11 @@
     <value>Yaxshi ✨</value>
   </data>
   <data name="txtInfo" xml:space="preserve">
-    <value>Bu Nur oshxonasi Telegram boti!</value>
+    <value>Nur cafe milliy va parxez taomlar markazi. 
+
+[Instagram](https://www.instagram.com/nur_kafe_andijon/)  
+[Facebook](https://www.facebook.com/nur.parxez/?show_switched_toast=0&amp;show_invite_to_follow=0&amp;show_switched_tooltip=0&amp;show_podcast_settings=0&amp;show_community_review_changes=0&amp;show_community_rollback=0&amp;show_follower_visibility_disclosure=0)  
+Biznnig manzil 👇</value>
   </data>
   <data name="txtInputProductQuantity" xml:space="preserve">
     <value>Tanlangan mahsulot miqdorini kiriting yoki quyidagi tugmalardan birini tanlang!</value>
@@ -334,6 +341,9 @@ Na'muna: "+998901234567"</value>
   </data>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Sozlamalar</value>
+  </data>
+  <data name="txtTakeAwayLocation" xml:space="preserve">
+    <value>Nur cafe manzili 👇</value>
   </data>
   <data name="txtTextLocation" xml:space="preserve">
     <value>Manzilni matn ko'rinishida kiritish mumkin emas!</value>

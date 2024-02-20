@@ -9,6 +9,7 @@ using Nur.Domain.Entities.Suppliers;
 using Nur.Domain.Entities.Addresses;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Orders.DTOs;
+using Nur.Application.Commons.Helpers;
 
 namespace Nur.Application.UseCases.Orders.Commands;
 
@@ -17,7 +18,7 @@ public class OrderCreateCommand : IRequest<OrderDTO>
     public DateTime StartAt { get; set; }
     public DateTime EndAt { get; set; }
     public Status Status { get; set; }
-    public decimal DeliveryFee { get; set; }
+    public decimal? DeliveryFee { get; set; }
     public decimal TotalPrice { get; set; }
     public OrderType OrderType { get; set; }
     public string Description { get; set; }
@@ -47,6 +48,8 @@ public class OrderCreateCommandHandler(IMapper mapper,
         
         var payment = await paymentRepository.SelectAsync(u => u.Id.Equals(request.PaymentId))
             ?? throw new NotFoundException($"This payment was not found with id: {request.PaymentId}");
+
+        request.StartAt = TimeHelper.GetDateTime();
 
         var entity = mapper.Map<Order>(request);
         entity.User = user;

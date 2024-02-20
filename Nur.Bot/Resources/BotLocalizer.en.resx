@@ -216,6 +216,9 @@
   <data name="txtAddedProductInCart" xml:space="preserve">
     <value>{0} {1} added to cart!</value>
   </data>
+  <data name="txtAnew" xml:space="preserve">
+    <value>Shall we start over?</value>
+  </data>
   <data name="txtBad" xml:space="preserve">
     <value>Bad 🚫</value>
   </data>
@@ -261,7 +264,10 @@ Leave a comment or rate our service!</value>
     <value>Good ✨</value>
   </data>
   <data name="txtInfo" xml:space="preserve">
-    <value>This is Nur National foods Telegram bot!</value>
+    <value>Nur Cafe is a national and dietary food center.
+[Instagram](https://www.instagram.com/nur_kafe_andijon/)  
+[Facebook](https://www.facebook.com/nur.parxez/?show_switched_toast=0&amp;show_invite_to_follow=0&amp;show_switched_tooltip=0&amp;show_podcast_settings=0&amp;show_community_review_changes=0&amp;show_community_rollback=0&amp;show_follower_visibility_disclosure=0)  
+Our address is 👇</value>
   </data>
   <data name="txtInputProductQuantity" xml:space="preserve">
     <value>Enter the quantity of the selected product or select one of the buttons below!</value>
@@ -332,6 +338,9 @@ Example: "+998901234567"</value>
   </data>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Settings</value>
+  </data>
+  <data name="txtTakeAwayLocation" xml:space="preserve">
+    <value>Nur cafe location 👇</value>
   </data>
   <data name="txtTextLocation" xml:space="preserve">
     <value>Address in text view is not possible!</value>

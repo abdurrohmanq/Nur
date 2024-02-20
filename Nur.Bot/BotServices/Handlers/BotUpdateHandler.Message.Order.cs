@@ -221,6 +221,7 @@ public partial class BotUpdateHandler
     }
 
     private Dictionary<long, PaymentCreationDTO> payment = new Dictionary<long, PaymentCreationDTO>();
+    private Dictionary<long, string> orderText = new Dictionary<long, string>();
     private async Task HandlePaymentMethodAsync(Message message, CancellationToken cancellationToken)
     {
         payment[message.Chat.Id] = new PaymentCreationDTO();
@@ -254,6 +255,7 @@ public partial class BotUpdateHandler
             $"{paymentType}\n\n {localizer["txtComments"]} {createOrder[message.Chat.Id].Description}\n\n" + cartItemsText;
         cartItemsText += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
 
+        payment[message.Chat.Id].Amount = cart[message.Chat.Id].TotalPrice;
         var replyKeyboard = new ReplyKeyboardMarkup(new[]
         {
             new[] {new KeyboardButton(localizer["btnConfirmation"]) },
@@ -263,12 +265,27 @@ public partial class BotUpdateHandler
             ResizeKeyboard = true
         };
 
-        userStates[message.Chat.Id] = UserState.WaitingForOrderSaveAction;
+        userStates[message.Chat.Id] = UserState.WaitingForOrderSendToAdminAction;
+
 
         await botClient.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: cartItemsText,
                     replyMarkup: replyKeyboard,
                     cancellationToken: cancellationToken);
+        
+        await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: localizer["txtTakeAwayLocation"],
+                    replyMarkup: replyKeyboard,
+                    cancellationToken: cancellationToken);
+
+        await botClient.SendLocationAsync(
+            chatId: message.Chat.Id,
+            latitude: 40.72803040927073,
+            longitude: 72.31086991903557,
+            cancellationToken: cancellationToken);
+
+        orderText[message.Chat.Id] = cartItemsText;
     }
 }

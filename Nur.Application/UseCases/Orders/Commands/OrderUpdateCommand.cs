@@ -10,6 +10,7 @@ using Nur.Domain.Entities.Suppliers;
 using Nur.Domain.Entities.Addresses;
 using Nur.Application.Commons.Interfaces;
 using Nur.Application.UseCases.Orders.DTOs;
+using Nur.Application.Commons.Helpers;
 
 namespace Nur.Application.UseCases.Orders.Commands;
 
@@ -19,7 +20,7 @@ public class OrderUpdateCommand : IRequest<OrderDTO>
     public DateTime StartAt { get; set; }
     public DateTime EndAt { get; set; }
     public Status Status { get; set; }
-    public decimal DeliveryFee { get; set; }
+    public decimal? DeliveryFee { get; set; }
     public decimal TotalPrice { get; set; }
     public OrderType OrderType { get; set; }
     public string Description { get; set; }
@@ -73,6 +74,8 @@ public class OrderUpdateCommandHandler(IMapper mapper,
                     productRepository.Update(item.Product);
                 }
             }
+
+            request.EndAt = TimeHelper.GetDateTime();
         }
         order = mapper.Map(request, order);
         orderRepository.Update(order);

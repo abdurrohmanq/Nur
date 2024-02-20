@@ -41,7 +41,6 @@ public class CartItemCreateCommandHandler(IMapper mapper,
         cartItem.Cart = cart;
         cartItem.Product = product;
 
-        cartRepository.Update(cart);
         await cartItemRepository.InsertAsync(cartItem);
         await cartItemRepository.SaveAsync();
 

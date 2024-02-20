@@ -6,6 +6,7 @@ using Nur.APIService.Models.Orders;
 using Telegram.Bot.Types.ReplyMarkups;
 using Nur.APIService.Models.Products;
 using Nur.APIService.Models.Carts;
+using Nur.APIService.Models.OrderItems;
 
 namespace Nur.Bot.BotServices;
 
@@ -333,6 +334,60 @@ public partial class BotUpdateHandler
             cancellationToken: cancellationToken);
 
             await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+        }
+    }
+
+    public async Task SendOrderToAdminAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendOrderToAdminAsync is working...");
+
+        if (message.Text.Equals(localizer["btnConfirmation"]))
+        {
+            var keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
+                [InlineKeyboardButton.WithCallbackData("Kutish kerak", "btnPending")],
+                [InlineKeyboardButton.WithCallbackData("Tayyorlanyapti", "btnPreparing")],
+                [InlineKeyboardButton.WithCallbackData("Tayyor yetkazib beriladi", "btnPrepared")],
+                [InlineKeyboardButton.WithCallbackData("Yo'lda", "btnOnRoad")],
+                [InlineKeyboardButton.WithCallbackData("Yetkazib berildi", "btnDelivered")],
+                [InlineKeyboardButton.WithCallbackData("Bekor qilish", "btnCancel")] });
+
+            var createdPayment = await paymentService.AddAsync(payment[message.Chat.Id], cancellationToken);
+            createOrder[message.Chat.Id].PaymentId = createdPayment.Id;
+
+            var order = await orderService.AddAsync(createOrder[message.Chat.Id], cancellationToken);
+            var cartItems = cart[message.Chat.Id].CartItems;
+
+            foreach (var cartItem in cartItems)
+            {
+                var orderItem = new OrderItemCreationDTO
+                {
+                    Quantity = cartItem.Quantity,
+                    Price = cartItem.Price,
+                    Sum = cartItem.Sum,
+                    OrderId = order.Id, 
+                    ProductId = cartItem.Product.Id,
+                    CartItemId = cartItem.Id
+                };
+
+                await orderItemService.AddAsync(orderItem, cancellationToken);
+            }
+
+            await cartItemService.DeleteAllAsync(cart[message.Chat.Id].Id, cancellationToken);
+
+            await botClient.SendTextMessageAsync(
+                chatId: "@NurOrders",
+                text: orderText[message.Chat.Id],
+                replyMarkup: keyboard,
+                cancellationToken: cancellationToken);
+        }
+        else if (message.Text.Equals(localizer["btnCancel"]))
+        {
+            await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+
+            await botClient.SendTextMessageAsync(
+                   chatId: message.Chat.Id,
+                   text: localizer["txtAnew"],
+                   cancellationToken: cancellationToken);
         }
     }
 }

@@ -39,6 +39,7 @@ public partial class BotUpdateHandler
             UserState.WaitingForCartAction => HandleCartActionAsync(message, cancellationToken),
             UserState.WaitingForCommentAction => HandleDescriptionAsync(message, cancellationToken),
             UserState.WaitingForPaymentTypeAction => HandlePaymentMethodAsync(message, cancellationToken),
+            UserState.WaitingForOrderSendToAdminAction => SendOrderToAdminAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

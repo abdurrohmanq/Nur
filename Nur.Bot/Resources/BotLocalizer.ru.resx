@@ -216,6 +216,9 @@
   <data name="txtAddedProductInCart" xml:space="preserve">
     <value>{0} {1} добавлены в корзину!</value>
   </data>
+  <data name="txtAnew" xml:space="preserve">
+    <value>Начнем заново?</value>
+  </data>
   <data name="txtBad" xml:space="preserve">
     <value>Плохо 🚫</value>
   </data>
@@ -229,8 +232,8 @@
     <value>Корзинка опустошена!</value>
   </data>
   <data name="txtCleanCartInfo" xml:space="preserve">
-    <value>"❌ &lt;Название товара&gt; - удалить из корзины\n" +
- "🧹 Уборка" - полностью опорожнить корзину",</value>
+    <value>❌ &lt;Название товара&gt; - удалить из корзины
+🧹 Уборка" - полностью опорожнить корзину,</value>
   </data>
   <data name="txtComments" xml:space="preserve">
     <value>Примечания:</value>
@@ -261,7 +264,12 @@
     <value>Хорошо ✨</value>
   </data>
   <data name="txtInfo" xml:space="preserve">
-    <value>Это Телеграмм-бот Нур столовая!</value>
+    <value>NUR Cafe-это центр национального и диетического питания. 
+
+[Instagram](https://www.instagram.com/nur_kafe_andijon/)  
+[Facebook](https://www.facebook.com/nur.parxez/?show_switched_toast=0&amp;show_invite_to_follow=0&amp;show_switched_tooltip=0&amp;show_podcast_settings=0&amp;show_community_review_changes=0&amp;show_community_rollback=0&amp;show_follower_visibility_disclosure=0)  
+
+Наш адрес 👇</value>
   </data>
   <data name="txtInputProductQuantity" xml:space="preserve">
     <value>Введите выбранное количество продукта или выберите одну из кнопок ниже!</value>
@@ -332,6 +340,9 @@
   </data>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Настройки</value>
+  </data>
+  <data name="txtTakeAwayLocation" xml:space="preserve">
+    <value>Кафе "Нур адрес" 👇</value>
   </data>
   <data name="txtTextLocation" xml:space="preserve">
     <value>Адрес нельзя вводить в текстовом виде!</value>

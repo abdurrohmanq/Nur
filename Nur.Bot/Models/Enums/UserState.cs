@@ -18,5 +18,5 @@ public enum UserState
     WaitingForCartAction,
     WaitingForCommentAction,
     WaitingForPaymentTypeAction,
-    WaitingForOrderSaveAction,
+    WaitingForOrderSendToAdminAction,
 }
