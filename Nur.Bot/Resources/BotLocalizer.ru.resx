@@ -157,7 +157,7 @@
     <value>🛍 Заказать</value>
   </data>
   <data name="btnPaymentTypeCash" xml:space="preserve">
-    <value>Наличные</value>
+    <value>💵 Наличные</value>
   </data>
   <data name="btnPaymentTypeClick" xml:space="preserve">
     <value>💳 Click</value>

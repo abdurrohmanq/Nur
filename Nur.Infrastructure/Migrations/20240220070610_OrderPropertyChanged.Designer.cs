@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Nur.Infrastructure.Contexts;
@@ -11,9 +12,11 @@ using Nur.Infrastructure.Contexts;
 namespace Nur.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240220070610_OrderPropertyChanged")]
+    partial class OrderPropertyChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,7 +209,7 @@ namespace Nur.Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<long?>("SupplierId")
+                    b.Property<long>("SupplierId")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("TotalPrice")
@@ -561,7 +564,9 @@ namespace Nur.Infrastructure.Migrations
 
                     b.HasOne("Nur.Domain.Entities.Suppliers.Supplier", "Supplier")
                         .WithMany()
-                        .HasForeignKey("SupplierId");
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Nur.Domain.Entities.Users.User", "User")
                         .WithMany()

@@ -19,10 +19,10 @@ public class Order : Auditable
     public long UserId { get; set; }
     public User User { get; set; }
 
-    public long AddressId { get; set; }
+    public long? AddressId { get; set; }
     public Address Address { get; set; }
 
-    public long SupplierId { get; set; }
+    public long? SupplierId { get; set; }
     public Supplier Supplier { get; set; }
 
     public long PaymentId { get; set; }

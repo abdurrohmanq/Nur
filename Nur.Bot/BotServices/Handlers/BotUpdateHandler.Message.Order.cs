@@ -224,68 +224,75 @@ public partial class BotUpdateHandler
     private Dictionary<long, string> orderText = new Dictionary<long, string>();
     private async Task HandlePaymentMethodAsync(Message message, CancellationToken cancellationToken)
     {
-        payment[message.Chat.Id] = new PaymentCreationDTO();
-        string paymentType = string.Empty;
-        if (message.Text.Equals(localizer["btnPaymentTypeCash"]))
-        { 
-            payment[message.Chat.Id].Type = PaymentType.Cash;
-            paymentType = localizer["btnPaymentTypeCash"];
-        }
-        else if (message.Text.Equals(localizer["btnPaymentTypePayme"]))
+        if (message.Text.Equals(localizer["btnBack"]))
         {
-            payment[message.Chat.Id].Type = PaymentType.Payme;
-            paymentType = localizer["btnPaymentTypePayme"];
+            await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
         }
-        else if (message.Text.Equals(localizer["btnPaymentTypeClick"]))
+        else
         {
-            payment[message.Chat.Id].Type = PaymentType.Click;
-            paymentType = localizer["btnPaymentTypeClick"];
-        }
+            payment[message.Chat.Id] = new PaymentCreationDTO();
+            string paymentType = string.Empty;
+            if (message.Text.Equals(localizer["btnPaymentTypeCash"]))
+            {
+                payment[message.Chat.Id].Type = PaymentType.Cash;
+                paymentType = localizer["btnPaymentTypeCash"];
+            }
+            else if (message.Text.Equals(localizer["btnPaymentTypePayme"]))
+            {
+                payment[message.Chat.Id].Type = PaymentType.Payme;
+                paymentType = localizer["btnPaymentTypePayme"];
+            }
+            else if (message.Text.Equals(localizer["btnPaymentTypeClick"]))
+            {
+                payment[message.Chat.Id].Type = PaymentType.Click;
+                paymentType = localizer["btnPaymentTypeClick"];
+            }
 
-        var cartItems = await cartItemService.GetByCartIdAsync(cart[message.Chat.Id].Id, cancellationToken);
+            var cartItems = await cartItemService.GetByCartIdAsync(cart[message.Chat.Id].Id, cancellationToken);
 
-        var cartItemsText = string.Join("\n\n", cartItems.Select(item => 
-        $"{item.Product.Name}: {item.Quantity} x {item.Price} = {item.Sum}"));
-        cartItemsText = $"{localizer["btnBasket"]}\n\n" + cartItemsText;
-        string orderType = createOrder[message.Chat.Id].OrderType == OrderType.Delivery?
-            localizer["btnDelivery"]: localizer["btnTakeAway"];
+            var cartItemsText = string.Join("\n\n", cartItems.Select(item =>
+            $"{item.Product.Name}: {item.Quantity} x {item.Price} = {item.Sum}"));
+            cartItemsText = $"{localizer["btnBasket"]}\n\n" + cartItemsText;
+            string orderType = createOrder[message.Chat.Id].OrderType == OrderType.Delivery ?
+                localizer["btnDelivery"] : localizer["btnTakeAway"];
 
-        cartItemsText = $"{localizer["txtYourOrder"]}\n\n {localizer["txtOrderType"]} {orderType}\n\n " +
-            $"{localizer["txtPhone"]} {user[message.Chat.Id].Phone}\n\n {localizer["txtPaymentType"]} " +
-            $"{paymentType}\n\n {localizer["txtComments"]} {createOrder[message.Chat.Id].Description}\n\n" + cartItemsText;
-        cartItemsText += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
+            cartItemsText = $"{localizer["txtYourOrder"]}\n\n {localizer["txtOrderType"]} {orderType}\n\n " +
+                $"{localizer["txtPhone"]} {user[message.Chat.Id].Phone}\n\n {localizer["txtPaymentType"]} " +
+                $"{paymentType}\n\n {localizer["txtComments"]} {createOrder[message.Chat.Id].Description}\n\n" + cartItemsText;
+            cartItemsText += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
 
-        payment[message.Chat.Id].Amount = cart[message.Chat.Id].TotalPrice;
-        var replyKeyboard = new ReplyKeyboardMarkup(new[]
-        {
+            payment[message.Chat.Id].Amount = cart[message.Chat.Id].TotalPrice;
+            var replyKeyboard = new ReplyKeyboardMarkup(new[]
+            {
             new[] {new KeyboardButton(localizer["btnConfirmation"]) },
             new[] {new KeyboardButton(localizer["btnCancel"]) }
         })
-        {
-            ResizeKeyboard = true
-        };
+            {
+                ResizeKeyboard = true
+            };
 
-        userStates[message.Chat.Id] = UserState.WaitingForOrderSendToAdminAction;
+            userStates[message.Chat.Id] = UserState.WaitingForOrderSendToAdminAction;
 
 
-        await botClient.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: cartItemsText,
-                    replyMarkup: replyKeyboard,
-                    cancellationToken: cancellationToken);
-        
-        await botClient.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: localizer["txtTakeAwayLocation"],
-                    replyMarkup: replyKeyboard,
-                    cancellationToken: cancellationToken);
+            await botClient.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: cartItemsText,
+                        replyMarkup: replyKeyboard,
+                        cancellationToken: cancellationToken);
 
-        await botClient.SendLocationAsync(
-            chatId: message.Chat.Id,
-            latitude: 40.72803040927073,
-            longitude: 72.31086991903557,
-            cancellationToken: cancellationToken);
+            await botClient.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: localizer["txtTakeAwayLocation"],
+                        replyMarkup: replyKeyboard,
+                        cancellationToken: cancellationToken);
 
-        orderText[message.Chat.Id] = cartItemsText;
+            await botClient.SendLocationAsync(
+                chatId: message.Chat.Id,
+                latitude: 40.72803040927073,
+                longitude: 72.31086991903557,
+                cancellationToken: cancellationToken);
+
+            orderText[message.Chat.Id] = cartItemsText;
+        }
     }
 }

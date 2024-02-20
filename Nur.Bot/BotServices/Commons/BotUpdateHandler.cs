@@ -33,6 +33,7 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
         if (update.Type == UpdateType.Message)
         {
             user[update.Message.Chat.Id] = await GetUserAsync(update, cancellationToken);
+            cart[update.Message.Chat.Id] = await cartService.GetByUserIdAsync(user[update.Message.Chat.Id].Id, cancellationToken);
 
             var culture = user[update.Message.Chat.Id].LanguageCode switch
             {

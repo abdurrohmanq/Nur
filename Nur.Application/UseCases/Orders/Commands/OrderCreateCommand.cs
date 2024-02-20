@@ -23,8 +23,8 @@ public class OrderCreateCommand : IRequest<OrderDTO>
     public OrderType OrderType { get; set; }
     public string Description { get; set; }
     public long UserId { get; set; }
-    public long AddressId { get; set; }
-    public long SupplierId { get; set; }
+    public long? AddressId { get; set; }
+    public long? SupplierId { get; set; }
     public long PaymentId { get; set; }
 }
 
@@ -40,16 +40,24 @@ public class OrderCreateCommandHandler(IMapper mapper,
         var user = await userRepository.SelectAsync(u => u.Id.Equals(request.UserId))
             ?? throw new NotFoundException($"This user was not found with id: {request.UserId}");
 
-        var supplier = await supplierRepository.SelectAsync(u => u.Id.Equals(request.SupplierId))
-            ?? throw new NotFoundException($"This supplier was not found with id: {request.SupplierId}");
+        Supplier supplier = null;
+        if (request.SupplierId != null)
+        {
+            supplier = await supplierRepository.SelectAsync(u => u.Id.Equals(request.SupplierId))
+                ?? throw new NotFoundException($"This supplier was not found with id: {request.SupplierId}");
+        }
 
-        var address = await addressRepository.SelectAsync(u => u.Id.Equals(request.AddressId))
-            ?? throw new NotFoundException($"This address was not found with id: {request.AddressId}");
-        
+        Address address = null;
+        if (request.AddressId != null)
+        {
+            address = await addressRepository.SelectAsync(u => u.Id.Equals(request.AddressId))
+                ?? throw new NotFoundException($"This address was not found with id: {request.AddressId}");
+        }
+
         var payment = await paymentRepository.SelectAsync(u => u.Id.Equals(request.PaymentId))
             ?? throw new NotFoundException($"This payment was not found with id: {request.PaymentId}");
 
-        request.StartAt = TimeHelper.GetDateTime();
+        request.StartAt = TimeHelper.GetDateTime().ToLocalTime();
 
         var entity = mapper.Map<Order>(request);
         entity.User = user;

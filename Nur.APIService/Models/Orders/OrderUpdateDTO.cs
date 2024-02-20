@@ -13,7 +13,7 @@ public class OrderUpdateDTO
     public OrderType OrderType { get; set; }
     public string Description { get; set; }
     public long UserId { get; set; }
-    public long AddressId { get; set; }
-    public long SupplierId { get; set; }
+    public long? AddressId { get; set; }
+    public long? SupplierId { get; set; }
     public long PaymentId { get; set; }
 }

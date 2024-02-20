@@ -185,8 +185,6 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("SendCartAsync is working..");
 
-        cart[message.Chat.Id] = await cartService.GetByUserIdAsync(user[message.Chat.Id].Id, cancellationToken);
-
         var cartItems = await cartItemService.GetByCartIdAsync(cart[message.Chat.Id].Id, cancellationToken);
         if (cartItems.Count() > 0)
         {
@@ -344,7 +342,7 @@ public partial class BotUpdateHandler
         if (message.Text.Equals(localizer["btnConfirmation"]))
         {
             var keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
-                [InlineKeyboardButton.WithCallbackData("Kutish kerak", "btnPending")],
+                [InlineKeyboardButton.WithCallbackData("Kutish", "btnPending")],
                 [InlineKeyboardButton.WithCallbackData("Tayyorlanyapti", "btnPreparing")],
                 [InlineKeyboardButton.WithCallbackData("Tayyor yetkazib beriladi", "btnPrepared")],
                 [InlineKeyboardButton.WithCallbackData("Yo'lda", "btnOnRoad")],
@@ -352,7 +350,11 @@ public partial class BotUpdateHandler
                 [InlineKeyboardButton.WithCallbackData("Bekor qilish", "btnCancel")] });
 
             var createdPayment = await paymentService.AddAsync(payment[message.Chat.Id], cancellationToken);
+
+            createOrder[message.Chat.Id].TotalPrice = payment[message.Chat.Id].Amount;
+            createOrder[message.Chat.Id].UserId = user[message.Chat.Id].Id;
             createOrder[message.Chat.Id].PaymentId = createdPayment.Id;
+            createOrder[message.Chat.Id].Status = Status.Pending;
 
             var order = await orderService.AddAsync(createOrder[message.Chat.Id], cancellationToken);
             var cartItems = cart[message.Chat.Id].CartItems;
@@ -374,20 +376,25 @@ public partial class BotUpdateHandler
 
             await cartItemService.DeleteAllAsync(cart[message.Chat.Id].Id, cancellationToken);
 
+            string remove = localizer["txtYourOrder"];
+            int startIndex = orderText[message.Chat.Id].IndexOf(remove);
+
+            if (startIndex != -1)
+            {
+                string result = orderText[message.Chat.Id].Substring(0, startIndex) +
+                    orderText[message.Chat.Id].Substring(startIndex + remove.Length);
+                orderText[message.Chat.Id] = result;
+            }
             await botClient.SendTextMessageAsync(
                 chatId: "@NurOrders",
                 text: orderText[message.Chat.Id],
                 replyMarkup: keyboard,
                 cancellationToken: cancellationToken);
+
         }
         else if (message.Text.Equals(localizer["btnCancel"]))
         {
-            await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
-
-            await botClient.SendTextMessageAsync(
-                   chatId: message.Chat.Id,
-                   text: localizer["txtAnew"],
-                   cancellationToken: cancellationToken);
+            await HandleDescriptionAsync(message, cancellationToken);
         }
     }
 }

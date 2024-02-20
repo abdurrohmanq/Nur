@@ -157,7 +157,7 @@
     <value>🛍 Place an order</value>
   </data>
   <data name="btnPaymentTypeCash" xml:space="preserve">
-    <value>cash</value>
+    <value>💵 cash</value>
   </data>
   <data name="btnPaymentTypeClick" xml:space="preserve">
     <value>💳 Click</value>
