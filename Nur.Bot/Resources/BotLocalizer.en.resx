@@ -241,6 +241,9 @@
   <data name="txtConfirmation" xml:space="preserve">
     <value>The order has been approved by the admins! Will be delivered soon!</value>
   </data>
+  <data name="txtConfirmationSend" xml:space="preserve">
+    <value>Your order has been accepted! You will be notified soon!</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>You can call &lt;&lt;+998905710460&gt;&gt; to contact us!</value>
   </data>

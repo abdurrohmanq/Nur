@@ -35,6 +35,9 @@ using Nur.Application.UseCases.Vehicles.Queries.GetVehicles;
 using Nur.Application.UseCases.Suppliers.Queries.GetSuppliers;
 using Nur.Application.UseCases.Carts.CartItems.Queries.GetCartItems;
 using Nur.Application.UseCases.Orders.OrderItems.Queries.GetOrderItems;
+using Nur.Application.UseCases.Cafes.Commands;
+using Nur.Application.UseCases.Cafes.DTOs;
+using Nur.Application.UseCases.Cafes.Queries;
 
 namespace Nur.Application;
 
@@ -137,6 +140,14 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<GetByCartIdQuery, IEnumerable<CartItemDTO>>, GetByCartIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetByProductIdQuery, CartItemDTO>, GetByProductIdQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllCartItemsQuery, IEnumerable<CartItemDTO>>, GetAllCartItemsQueryHandler>();
+
+        //Cafes
+        services.AddScoped<IRequestHandler<CafeCreateCommand, CafeDTO>, CafeCreateCommandHandler>();
+        services.AddScoped<IRequestHandler<CafeUpdateCommand, CafeDTO>, CafeUpdateCommandHandler>();
+        services.AddScoped<IRequestHandler<CafeDeleteCommand, bool>, CafeDeleteCommandHandler>();
+
+        services.AddScoped <IRequestHandler<GetCafeQuery, IEnumerable<CafeDTO>>, GetCafeQueryHandler>();
+
         //Attachment
         services.AddScoped<IRequestHandler<AttachmentCreateCommand, Attachment>, AttachmentCreateCommandHandler>();
         services.AddScoped<IRequestHandler<AttachmentRemoveCommand, bool>, AttachmentRemoveCommandHandler>();

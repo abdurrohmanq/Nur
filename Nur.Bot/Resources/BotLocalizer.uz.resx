@@ -244,6 +244,9 @@
   <data name="txtConfirmation" xml:space="preserve">
     <value>Buyurtma adminlar tomonidan tasdiqlandi! Tez orada yetkazib beriladi!</value>
   </data>
+  <data name="txtConfirmationSend" xml:space="preserve">
+    <value>Buyurtmangiz qabul qilindi! Tez orada sizga xabar beriladi!</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
   </data>

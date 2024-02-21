@@ -11,6 +11,8 @@ public partial class BotUpdateHandler
 {
     public async Task SendGreetingAsync(Message message, CancellationToken cancellationToken)
     {
+        logger.LogInformation("SendGreetingAsync is working..");
+
         ArgumentNullException.ThrowIfNull(message);
 
         if (user[message.Chat.Id].CreatedAt.AddSeconds(5) > DateTime.UtcNow.AddHours(TimeConstant.UTC))

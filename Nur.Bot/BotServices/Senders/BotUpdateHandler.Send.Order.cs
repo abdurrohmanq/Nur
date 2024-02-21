@@ -396,6 +396,13 @@ public partial class BotUpdateHandler
 
             await cartItemService.DeleteAllAsync(cart[message.Chat.Id].Id, cancellationToken);
 
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtConfirmationSend"],
+                cancellationToken: cancellationToken);
+
+            userStates[message.Chat.Id] = UserState.None;
+
             string remove = localizer["txtYourOrder"];
             int startIndex = orderText[message.Chat.Id].IndexOf(remove);
 

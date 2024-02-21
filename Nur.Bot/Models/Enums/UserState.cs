@@ -20,4 +20,5 @@ public enum UserState
     WaitingForPaymentTypeAction,
     WaitingForOrderSendToAdminAction,
     WaitingForAdminConfirmation,
+    AdminState,
 }

@@ -241,6 +241,9 @@
   <data name="txtConfirmation" xml:space="preserve">
     <value>Заказ подтвержден администраторами! Скоро будет доставлено!</value>
   </data>
+  <data name="txtConfirmationSend" xml:space="preserve">
+    <value>Ваш заказ принят! Скоро вы будете уведомлены!</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Вы можете позвонить &lt;&lt;+998905710460&gt;&gt;, чтобы связаться с нами!</value>
   </data>

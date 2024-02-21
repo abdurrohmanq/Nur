@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Localization;
 using Nur.APIService.Interfaces;
 using Nur.APIService.Models.Users;
+using Nur.Bot.Models.Enums;
 using Nur.Bot.Resources;
 using System.Globalization;
 using Telegram.Bot;
@@ -28,40 +29,66 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
 
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
-        using var scope = scopeFactory.CreateScope();
-        localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer<BotLocalizer>>();
-        if (update.Type == UpdateType.Message)
+        if(update.Message.Text.Equals("/admin")) { userStates[update.Message.Chat.Id] = UserState.AdminState;}
+
+        var userState = userStates.TryGetValue(update.Message.Chat.Id, out var state) ? state : UserState.None;
+
+        if (userState == UserState.AdminState)
         {
             user[update.Message.Chat.Id] = await GetUserAsync(update, cancellationToken);
-            cart[update.Message.Chat.Id] = await cartService.GetByUserIdAsync(user[update.Message.Chat.Id].Id, cancellationToken);
 
-            var culture = user[update.Message.Chat.Id].LanguageCode switch
+            var handler = update.Type switch
             {
-                "uz" => new CultureInfo("uz-Uz"),
-                "en" => new CultureInfo("en-US"),
-                "ru" => new CultureInfo("ru-RU"),
-                _ => CultureInfo.CurrentCulture
+                UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
+                _ => HandleUnknownUpdateAsync(botClient, update, cancellationToken)
             };
 
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
+            try
+            {
+                await handler;
+            }
+            catch (Exception ex)
+            {
+                await HandlePollingErrorAsync(botClient, ex, cancellationToken);
+            }
         }
+        else
+        {
+            using var scope = scopeFactory.CreateScope();
+            localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer<BotLocalizer>>();
+            if (update.Type == UpdateType.Message)
+            {
+                user[update.Message.Chat.Id] = await GetUserAsync(update, cancellationToken);
+                cart[update.Message.Chat.Id] = await cartService.GetByUserIdAsync(user[update.Message.Chat.Id].Id, cancellationToken);
 
-        var handler = update.Type switch
-        {
-            UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
-            UpdateType.EditedMessage => HandleEditMessageAsync(botClient, update.EditedMessage, cancellationToken),
-            UpdateType.CallbackQuery => HandleCallbackQuery(botClient, update.CallbackQuery, cancellationToken),
-            _ => HandleUnknownUpdateAsync(botClient, update, cancellationToken)
-        };
+                var culture = user[update.Message.Chat.Id].LanguageCode switch
+                {
+                    "uz" => new CultureInfo("uz-Uz"),
+                    "en" => new CultureInfo("en-US"),
+                    "ru" => new CultureInfo("ru-RU"),
+                    _ => CultureInfo.CurrentCulture
+                };
 
-        try
-        {
-            await handler;
-        }
-        catch (Exception ex)
-        {
-            await HandlePollingErrorAsync(botClient, ex, cancellationToken);
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+            }
+
+            var handler = update.Type switch
+            {
+                UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
+                UpdateType.EditedMessage => HandleEditMessageAsync(botClient, update.EditedMessage, cancellationToken),
+                UpdateType.CallbackQuery => HandleCallbackQuery(botClient, update.CallbackQuery, cancellationToken),
+                _ => HandleUnknownUpdateAsync(botClient, update, cancellationToken)
+            };
+
+            try
+            {
+                await handler;
+            }
+            catch (Exception ex)
+            {
+                await HandlePollingErrorAsync(botClient, ex, cancellationToken);
+            }
         }
     }
 
