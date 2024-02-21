@@ -63,6 +63,11 @@ public static class DependencyInjection
         {
             client.BaseAddress = new Uri($"{HttpConstant.BaseLink}api/CartItems/");
         });
+        
+        services.AddHttpClient<ICafeService, CafeService>(client =>
+        {
+            client.BaseAddress = new Uri($"{HttpConstant.BaseLink}api/Cafes/");
+        });
 
         return services;
     }

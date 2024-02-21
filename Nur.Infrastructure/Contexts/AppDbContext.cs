@@ -1,4 +1,5 @@
 ﻿using Nur.Domain.Entities.Orders;
+using Nur.Domain.Entities.Cafes;
 using Nur.Domain.Entities.Users;
 using Nur.Domain.Entities.Payments;
 using Nur.Domain.Entities.Products;
@@ -13,6 +14,7 @@ namespace Nur.Infrastructure.Contexts;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Cafe> Cafes { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Address> Address { get; set; }
     public DbSet<Payment> Payment { get; set; }
