@@ -15,7 +15,7 @@ public class GetAllOrderQueryHandler(IMapper mapper,
 {
     public async Task<IEnumerable<OrderDTO>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        var orders = await repository.SelectAll(includes: new[] { "User", "Address", "Supplier", "Payment", "OrderItems.Product" }).ToListAsync();
+        var orders = await repository.SelectAll(includes: new[] { "User", "Address", "Supplier", "Payment", "OrderItems", "OrderItems.Product" }).ToListAsync();
         var mappedOrders = mapper.Map<IEnumerable<OrderDTO>>(orders);
         return mappedOrders;
     }

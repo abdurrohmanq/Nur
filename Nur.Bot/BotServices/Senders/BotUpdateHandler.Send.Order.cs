@@ -7,6 +7,9 @@ using Telegram.Bot.Types.ReplyMarkups;
 using Nur.APIService.Models.Products;
 using Nur.APIService.Models.Carts;
 using Nur.APIService.Models.OrderItems;
+using Nur.APIService.Models.ProductCategories;
+using Nur.APIService.Models.CartItems;
+using Nur.APIService.Models.Payments;
 
 namespace Nur.Bot.BotServices;
 
@@ -30,8 +33,11 @@ public partial class BotUpdateHandler
             ResizeKeyboard = true
         };
 
-        createOrder[message.Chat.Id] = new OrderCreationDTO();
-        createOrder[message.Chat.Id].OrderType = OrderType.Delivery;
+        createOrder[message.Chat.Id] = new OrderCreationDTO()
+        {
+           OrderType = OrderType.Delivery
+        };
+
 
         await botClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
@@ -46,15 +52,19 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("SendTakeAwayAsync is working..");
 
-        createOrder[message.Chat.Id] = new OrderCreationDTO();
-        createOrder[message.Chat.Id].OrderType = OrderType.TakeAway;
+        createOrder[message.Chat.Id] = new OrderCreationDTO()
+        {
+            OrderType = OrderType.TakeAway
+        };
 
         await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
     }
 
     private async Task SendCategoryKeyboardAsync(long chatId, CancellationToken cancellationToken)
     {
-        var categories = await categoryService.GetAllAsync(cancellationToken);
+        Dictionary<long, IEnumerable<ProductCategoryDTO>> categories = new Dictionary<long, IEnumerable<ProductCategoryDTO>>();
+
+        categories[chatId] = await categoryService.GetAllAsync(cancellationToken);
 
         var additionalButtons = new List<KeyboardButton>
         {
@@ -66,7 +76,7 @@ public partial class BotUpdateHandler
         var allButtons = new List<KeyboardButton[]>();
         var rowButtons = new List<KeyboardButton>();
 
-        foreach (var category in categories)
+        foreach (var category in categories[chatId])
         {
             var button = new KeyboardButton(category.Name);
             rowButtons.Add(button);
@@ -185,12 +195,16 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("SendCartAsync is working..");
 
-        var cartItems = await cartItemService.GetByCartIdAsync(cart[message.Chat.Id].Id, cancellationToken);
-        if (cartItems.Count() > 0)
+        Dictionary<long, IEnumerable<CartItemResultDTO>> cartItems = new Dictionary<long, IEnumerable<CartItemResultDTO>>();
+
+        cartItems[message.Chat.Id] = await cartItemService.GetByCartIdAsync(cart[message.Chat.Id].Id, cancellationToken);
+        if (cartItems[message.Chat.Id].Count() > 0)
         {
-            var cartItemsText = string.Join("\n\n", cartItems.Select(item => 
+            Dictionary<long, string> cartItemsText = new Dictionary<long, string>();
+
+            cartItemsText[message.Chat.Id] = string.Join("\n\n", cartItems[message.Chat.Id].Select(item => 
             $"{item.Product.Name}: {item.Quantity} x {item.Price} = {item.Sum}"));
-            cartItemsText = $"{localizer["btnBasket"]}\n\n" + cartItemsText;
+            cartItemsText[message.Chat.Id] = $"{localizer["btnBasket"]}\n\n" + cartItemsText[message.Chat.Id];
 
             var additionalButtons = new List<KeyboardButton>
             {
@@ -202,7 +216,7 @@ public partial class BotUpdateHandler
             var allButtons = new List<KeyboardButton[]>();
             var rowButtons = new List<KeyboardButton>();
 
-            foreach (var item in cartItems)
+            foreach (var item in cartItems[message.Chat.Id])
             {
                 var button = new KeyboardButton($"❌ {item.Product.Name}");
                 rowButtons.Add(button);
@@ -223,7 +237,7 @@ public partial class BotUpdateHandler
 
             var replyKeyboard = new ReplyKeyboardMarkup(allButtons) { ResizeKeyboard = true };
 
-            cartItemsText += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
+            cartItemsText[message.Chat.Id] += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
 
             await botClient.SendTextMessageAsync(
                chatId: message.Chat.Id,
@@ -232,7 +246,7 @@ public partial class BotUpdateHandler
 
             await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: cartItemsText,
+                text: cartItemsText[message.Chat.Id],
                 replyMarkup: replyKeyboard,
                 cancellationToken: cancellationToken);
 
@@ -250,9 +264,11 @@ public partial class BotUpdateHandler
     private async Task RequestProductFromDeleteCartAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("HandleProductFromDeleteCartAsync is working..");
-        var productName = message.Text;
+        Dictionary<long, string> productName = new Dictionary<long, string>();
 
-        var wasDeleted = await cartItemService.DeleteByProductNameAsync(productName, cancellationToken);
+        productName[message.Chat.Id] = message.Text;
+
+        var wasDeleted = await cartItemService.DeleteByProductNameAsync(productName[message.Chat.Id], cancellationToken);
         if (wasDeleted)
         {
             await botClient.SendTextMessageAsync(
@@ -336,6 +352,7 @@ public partial class BotUpdateHandler
     }
 
     public Dictionary<long, OrderResultDTO> order = new Dictionary<long, OrderResultDTO>();
+    public Dictionary<long, Message> orderMessage = new Dictionary<long, Message>();
     public async Task SendOrderToAdminAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("SendOrderToAdminAsync is working...");
@@ -343,24 +360,27 @@ public partial class BotUpdateHandler
         if (message.Text.Equals(localizer["btnConfirmation"]))
         {
             var keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
-                [InlineKeyboardButton.WithCallbackData("Kutish", "btnPending")],
-                [InlineKeyboardButton.WithCallbackData("Tayyorlanyapti", "btnPreparing")],
-                [InlineKeyboardButton.WithCallbackData("Tayyor yetkazib beriladi", "btnPrepared")],
-                [InlineKeyboardButton.WithCallbackData("Yo'lda", "btnOnRoad")],
-                [InlineKeyboardButton.WithCallbackData("Yetkazib berildi", "btnDelivered")],
-                [InlineKeyboardButton.WithCallbackData("Bekor qilish", "btnCancel")] });
+            [InlineKeyboardButton.WithCallbackData("✅ Tasdiqlash", $"btnConfirmation_{message.Chat.Id}")],
+            [InlineKeyboardButton.WithCallbackData("Kutish", $"btnPending_{message.Chat.Id}")],
+            [InlineKeyboardButton.WithCallbackData("Yetkazib berildi!  ✅✅", $"btnDelivered_{message.Chat.Id}")],
+            [InlineKeyboardButton.WithCallbackData("Bekor qilish", $"btnCancel_{message.Chat.Id}")] });
 
-            var createdPayment = await paymentService.AddAsync(payment[message.Chat.Id], cancellationToken);
+            Dictionary<long, PaymentDTO> createdPayment = new Dictionary<long, PaymentDTO>();
+
+            createdPayment[message.Chat.Id] = await paymentService.AddAsync(payment[message.Chat.Id], cancellationToken);
 
             createOrder[message.Chat.Id].TotalPrice = payment[message.Chat.Id].Amount;
             createOrder[message.Chat.Id].UserId = user[message.Chat.Id].Id;
-            createOrder[message.Chat.Id].PaymentId = createdPayment.Id;
+            createOrder[message.Chat.Id].PaymentId = createdPayment[message.Chat.Id].Id;
             createOrder[message.Chat.Id].Status = Status.Pending;
 
             order[message.Chat.Id] = await orderService.AddAsync(createOrder[message.Chat.Id], cancellationToken);
-            var cartItems = cart[message.Chat.Id].CartItems;
 
-            foreach (var cartItem in cartItems)
+            Dictionary<long, IEnumerable<CartItemResultDTO>> cartItems = new Dictionary<long, IEnumerable<CartItemResultDTO>>();
+
+            cartItems[message.Chat.Id] = cart[message.Chat.Id].CartItems;
+
+            foreach (var cartItem in cartItems[message.Chat.Id])
             {
                 var orderItem = new OrderItemCreationDTO
                 {
@@ -385,7 +405,7 @@ public partial class BotUpdateHandler
                     orderText[message.Chat.Id].Substring(startIndex + remove.Length);
                 orderText[message.Chat.Id] = result;
             }
-            var orderMessage = await botClient.SendTextMessageAsync(
+                orderMessage[message.Chat.Id] = await botClient.SendTextMessageAsync(
                 chatId: "@NurOrders",
                 text: orderText[message.Chat.Id],
                 replyMarkup: keyboard,
@@ -396,21 +416,17 @@ public partial class BotUpdateHandler
                 await botClient.SendTextMessageAsync(
                 chatId: "@NurOrders",
                 text: "lokatsiya 👇",
-                replyToMessageId: orderMessage.MessageId,
+                replyToMessageId: orderMessage[message.Chat.Id].MessageId,
                 cancellationToken: cancellationToken);
-
-                double latitude = order[message.Chat.Id].Address.Latitude / 1000000.0; 
-                double longitude = order[message.Chat.Id].Address.Longitude / 1000000.0; 
-
 
                 await botClient.SendLocationAsync(
                 chatId: "@NurOrders",
-                latitude: latitude,
-                longitude: longitude,
+                latitude: order[message.Chat.Id].Address.Latitude,
+                longitude: order[message.Chat.Id].Address.Longitude,
                 cancellationToken: cancellationToken);
             }
 
-            userStates[orderMessage.Chat.Id] = UserState.WaitingForAdminConfirmation;
+            userStates[orderMessage[message.Chat.Id].Chat.Id] = UserState.WaitingForAdminConfirmation;
         }
         else if (message.Text.Equals(localizer["btnCancel"]))
         {

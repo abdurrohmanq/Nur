@@ -77,6 +77,8 @@ public class OrderUpdateCommandHandler(IMapper mapper,
 
             request.EndAt = TimeHelper.GetDateTime().ToLocalTime();
         }
+
+        request.StartAt = order.StartAt;
         order = mapper.Map(request, order);
         orderRepository.Update(order);
         await orderRepository.SaveAsync();

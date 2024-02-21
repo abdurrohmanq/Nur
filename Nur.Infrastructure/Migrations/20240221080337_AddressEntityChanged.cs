@@ -5,46 +5,46 @@
 namespace Nur.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddressChanged : Migration
+    public partial class AddressEntityChanged : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<float>(
+            migrationBuilder.AlterColumn<double>(
                 name: "Longitude",
                 table: "Address",
-                type: "real",
+                type: "double precision",
                 nullable: false,
-                oldClrType: typeof(double),
-                oldType: "double precision");
+                oldClrType: typeof(decimal),
+                oldType: "numeric");
 
-            migrationBuilder.AlterColumn<float>(
+            migrationBuilder.AlterColumn<double>(
                 name: "Latitude",
                 table: "Address",
-                type: "real",
+                type: "double precision",
                 nullable: false,
-                oldClrType: typeof(double),
-                oldType: "double precision");
+                oldClrType: typeof(decimal),
+                oldType: "numeric(10,7)");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<double>(
+            migrationBuilder.AlterColumn<decimal>(
                 name: "Longitude",
                 table: "Address",
-                type: "double precision",
+                type: "numeric",
                 nullable: false,
-                oldClrType: typeof(float),
-                oldType: "real");
+                oldClrType: typeof(double),
+                oldType: "double precision");
 
-            migrationBuilder.AlterColumn<double>(
+            migrationBuilder.AlterColumn<decimal>(
                 name: "Latitude",
                 table: "Address",
-                type: "double precision",
+                type: "numeric(10,7)",
                 nullable: false,
-                oldClrType: typeof(float),
-                oldType: "real");
+                oldClrType: typeof(double),
+                oldType: "double precision");
         }
     }
 }

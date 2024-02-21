@@ -22,9 +22,23 @@ public class AddressCreateCommandHandler(IMapper mapper,
     public async Task<AddressDTO> Handle(AddressCreateCommand request, CancellationToken cancellationToken)
     {
         var address = mapper.Map<Address>(request);
+        address.Latitude = AddDotAfterSecondDigit(address.Latitude);
+        address.Longitude = AddDotAfterSecondDigit(address.Longitude);
         await repository.InsertAsync(address);
         await repository.SaveAsync();
 
         return mapper.Map<AddressDTO>(address);
+    }
+
+    private static double AddDotAfterSecondDigit(double num)
+    {
+        string numStr = num.ToString();
+        int dotIndex = 2;
+        if (!numStr.Contains("."))
+        {
+            string formattedNumStr = numStr.Substring(0, dotIndex) + "." + numStr.Substring(dotIndex);
+            return double.Parse(formattedNumStr);
+        }
+        return num;
     }
 }

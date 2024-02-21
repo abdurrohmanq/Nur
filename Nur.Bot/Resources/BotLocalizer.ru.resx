@@ -238,6 +238,9 @@
   <data name="txtComments" xml:space="preserve">
     <value>Примечания:</value>
   </data>
+  <data name="txtConfirmation" xml:space="preserve">
+    <value>Заказ подтвержден администраторами! Скоро будет доставлено!</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Вы можете позвонить &lt;&lt;+998905710460&gt;&gt;, чтобы связаться с нами!</value>
   </data>
@@ -259,6 +262,9 @@
   <data name="txtFeedback" xml:space="preserve">
     <value>Спасибо, что выбрали нас!
 \nОставьте отзыв или оцените наш сервис!</value>
+  </data>
+  <data name="txtFullName" xml:space="preserve">
+    <value>👤 Имя: {0}</value>
   </data>
   <data name="txtGood" xml:space="preserve">
     <value>Хорошо ✨</value>

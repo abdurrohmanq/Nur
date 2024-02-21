@@ -47,6 +47,9 @@ public class CartItemUpdateCommandHandler(IMapper mapper,
         cartItemRepository.Update(cartItem);
         await cartItemRepository.SaveAsync();
 
+        cartRepository.Update(cartItem.Cart);
+        await cartRepository.SaveAsync();
+
         return mapper.Map<CartItemDTO>(cartItem);
     }
 }

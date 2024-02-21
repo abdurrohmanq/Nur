@@ -57,118 +57,86 @@ public partial class BotUpdateHandler
 
     private async Task HandleAdminResponseAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
-        switch (callbackQuery.Data)
+        var dataParts = callbackQuery.Data.Split('_');
+        var action = dataParts[0];
+        var userId = long.Parse(dataParts[1]);
+
+        var culture = user[userId].LanguageCode switch
         {
+            "uz" => new CultureInfo("uz-Uz"),
+            "en" => new CultureInfo("en-US"),
+            "ru" => new CultureInfo("ru-RU"),
+            _ => CultureInfo.CurrentCulture
+        };
+
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
+
+        switch (action)
+        {
+            case "btnConfirmation":
+                await botClient.SendTextMessageAsync(
+                    chatId: userId,
+                    text: localizer["txtConfirmation"],
+                    cancellationToken: cancellationToken);
+
+                var updateOrderConfirm = new OrderUpdateDTO()
+                {
+                    Id = order[userId].Id,
+                    Status = Status.Preparing,
+                    TotalPrice = order[userId].TotalPrice,
+                    OrderType = order[userId].OrderType,
+                    Description = order[userId].Description,
+                    UserId = order[userId].User.Id,
+                    AddressId = order[userId].Address.Id,
+                    SupplierId = order[userId].Supplier.Id,
+                    PaymentId = order[userId].Payment.Id,
+                };
+
+                await orderService.UpdateAsync(updateOrderConfirm, cancellationToken);
+                break;
             case "btnPending":
                 await botClient.SendTextMessageAsync(
-                    chatId: callbackQuery.From.Id,
-                    text: localizer["txtPending"],
+                    chatId: userId,
+                    text: localizer["txtPendingOrder"],
                     cancellationToken: cancellationToken);
-
-                var updateOrder = new OrderUpdateDTO()
-                {
-                    Id = order[callbackQuery.From.Id].Id,
-                    Status = Status.Pending,
-                    TotalPrice = order[callbackQuery.From.Id].TotalPrice,
-                    OrderType = order[callbackQuery.From.Id].OrderType,
-                    Description = order[callbackQuery.From.Id].Description,
-                    UserId = order[callbackQuery.From.Id].User.Id,
-                    AddressId = order[callbackQuery.From.Id].Address.Id,
-                    SupplierId = order[callbackQuery.From.Id].Supplier.Id,
-                    PaymentId = order[callbackQuery.From.Id].Payment.Id,
-                };
-
-                await orderService.UpdateAsync(updateOrder, cancellationToken);
-                break;
-            case "btnPreparing":
-                await botClient.SendTextMessageAsync(
-                    chatId: callbackQuery.From.Id,
-                    text: localizer["txtPreparing"],
-                    cancellationToken: cancellationToken);
-
-                var updateOrder2 = new OrderUpdateDTO()
-                {
-                    Id = order[callbackQuery.From.Id].Id,
-                    Status = Status.Preparing,
-                    TotalPrice = order[callbackQuery.From.Id].TotalPrice,
-                    OrderType = order[callbackQuery.From.Id].OrderType,
-                    Description = order[callbackQuery.From.Id].Description,
-                    UserId = order[callbackQuery.From.Id].User.Id,
-                    AddressId = order[callbackQuery.From.Id].Address.Id,
-                    SupplierId = order[callbackQuery.From.Id].Supplier.Id,
-                    PaymentId = order[callbackQuery.From.Id].Payment.Id,
-                };
-
-                await orderService.UpdateAsync(updateOrder2, cancellationToken);
-                break;
-            case "btnPrepared":
-                await botClient.SendTextMessageAsync(
-                    chatId: callbackQuery.From.Id,
-                    text: localizer["txtPrepared"],
-                    cancellationToken: cancellationToken);
-
-                var updateOrder3 = new OrderUpdateDTO()
-                {
-                    Id = order[callbackQuery.From.Id].Id,
-                    Status = Status.Prepared,
-                    TotalPrice = order[callbackQuery.From.Id].TotalPrice,
-                    OrderType = order[callbackQuery.From.Id].OrderType,
-                    Description = order[callbackQuery.From.Id].Description,
-                    UserId = order[callbackQuery.From.Id].User.Id,
-                    AddressId = order[callbackQuery.From.Id].Address.Id,
-                    SupplierId = order[callbackQuery.From.Id].Supplier.Id,
-                    PaymentId = order[callbackQuery.From.Id].Payment.Id,
-                };
-
-                await orderService.UpdateAsync(updateOrder3, cancellationToken);
-                break;
-            case "btnOnRoad":
-                await botClient.SendTextMessageAsync(
-                    chatId: callbackQuery.From.Id,
-                    text: localizer["txtOnRoad"],
-                    cancellationToken: cancellationToken);
-
-                var updateOrder4 = new OrderUpdateDTO()
-                {
-                    Id = order[callbackQuery.From.Id].Id,
-                    Status = Status.OnRoad,
-                    TotalPrice = order[callbackQuery.From.Id].TotalPrice,
-                    OrderType = order[callbackQuery.From.Id].OrderType,
-                    Description = order[callbackQuery.From.Id].Description,
-                    UserId = order[callbackQuery.From.Id].User.Id,
-                    AddressId = order[callbackQuery.From.Id].Address.Id,
-                    SupplierId = order[callbackQuery.From.Id].Supplier.Id,
-                    PaymentId = order[callbackQuery.From.Id].Payment.Id,
-                };
-
-                await orderService.UpdateAsync(updateOrder4, cancellationToken);
                 break;
             case "btnDelivered":
                 await botClient.SendTextMessageAsync(
                     chatId: callbackQuery.Message.Chat.Id,
                     text: "Buyurtma muvaffaqiyatli yetkazib berildi.",
+                    replyToMessageId: orderMessage[userId].MessageId,
                     cancellationToken: cancellationToken);
 
                 var updateOrder5 = new OrderUpdateDTO()
                 {
-                    Id = order[callbackQuery.From.Id].Id,
+                    Id = order[userId].Id,
                     Status = Status.Delivered,
-                    TotalPrice = order[callbackQuery.From.Id].TotalPrice,
-                    OrderType = order[callbackQuery.From.Id].OrderType,
-                    Description = order[callbackQuery.From.Id].Description,
-                    UserId = order[callbackQuery.From.Id].User.Id,
-                    AddressId = order[callbackQuery.From.Id].Address.Id,
-                    SupplierId = order[callbackQuery.From.Id].Supplier.Id,
-                    PaymentId = order[callbackQuery.From.Id].Payment.Id,
+                    TotalPrice = order[userId].TotalPrice,
+                    OrderType = order[userId].OrderType,
+                    Description = order[userId].Description,
+                    UserId = order[userId].User.Id,
+                    AddressId = order[userId].Address.Id,
+                    SupplierId = order[userId].Supplier.Id,
+                    PaymentId = order[userId].Payment.Id,
                 };
 
                 await orderService.UpdateAsync(updateOrder5, cancellationToken);
                 break;
             case "btnCancel":
                 await botClient.SendTextMessageAsync(
-                    chatId: callbackQuery.From.Id,
+                    chatId: callbackQuery.Message.Chat.Id,
+                    text: localizer["txtOrderCancel"],
+                    replyToMessageId: orderMessage[userId].MessageId,
+                    cancellationToken: cancellationToken);
+                
+                await botClient.SendTextMessageAsync(
+                    chatId: userId,
                     text: localizer["txtOrderCancel"],
                     cancellationToken: cancellationToken);
+
+                await orderService.DeleteAsync(order[userId].Id, cancellationToken);
+
                 break;
         }
 

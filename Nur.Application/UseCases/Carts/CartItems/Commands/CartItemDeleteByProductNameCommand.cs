@@ -22,11 +22,12 @@ public class CartItemDeleteByProductNameCommandHandler(IRepository<Cart> cartRep
             return false;
 
         var cart = await cartRepository.SelectAsync(c => c.Id.Equals(result.CartId));
-        cart.TotalPrice -= result.Sum;
         repository.Delete(result);
-        cartRepository.Update(cart);
-
         await repository.SaveAsync();
+
+        cart.TotalPrice -= result.Sum;
+        cartRepository.Update(cart);
+        await cartRepository.SaveAsync();
         return true;
     }
 }

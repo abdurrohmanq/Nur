@@ -238,6 +238,9 @@
   <data name="txtComments" xml:space="preserve">
     <value>Comments:</value>
   </data>
+  <data name="txtConfirmation" xml:space="preserve">
+    <value>The order has been approved by the admins! Will be delivered soon!</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>You can call &lt;&lt;+998905710460&gt;&gt; to contact us!</value>
   </data>
@@ -259,6 +262,9 @@
   <data name="txtFeedback" xml:space="preserve">
     <value>Thank you for choosing us!\n
 Leave a comment or rate our service!</value>
+  </data>
+  <data name="txtFullName" xml:space="preserve">
+    <value>👤 Full name: {0}</value>
   </data>
   <data name="txtGood" xml:space="preserve">
     <value>Good ✨</value>

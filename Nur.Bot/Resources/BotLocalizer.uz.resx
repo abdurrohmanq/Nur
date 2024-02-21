@@ -241,6 +241,9 @@
   <data name="txtComments" xml:space="preserve">
     <value>Izohlar:</value>
   </data>
+  <data name="txtConfirmation" xml:space="preserve">
+    <value>Buyurtma adminlar tomonidan tasdiqlandi! Tez orada yetkazib beriladi!</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
   </data>
@@ -261,6 +264,9 @@
   </data>
   <data name="txtFeedback" xml:space="preserve">
     <value>Bizni tanlagingiz uchun tashakkur!\nFikr bildiring yoki xizmatimizni baholang!</value>
+  </data>
+  <data name="txtFullName" xml:space="preserve">
+    <value>👤 Ism-sharif: {0}</value>
   </data>
   <data name="txtGood" xml:space="preserve">
     <value>Yaxshi ✨</value>

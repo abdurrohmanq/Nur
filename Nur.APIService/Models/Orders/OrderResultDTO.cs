@@ -1,5 +1,6 @@
 ﻿using Nur.APIService.Models.Addresses;
 using Nur.APIService.Models.Enums;
+using Nur.APIService.Models.OrderItems;
 using Nur.APIService.Models.Payments;
 using Nur.APIService.Models.Suppliers;
 using Nur.APIService.Models.Users;
@@ -20,4 +21,6 @@ public class OrderResultDTO
     public AddressDTO Address { get; set; }
     public SupplierResultDTO Supplier { get; set; }
     public PaymentDTO Payment { get; set; }
+
+    public ICollection<OrderItemResultDTO> OrderItems { get; set; }
 }

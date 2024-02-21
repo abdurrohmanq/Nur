@@ -18,7 +18,14 @@ public class OrderItemService(HttpClient httpClient, ILogger<OrderItemService> l
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<OrderItemResultDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<OrderItemResultDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 
@@ -33,7 +40,14 @@ public class OrderItemService(HttpClient httpClient, ILogger<OrderItemService> l
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<OrderItemResultDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<OrderItemResultDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 
@@ -61,7 +75,14 @@ public class OrderItemService(HttpClient httpClient, ILogger<OrderItemService> l
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<OrderItemResultDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<OrderItemResultDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 
