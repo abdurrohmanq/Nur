@@ -1,5 +1,6 @@
 ﻿using Nur.APIService.Models.ProductCategories;
 using Nur.Bot.Models.Enums;
+using System.Text;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -35,14 +36,18 @@ public partial class BotUpdateHandler
         {
             commonAdminStates[message.Chat.Id] = CommonAdminState.UpdateCategory;
             await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+            return;
+        }
+        if(message.Text.Equals(localizer["btnDeleteCategory"]))
+        {
+            commonAdminStates[message.Chat.Id] = CommonAdminState.DeleteCategory;
+            await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
         }
 
         var handle = message.Text switch
         {
             { } text when text == localizer["btnAddCategory"] => SendAddCategoryQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnDeleteCategory"] => SendMenuSettingsAsync(message, cancellationToken),
-            { } text when text == localizer["btnGetCategoryInfo"] => ShowFeedbackAsync(message, cancellationToken),
-            { } text when text == localizer["btnGetAllCategory"] => SendContactAsync(message, cancellationToken),
+            { } text when text == localizer["btnGetCategoryInfo"] => AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 
@@ -56,8 +61,8 @@ public partial class BotUpdateHandler
 
         var handle = message.Text switch
         {
-            { } text when text == localizer["btnEditName"] => SendEditCategoryNameQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnEditDesc"] => SendEditCategoryDescQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditCategoryName"] => SendEditCategoryNameQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditCategoryDesc"] => SendEditCategoryDescQueryAsync(message, cancellationToken),
             { } text when text == localizer["btnBack"] => SendCategoryMenuAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
@@ -164,7 +169,8 @@ public partial class BotUpdateHandler
     {
         if (message.Text.Equals(localizer["btnBack"]))
         {
-            await AdminHandleCategoryMenuAsync(message, cancellationToken);
+            commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+            await SendCategoryMenuAsync(message, cancellationToken);
             return;
         }
 
@@ -172,14 +178,103 @@ public partial class BotUpdateHandler
 
         selectedCategoryName[message.Chat.Id] = message.Text;
 
+        category[message.Chat.Id] = await categoryService.GetByNameAsync(selectedCategoryName[message.Chat.Id], cancellationToken);
+
         if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.UpdateCategory))
         {
-            category[message.Chat.Id] = await categoryService.GetByNameAsync(selectedCategoryName[message.Chat.Id], cancellationToken);
             await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: localizer["txtCategoryInfo", category[message.Chat.Id].Name, category[message.Chat.Id].Description],
                 cancellationToken: cancellationToken);
             await SendEditCategoryPartsAsync(message, cancellationToken);
+            return;
+        }
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtCategoryInfo", category[message.Chat.Id].Name, category[message.Chat.Id].Description],
+            cancellationToken: cancellationToken);
+
+        if (category[message.Chat.Id].Products.Count() > 0)
+        {
+            StringBuilder productsBuilder = new StringBuilder("Mahsulotlar\n\n");
+
+            foreach (var product in category[message.Chat.Id].Products)
+            {
+                productsBuilder.AppendLine(product.Name);
+            }
+
+            string products = productsBuilder.ToString();
+
+            if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.DeleteCategory))
+            {
+                var replyKeyboard = new ReplyKeyboardMarkup(new[]
+                {
+                   new[] { new KeyboardButton(localizer["btnCancel"]) },
+                   new[] { new KeyboardButton(localizer["btnOk"]) },
+                })
+                {
+                    ResizeKeyboard = true
+                };
+
+                await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtDeleteCategoryWarning", products],
+                replyMarkup: replyKeyboard,
+                cancellationToken: cancellationToken);
+
+                adminStates[message.Chat.Id] = AdminState.WaitingForDeleteCategoryConfirm;
+            }
+            else
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: products,
+                    cancellationToken: cancellationToken);
+        }
+        else if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.DeleteCategory))
+        {
+            var replyKeyboard = new ReplyKeyboardMarkup(new[]
+            {
+                   new[] { new KeyboardButton(localizer["btnCancel"]) },
+                   new[] { new KeyboardButton(localizer["btnOk"]) },
+            })
+            {
+                ResizeKeyboard = true
+            };
+
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtEmptyCategory"],
+                replyMarkup: replyKeyboard,
+                cancellationToken: cancellationToken);
+            adminStates[message.Chat.Id] = AdminState.WaitingForDeleteCategoryConfirm;
+        }
+        else
+            await botClient.SendTextMessageAsync(
+               chatId: message.Chat.Id,
+               text: localizer["txtEmptyCategory"],
+               cancellationToken: cancellationToken);
+    }
+
+    private async Task HandleCategoryDeleteConfirmAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("HandleCategoryDeleteConfirmAsync is working..");
+
+        if (message.Text.Equals(localizer["btnCancel"]))
+        {
+            await SendCategoryMenuAsync(message, cancellationToken);
+            commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+        }
+        else if (message.Text.Equals(localizer["btnOk"]))
+        {
+            await categoryService.DeleteAsync(category[message.Chat.Id].Id, cancellationToken);
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtRemovedCategory"],
+                cancellationToken: cancellationToken);
+
+            commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+            await SendCategoryMenuAsync(message, cancellationToken);
         }
     }
 }

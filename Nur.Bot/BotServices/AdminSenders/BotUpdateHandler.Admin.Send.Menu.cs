@@ -99,7 +99,7 @@ public partial class BotUpdateHandler
 
         var replyKeyboard = new ReplyKeyboardMarkup(new[]
         {
-            new[] { new KeyboardButton(localizer["btnEditName"]), new KeyboardButton(localizer["btnEditDesc"]) },
+            new[] { new KeyboardButton(localizer["btnEditCategoryName"]), new KeyboardButton(localizer["btnEditCategoryDesc"]) },
             new[] { new KeyboardButton(localizer["btnBack"])},
         })
         {

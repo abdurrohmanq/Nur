@@ -30,6 +30,7 @@ public partial class BotUpdateHandler
             AdminState.WaitingForInputCategoryDesc => AdminHandleCategoryDescAsync(message, cancellationToken),
             AdminState.WaitingForCategorySelection => AdminHandleCategorySelectionAsync(message, cancellationToken),
             AdminState.WaitingForSelectCategoryEdit => AdminHandleCategoryEditAsync(message, cancellationToken),
+            AdminState.WaitingForDeleteCategoryConfirm => HandleCategoryDeleteConfirmAsync(message, cancellationToken), 
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

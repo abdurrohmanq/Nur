@@ -124,6 +124,9 @@
   <data name="BotLocalizer.uz" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BotLocalizer.uz.resx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="BotLocalizer.uz1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BotLocalizer.uz.resx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="btnAddCategory" xml:space="preserve">
     <value>Kategoriya qo'shish</value>
   </data>
@@ -154,6 +157,12 @@
   <data name="btnEditCategory" xml:space="preserve">
     <value>Kategoriya yangilash</value>
   </data>
+  <data name="btnEditCategoryDesc" xml:space="preserve">
+    <value>Tavsifi</value>
+  </data>
+  <data name="btnEditCategoryName" xml:space="preserve">
+    <value>Nomi</value>
+  </data>
   <data name="btnEditInfo" xml:space="preserve">
     <value>ℹ️ Ma'lumotlarni yangilash</value>
   </data>
@@ -180,6 +189,9 @@
   </data>
   <data name="btnMainMenu" xml:space="preserve">
     <value>🏠 Asosiy menu</value>
+  </data>
+  <data name="btnOk" xml:space="preserve">
+    <value>🆗</value>
   </data>
   <data name="btnOrder" xml:space="preserve">
     <value>🛍 Buyurtma berish</value>
@@ -296,6 +308,9 @@ Tavsifi: {1}</value>
   <data name="txtCategoryNameUpdated" xml:space="preserve">
     <value>Kategoriya nomi yangilandi!</value>
   </data>
+  <data name="txtCategoryRequestDesc" xml:space="preserve">
+    <value>Kategoriya yangi tavsifini kiriting!</value>
+  </data>
   <data name="txtCategoryRequestDescription" xml:space="preserve">
     <value>Kategoriya tavsifini kiriting:
 tavsif (Bu kategoriyada qanday mahsulotlar turishi, qanday kategoriya ekanligi haqida batafsil)</value>
@@ -327,6 +342,13 @@ tavsif (Bu kategoriyada qanday mahsulotlar turishi, qanday kategoriya ekanligi h
   </data>
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Hozirgi ism sharifingiz: {0}</value>
+  </data>
+  <data name="txtDeleteCategoryWarning" xml:space="preserve">
+    <value>Bu kategoriyani o'chirganingizda quyidagi mahsulotlar ham o'chib ketadi:
+
+{0}
+
+Tasdiqlash uchun 🆗 ni bosing!</value>
   </data>
   <data name="txtDislike" xml:space="preserve">
     <value>Yoqmadi 👎🏻</value>
@@ -432,6 +454,9 @@ Na'muna: "+998901234567"</value>
   </data>
   <data name="txtRemovedCartItem" xml:space="preserve">
     <value>{0} savatdan o'chdi!</value>
+  </data>
+  <data name="txtRemovedCategory" xml:space="preserve">
+    <value>Kategoriya muvaffaqiyatli o'chirildi!</value>
   </data>
   <data name="txtRequestForLocation" xml:space="preserve">
     <value>Buyurtmangizni qayerga yetkazib berish kerak 🚙?</value>

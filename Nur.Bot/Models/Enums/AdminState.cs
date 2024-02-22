@@ -12,5 +12,6 @@ public enum AdminState
     WaitingForInputCategoryName,
     WaitingForInputCategoryDesc,
     WaitingForSelectCategoryEdit,
-    WaitingForCategorySelection
+    WaitingForCategorySelection,
+    WaitingForDeleteCategoryConfirm
 }

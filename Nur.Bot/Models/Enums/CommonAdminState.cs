@@ -5,5 +5,6 @@ public enum CommonAdminState
     None,
     CreateCafe,
     CreateCategory,
-    UpdateCategory
+    UpdateCategory,
+    DeleteCategory
 }
