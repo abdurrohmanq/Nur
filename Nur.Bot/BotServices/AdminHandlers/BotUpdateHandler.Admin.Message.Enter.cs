@@ -9,6 +9,7 @@ namespace Nur.Bot.BotServices;
 
 public partial class BotUpdateHandler
 {
+    private Dictionary<long, CafeCreationDTO> createCafe = new Dictionary<long, CafeCreationDTO>();
     private async Task AdminHandlePasswordAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("AdminHandlePasswordAsync is working..");
@@ -17,24 +18,26 @@ public partial class BotUpdateHandler
 
         if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.CreateCafe))
         {
-            var createCafe = new CafeCreationDTO
+            createCafe[message.Chat.Id] = new CafeCreationDTO
             {
-                InstagramLink = cafe[message.Chat.Id].InstagramLink,
-                FacebookLink = cafe[message.Chat.Id].FacebookLink,
-                Phone = cafe[message.Chat.Id].Phone,
-                Password = password,
+                Password = password
             };
 
-            await cafeService.AddAsync(createCafe, cancellationToken);
-            commonAdminStates[message.Chat.Id] = CommonAdminState.None;
-        }
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtInstagramLink"],
+                cancellationToken: cancellationToken);
 
-        if (cafe[message.Chat.Id].Password.Equals(password))
+            adminStates[message.Chat.Id] = AdminState.WaitingForInstagramLink;
+        }
+        else if (cafe[message.Chat.Id].Password.Equals(password))
         {
             await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: "OK",
                 cancellationToken: cancellationToken);
+
+            await AdminSendMainMenuAsync(message, cancellationToken);
         }
         else
         {
@@ -52,11 +55,20 @@ public partial class BotUpdateHandler
         var link = message.Text;
         if (IsValidInstagramLink(link))
         {
-            cafe[message.Chat.Id].InstagramLink = link;
             if (commonAdminStates[message.Chat.Id] != CommonAdminState.CreateCafe)
+            {
+                cafe[message.Chat.Id].InstagramLink = link;
                 await cafeService.UpdateAsync(cafe[message.Chat.Id], cancellationToken);
+                await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtUpdatedInstagramLink"],
+                cancellationToken: cancellationToken);
+
+                await AdminSendMainMenuAsync(message, cancellationToken);
+            }
             else
             {
+                createCafe[message.Chat.Id].InstagramLink = link;
                 await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: localizer["txtFacebookLink"],
@@ -80,11 +92,21 @@ public partial class BotUpdateHandler
         var link = message.Text;
         if (IsValidFacebookLink(link))
         {
-            cafe[message.Chat.Id].FacebookLink = link;
             if (commonAdminStates[message.Chat.Id] != CommonAdminState.CreateCafe)
+            {
+                cafe[message.Chat.Id].FacebookLink = link;
                 await cafeService.UpdateAsync(cafe[message.Chat.Id], cancellationToken);
+
+                await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtUpdatedFacebookLink"],
+                cancellationToken: cancellationToken);
+
+                await AdminSendMainMenuAsync(message, cancellationToken);
+            }
             else
             {
+                createCafe[message.Chat.Id].FacebookLink = link;
                 await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: localizer["txtCafePhone"],
@@ -107,17 +129,31 @@ public partial class BotUpdateHandler
         var phone = message.Text;
         if(PhoneValidation.ValidatePhoneNumber(phone))
         {
-            cafe[message.Chat.Id].Phone = phone;
             if (commonAdminStates[message.Chat.Id] != CommonAdminState.CreateCafe)
-                await cafeService.UpdateAsync(cafe[message.Chat.Id], cancellationToken);
-            else
             {
+                cafe[message.Chat.Id].Phone = phone;
+                await cafeService.UpdateAsync(cafe[message.Chat.Id], cancellationToken);
+
                 await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: localizer["txtCafePassword"],
+                text: localizer["txtUpdatedPhone"],
                 cancellationToken: cancellationToken);
 
-                adminStates[message.Chat.Id] = AdminState.WaitingForCafePassword;
+                await AdminSendMainMenuAsync(message, cancellationToken);
+            }
+            else
+            {
+                createCafe[message.Chat.Id].Phone = phone;
+
+                await cafeService.AddAsync(createCafe[message.Chat.Id], cancellationToken);
+                commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+
+                await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtCreatedCafe"],
+                cancellationToken: cancellationToken);
+
+                await AdminSendMainMenuAsync(message, cancellationToken);
             }
         }
     }
@@ -130,8 +166,7 @@ public partial class BotUpdateHandler
 
     private bool IsValidFacebookLink(string link)
     {
-        Regex regex = new Regex(@"^(http(s)?:\/\/)?(www\.)?(facebook\.com|fb\.com)\/[a-zA-Z0-9_]+\/?$");
+        Regex regex = new Regex(@"^(http(s)?:\/\/)?(www\.)?(facebook\.com|fb\.com)\/[a-zA-Z0-9_\.]+\/?$");
         return regex.IsMatch(link);
     }
-
 }

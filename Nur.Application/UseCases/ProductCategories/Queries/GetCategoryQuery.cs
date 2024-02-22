@@ -9,7 +9,7 @@ namespace Nur.Application.UseCases.ProductCategories.Queries;
 
 public class GetCategoryQuery : IRequest<ProductCategoryDTO>
 {
-    public GetCategoryQuery(long productId) { Id = productId; }
+    public GetCategoryQuery(long categoryId) { Id = categoryId; }
     public long Id { get; set; }
 }
 

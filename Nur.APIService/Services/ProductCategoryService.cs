@@ -18,7 +18,14 @@ public class ProductCategoryService(HttpClient httpClient, ILogger<ProductCatego
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<ProductCategoryDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<ProductCategoryDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 
@@ -33,7 +40,14 @@ public class ProductCategoryService(HttpClient httpClient, ILogger<ProductCatego
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<ProductCategoryDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<ProductCategoryDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 
@@ -60,7 +74,35 @@ public class ProductCategoryService(HttpClient httpClient, ILogger<ProductCatego
         if (!response.IsSuccessStatusCode)
             return default!;
 
-        var result = await response.Content.ReadFromJsonAsync<Response<ProductCategoryDTO>>(cancellationToken: cancellationToken);
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<ProductCategoryDTO>>(options, cancellationToken);
+        if (result!.Status == 200)
+            return result.Data;
+
+        logger.LogInformation(message: result.Message);
+        return default!;
+    }
+
+    public async Task<ProductCategoryDTO> GetByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        using var response = await httpClient.GetAsync($"get-by-name?name={name}", cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            return default!;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() },
+            ReferenceHandler = ReferenceHandler.Preserve
+        };
+
+        var result = await response.Content.ReadFromJsonAsync<Response<ProductCategoryDTO>>(options, cancellationToken);
         if (result!.Status == 200)
             return result.Data;
 

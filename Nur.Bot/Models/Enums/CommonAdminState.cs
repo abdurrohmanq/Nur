@@ -3,5 +3,7 @@
 public enum CommonAdminState
 {
     None,
-    CreateCafe
+    CreateCafe,
+    CreateCategory,
+    UpdateCategory
 }

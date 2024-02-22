@@ -16,6 +16,7 @@ public partial class BotUpdateHandler
         logger.LogInformation("Received message from {from.FirstName}", from.FirstName);
 
         commonAdminStates[message.Chat.Id] = commonAdminStates.TryGetValue(message.Chat.Id, out var state) ? state : CommonAdminState.None;
+        cafe[message.Chat.Id] = (await cafeService.GetAsync(cancellationToken)).FirstOrDefault();
 
         var handlerUserMessage = message.Type switch
         {

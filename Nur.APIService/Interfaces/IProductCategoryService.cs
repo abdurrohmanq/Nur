@@ -8,5 +8,6 @@ public interface IProductCategoryService
     public Task<ProductCategoryDTO> UpdateAsync(ProductCategoryDTO dto, CancellationToken cancellationToken);
     public Task<bool> DeleteAsync(long id, CancellationToken cancellationToken);
     public Task<ProductCategoryDTO> GetAsync(long Id, CancellationToken cancellationToken);
+    public Task<ProductCategoryDTO> GetByNameAsync(string name, CancellationToken cancellationToken);
     public Task<IEnumerable<ProductCategoryDTO>> GetAllAsync(CancellationToken cancellationToken);
 }

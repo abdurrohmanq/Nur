@@ -24,6 +24,10 @@ public class ProductCategoriesController(IMediator mediator) : BaseController
     [HttpGet("get/{id:long}")]
     public async Task<IActionResult> GetAsync(long id, CancellationToken cancellationToken)
         => Ok(new Response { Data = await mediator.Send(new GetCategoryQuery(id), cancellationToken) });
+    
+    [HttpGet("get-by-name")]
+    public async Task<IActionResult> GetByNameAsync(string name, CancellationToken cancellationToken)
+        => Ok(new Response { Data = await mediator.Send(new GetCategoryByNameQuery(name), cancellationToken) });
 
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)

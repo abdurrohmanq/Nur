@@ -74,6 +74,7 @@ public static class DependencyInjection
         services.AddScoped<IRequestHandler<CategoryDeleteCommand, bool>, CategoryDeleteCommandHandler>();
 
         services.AddScoped<IRequestHandler<GetCategoryQuery, ProductCategoryDTO>, GetCategoryQueryHandler>();
+        services.AddScoped<IRequestHandler<GetCategoryByNameQuery, ProductCategoryDTO>, GetCategoryByNameQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllProductCategoriesQuery, IEnumerable<ProductCategoryDTO>>, GetAllProductCategoriesQueryHandler>();
 
         //Address

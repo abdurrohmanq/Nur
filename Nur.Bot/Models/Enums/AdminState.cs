@@ -6,5 +6,11 @@ public enum AdminState
     WaitingForInstagramLink,
     WaitingForCafePassword,
     WaitingForFacebookLink,
-    WaitingForCafePhone
+    WaitingForCafePhone,
+    WaitingForSelectMainMenu,
+    WaitingForSelectCategoryMenu,
+    WaitingForInputCategoryName,
+    WaitingForInputCategoryDesc,
+    WaitingForSelectCategoryEdit,
+    WaitingForCategorySelection
 }

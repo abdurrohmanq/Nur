@@ -20,9 +20,16 @@ public partial class BotUpdateHandler
         var handler = adminState switch
         {
             AdminState.None => SendEnterCalmAsync(message, cancellationToken),
+            AdminState.WaitingForCafePassword => AdminHandlePasswordAsync(message, cancellationToken),
             AdminState.WaitingForInstagramLink => AdminHandleInstagramLinkAsync(message, cancellationToken),
             AdminState.WaitingForFacebookLink => AdminHandleFacebookLinkAsync(message, cancellationToken),
             AdminState.WaitingForCafePhone => AdminHandlePhoneAsync(message, cancellationToken),
+            AdminState.WaitingForSelectMainMenu => AdminHandleMainMenuAsync(message, cancellationToken),
+            AdminState.WaitingForSelectCategoryMenu => AdminHandleCategoryMenuAsync(message, cancellationToken),
+            AdminState.WaitingForInputCategoryName => AdminHandleCategoryNameAsync(message, cancellationToken),
+            AdminState.WaitingForInputCategoryDesc => AdminHandleCategoryDescAsync(message, cancellationToken),
+            AdminState.WaitingForCategorySelection => AdminHandleCategorySelectionAsync(message, cancellationToken),
+            AdminState.WaitingForSelectCategoryEdit => AdminHandleCategoryEditAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 
