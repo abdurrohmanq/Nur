@@ -17,7 +17,7 @@ public partial class BotUpdateHandler
         var handle = message.Text switch
         {
             { } text when text == localizer["btnCategory"] => SendCategoryMenuAsync(message, cancellationToken),
-            { } text when text == localizer["btnProduct"] => SendMenuSettingsAsync(message, cancellationToken),
+            { } text when text == localizer["btnProduct"] => SendProductMenuAsync(message, cancellationToken),
             _ when message.Text == localizer["btnEditInfo"] => SendInfoAsync(message, cancellationToken),
             { } text when text == localizer["btnEditPhone"] => ShowFeedbackAsync(message, cancellationToken),
             { } text when text == localizer["btnOrdersList"] => SendContactAsync(message, cancellationToken),
@@ -30,6 +30,11 @@ public partial class BotUpdateHandler
 
     private async Task AdminHandleCategoryMenuAsync(Message message, CancellationToken cancellationToken)
     {
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await AdminSendMainMenuAsync(message, cancellationToken);
+            return;
+        }
         logger.LogInformation("AdminHandleCategoryMenuAsync is working..");
 
         if (message.Text.Equals(localizer["btnEditCategory"]))

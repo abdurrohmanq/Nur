@@ -21,6 +21,7 @@ public partial class BotUpdateHandler
         var handlerUserMessage = message.Type switch
         {
             MessageType.Text => AdminHandleTextMessageAsync(client, message, cancellationToken),
+            MessageType.Photo => HandleProductPhotoAsync(message, cancellationToken),
             MessageType.Contact => HandleContactAsync(client, message, cancellationToken),
             MessageType.Location => HandleLocationAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(client, message, cancellationToken)

@@ -127,8 +127,17 @@
   <data name="BotLocalizer.uz1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BotLocalizer.uz.resx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="BotLocalizer.uz2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BotLocalizer.uz.resx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="btnAddCategory" xml:space="preserve">
     <value>Kategoriya qo'shish</value>
+  </data>
+  <data name="btnAddProduct" xml:space="preserve">
+    <value>Mahsulot qo'shish</value>
+  </data>
+  <data name="btnAsterisk" xml:space="preserve">
+    <value>*</value>
   </data>
   <data name="btnBack" xml:space="preserve">
     <value>⬅️ Ortga</value>
@@ -150,6 +159,9 @@
   </data>
   <data name="btnDeleteCategory" xml:space="preserve">
     <value>Kategoriya o'chirish</value>
+  </data>
+  <data name="btnDeleteProduct" xml:space="preserve">
+    <value>Mahsulot o'chirish</value>
   </data>
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Yetkazib berish</value>
@@ -175,6 +187,27 @@
   <data name="btnEditPhone" xml:space="preserve">
     <value>☎️ Telefonni yangilash</value>
   </data>
+  <data name="btnEditProduct" xml:space="preserve">
+    <value>Mahsulot yangilash</value>
+  </data>
+  <data name="btnEditProductCategory" xml:space="preserve">
+    <value>Kategoriya</value>
+  </data>
+  <data name="btnEditProductDesc" xml:space="preserve">
+    <value>Tavsif</value>
+  </data>
+  <data name="btnEditProductName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="btnEditProductPhoto" xml:space="preserve">
+    <value>Rasm</value>
+  </data>
+  <data name="btnEditProductPrice" xml:space="preserve">
+    <value>Narxi</value>
+  </data>
+  <data name="btnEditProductQuantity" xml:space="preserve">
+    <value>Miqdor</value>
+  </data>
   <data name="btnFeedback" xml:space="preserve">
     <value>✍️ Fikr bildirish</value>
   </data>
@@ -183,6 +216,9 @@
   </data>
   <data name="btnGetCategoryInfo" xml:space="preserve">
     <value>Kategoriya ma'lumot olish</value>
+  </data>
+  <data name="btnGetProductInfo" xml:space="preserve">
+    <value>Mahsulot ma'lumot olish</value>
   </data>
   <data name="btnInfo" xml:space="preserve">
     <value>ℹ️ Ma'lumot</value>
@@ -262,8 +298,17 @@
   <data name="string" xml:space="preserve">
     <value />
   </data>
+  <data name="ts" xml:space="preserve">
+    <value />
+  </data>
   <data name="txtAddedCategory" xml:space="preserve">
     <value>Kategoriya muvaffaqiyatli qo'shildi!</value>
+  </data>
+  <data name="txtAddedProduct" xml:space="preserve">
+    <value>Mahsulot muvaffaqiyatli qo'shildi!</value>
+  </data>
+  <data name="txtAddedProductError" xml:space="preserve">
+    <value>Qandaydir muammo yuzaga kelganligi sababli mahsulot yaratilmadi!</value>
   </data>
   <data name="txtAddedProductInCart" xml:space="preserve">
     <value>{0} ta {1} savatga qo'shildi!</value>
@@ -353,6 +398,12 @@ Tasdiqlash uchun 🆗 ni bosing!</value>
   <data name="txtDislike" xml:space="preserve">
     <value>Yoqmadi 👎🏻</value>
   </data>
+  <data name="txtEditedProduct" xml:space="preserve">
+    <value>Mahsulot rasmi yangilandi!</value>
+  </data>
+  <data name="txtEditedProductError" xml:space="preserve">
+    <value>Qandaydir muammo yuzaga kelganligi sababli mahsulot yangilanmadi!</value>
+  </data>
   <data name="txtEmptyCafeInfo" xml:space="preserve">
     <value>Cafe ma'lumotlari hali kiritilmagan. </value>
   </data>
@@ -440,14 +491,58 @@ Bir necha daqiqada yetib boradi!</value>
     <value>Raqam xato kiritildi!
 Na'muna: "+998901234567"</value>
   </data>
+  <data name="txtPhotoError" xml:space="preserve">
+    <value>Rasmni to'gri yuborganingizga ishonch hosil qiling!</value>
+  </data>
   <data name="txtPrepared" xml:space="preserve">
     <value>Buyurtma tayyor! Tez orada yetkazib beriladi.</value>
   </data>
   <data name="txtPreparing" xml:space="preserve">
     <value>Buyurtma tayyorlanyapti. Tez orada yetkaziladi.</value>
   </data>
+  <data name="txtProductAlreadyExist" xml:space="preserve">
+    <value>Bu nomdagi mahsulot ro'yxatda bor!</value>
+  </data>
+  <data name="txtProductDescUpdated" xml:space="preserve">
+    <value>Mahsulot tavsifi yangilandi!</value>
+  </data>
+  <data name="txtProductEditSelect" xml:space="preserve">
+    <value>Mahsulotni qaysi qismini o'zgartirmoqchisiz?</value>
+  </data>
+  <data name="txtProductNameUpdated" xml:space="preserve">
+    <value>Mahsulot nomi yangilandi!</value>
+  </data>
   <data name="txtProductPrice" xml:space="preserve">
     <value>💰 *Narxi:* {0}</value>
+  </data>
+  <data name="txtProductPriceError" xml:space="preserve">
+    <value>Mahsulot narxini faqat sonda kiriting iltimos!</value>
+  </data>
+  <data name="txtProductPriceUpdated" xml:space="preserve">
+    <value>Mahsulot narxi yangilandi!</value>
+  </data>
+  <data name="txtProductQuantityError" xml:space="preserve">
+    <value>Mahsulot miqdorini faqat sonda kiritish kerak!</value>
+  </data>
+  <data name="txtProductQuantityUpdated" xml:space="preserve">
+    <value>Mahsulot miqdori yangilandi! </value>
+  </data>
+  <data name="txtProductRequestDesc" xml:space="preserve">
+    <value>Mahsulot tavsifini kiriting:
+Izoh: Mahsulot tavsifiga foydalanuvchiga savol qoldirmaydigan darajada ma'lumot yozing! Mahsulotni tarkibi, og'irligi va hakazo</value>
+  </data>
+  <data name="txtProductRequestName" xml:space="preserve">
+    <value>Mahsulot nomini kiriting:</value>
+  </data>
+  <data name="txtProductRequestPhoto" xml:space="preserve">
+    <value>Mahsulot rasmini kiriting:</value>
+  </data>
+  <data name="txtProductRequestPrice" xml:space="preserve">
+    <value>Mahsulot narxini kiriting:</value>
+  </data>
+  <data name="txtProductRequestQuantity" xml:space="preserve">
+    <value>Mahsulot miqdorini kiriting:
+Izoh: Cafeda {0} mahsulotidan qancha borligini kiriting. Agar aniq bilmasangiz quyidagi  '*' yulduzcha belgisini bosing! </value>
   </data>
   <data name="txtReceiveLocation" xml:space="preserve">
     <value>Manzilingiz qabul qilindi!</value>

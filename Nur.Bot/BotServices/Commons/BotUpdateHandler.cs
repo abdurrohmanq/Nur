@@ -30,9 +30,15 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
 
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
-        if(update.Message.Text.Equals("/admin")) { userStates[update.Message.Chat.Id] = UserState.AdminState;}
-        else if(update.Message.Text.Equals("/start")) { userStates[update.Message.Chat.Id] = UserState.None;
-            adminStates[update.Message.Chat.Id] = AdminState.None;}
+        if (update.Message.Type == MessageType.Text)
+        {
+            if (update.Message.Text.Equals("/admin")) { userStates[update.Message.Chat.Id] = UserState.AdminState; }
+            else if (update.Message.Text.Equals("/start"))
+            {
+                userStates[update.Message.Chat.Id] = UserState.None;
+                adminStates[update.Message.Chat.Id] = AdminState.None;
+            }
+        }
 
         var userState = userStates.TryGetValue(update.Message.Chat.Id, out var state) ? state : UserState.None;
 

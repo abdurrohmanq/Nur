@@ -30,7 +30,13 @@ public partial class BotUpdateHandler
             AdminState.WaitingForInputCategoryDesc => AdminHandleCategoryDescAsync(message, cancellationToken),
             AdminState.WaitingForCategorySelection => AdminHandleCategorySelectionAsync(message, cancellationToken),
             AdminState.WaitingForSelectCategoryEdit => AdminHandleCategoryEditAsync(message, cancellationToken),
-            AdminState.WaitingForDeleteCategoryConfirm => HandleCategoryDeleteConfirmAsync(message, cancellationToken), 
+            AdminState.WaitingForDeleteCategoryConfirm => HandleCategoryDeleteConfirmAsync(message, cancellationToken),
+            AdminState.WaitingForSelectProductMenu => AdminHandleProductMenuAsync(message, cancellationToken),
+            AdminState.WaitingForCategorySelectionForProduct => AdminHandleCategorySelectionForProductAsync(message, cancellationToken),
+            AdminState.WaitingForInputProductName => AdminHandleProductNameAsync(message, cancellationToken),
+            AdminState.WaitingForInputProductPrice => AdminHandleProductPriceAsync(message, cancellationToken),
+            AdminState.WaitingForInputProductQuantity => AdminHandleProductQuantityAsync(message, cancellationToken),
+            AdminState.WaitingForInputProductDesc => AdminHandleProductDescAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

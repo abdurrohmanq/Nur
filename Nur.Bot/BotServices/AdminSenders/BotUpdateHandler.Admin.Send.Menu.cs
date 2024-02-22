@@ -16,6 +16,7 @@ public partial class BotUpdateHandler
         {
             new[] { new KeyboardButton(localizer["btnAddCategory"]), new KeyboardButton(localizer["btnDeleteCategory"]) },
             new[] { new KeyboardButton(localizer["btnEditCategory"]),  new KeyboardButton(localizer["btnGetCategoryInfo"]) },
+            new[] { new KeyboardButton(localizer["btnBack"])},
         })
         {
             ResizeKeyboard = true

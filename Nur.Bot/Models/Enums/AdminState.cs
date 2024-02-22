@@ -13,5 +13,14 @@ public enum AdminState
     WaitingForInputCategoryDesc,
     WaitingForSelectCategoryEdit,
     WaitingForCategorySelection,
-    WaitingForDeleteCategoryConfirm
+    WaitingForDeleteCategoryConfirm,
+    WaitingForSelectProductMenu,
+    WaitingForCategorySelectionForProduct,
+    WaitingForInputProductName,
+    WaitingForInputProductPrice,
+    WaitingForInputProductQuantity,
+    WaitingForInputProductDesc,
+    WaitingForInputProductPhoto,
+    WaitingForProductSelection,
+    WaitingForSelectProductEdit
 }
