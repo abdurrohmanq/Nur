@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using Nur.Bot.Models.Enums;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -14,9 +15,11 @@ public partial class BotUpdateHandler
 
         logger.LogInformation("Received message from {from.FirstName}", from.FirstName);
 
+        commonAdminStates[message.Chat.Id] = commonAdminStates.TryGetValue(message.Chat.Id, out var state) ? state : CommonAdminState.None;
+
         var handlerUserMessage = message.Type switch
         {
-            MessageType.Text => HandleTextMessageAsync(client, message, cancellationToken),
+            MessageType.Text => AdminHandleTextMessageAsync(client, message, cancellationToken),
             MessageType.Contact => HandleContactAsync(client, message, cancellationToken),
             MessageType.Location => HandleLocationAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(client, message, cancellationToken)

@@ -2,5 +2,9 @@
 
 public enum AdminState
 {
-    None
+    None,
+    WaitingForInstagramLink,
+    WaitingForCafePassword,
+    WaitingForFacebookLink,
+    WaitingForCafePhone
 }

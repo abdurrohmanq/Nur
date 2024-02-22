@@ -225,6 +225,12 @@
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
   </data>
+  <data name="txtCafePassword" xml:space="preserve">
+    <value>Parolni kiriting:</value>
+  </data>
+  <data name="txtCafePhone" xml:space="preserve">
+    <value>Cafeni telefon raqamini kiriting:</value>
+  </data>
   <data name="txtCartEmpty" xml:space="preserve">
     <value>Savatda hech narsa yo'q</value>
   </data>
@@ -259,11 +265,17 @@
   <data name="txtDislike" xml:space="preserve">
     <value>Yoqmadi 👎🏻</value>
   </data>
+  <data name="txtEmptyCafeInfo" xml:space="preserve">
+    <value>Cafe ma'lumotlari hali kiritilmagan. </value>
+  </data>
   <data name="txtEmptyCategory" xml:space="preserve">
     <value>Hozircha bu categoryda mahsulot yo'q.</value>
   </data>
   <data name="txtErrorDeleteCart" xml:space="preserve">
     <value>Savat tozalanmadi! Qandaydir muammo yuzaga qaytadan urinib ko'ring!</value>
+  </data>
+  <data name="txtFacebookLink" xml:space="preserve">
+    <value>Cafeni facebook linkini kiriting:</value>
   </data>
   <data name="txtFeedback" xml:space="preserve">
     <value>Bizni tanlagingiz uchun tashakkur!\nFikr bildiring yoki xizmatimizni baholang!</value>
@@ -283,6 +295,18 @@ Biznnig manzil 👇</value>
   </data>
   <data name="txtInputProductQuantity" xml:space="preserve">
     <value>Tanlangan mahsulot miqdorini kiriting yoki quyidagi tugmalardan birini tanlang!</value>
+  </data>
+  <data name="txtInstagramLink" xml:space="preserve">
+    <value>Cafeni instagram linkini kiriting:</value>
+  </data>
+  <data name="txtInvalidFacebookLink" xml:space="preserve">
+    <value>Facebook linki xato kiritildi!</value>
+  </data>
+  <data name="txtInvalidInstagramLink" xml:space="preserve">
+    <value>Instagram linki xato kiritildi!</value>
+  </data>
+  <data name="txtInvalidPassword" xml:space="preserve">
+    <value>Parol xato kiritildi!</value>
   </data>
   <data name="txtMenuPersonalInfo" xml:space="preserve">
     <value>Shaxsiy ma'lumotlarni o'zgartirish uchun tanlang</value>

@@ -7,6 +7,7 @@ namespace Nur.Bot.BotServices;
 public partial class BotUpdateHandler
 {
     private Dictionary<long, AdminState> adminStates = new Dictionary<long, AdminState>();
+    private Dictionary<long, CommonAdminState> commonAdminStates = new Dictionary<long, CommonAdminState>();
 
     private async Task AdminHandleTextMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
@@ -18,7 +19,10 @@ public partial class BotUpdateHandler
 
         var handler = adminState switch
         {
-            AdminState.None => SendGreetingAsync(message, cancellationToken),
+            AdminState.None => SendEnterCalmAsync(message, cancellationToken),
+            AdminState.WaitingForInstagramLink => AdminHandleInstagramLinkAsync(message, cancellationToken),
+            AdminState.WaitingForFacebookLink => AdminHandleFacebookLinkAsync(message, cancellationToken),
+            AdminState.WaitingForCafePhone => AdminHandlePhoneAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 
