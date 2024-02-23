@@ -322,6 +322,9 @@
   <data name="txtAnew" xml:space="preserve">
     <value>Qaytadan boshlaymizmi?</value>
   </data>
+  <data name="txtAutorOrder" xml:space="preserve">
+    <value>Buyurtma bergan: </value>
+  </data>
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
   </data>
@@ -445,6 +448,9 @@ Tasdiqlash uchun 🆗 ni bosing!</value>
   </data>
   <data name="txtEmptyCategory" xml:space="preserve">
     <value>Hozircha bu categoryda mahsulot yo'q.</value>
+  </data>
+  <data name="txtEndDate" xml:space="preserve">
+    <value>📅 Yetkazib berilgan:</value>
   </data>
   <data name="txtErrorDeleteCart" xml:space="preserve">
     <value>Savat tozalanmadi! Qandaydir muammo yuzaga qaytadan urinib ko'ring!</value>
@@ -625,6 +631,12 @@ Izoh: Cafeda {0} mahsulotidan qancha borligini kiriting. Agar aniq bilmasangiz q
   </data>
   <data name="txtSettings" xml:space="preserve">
     <value>⚙️ Sozlamalar</value>
+  </data>
+  <data name="txtStartDate" xml:space="preserve">
+    <value>📅 Buyurtma berilgan: </value>
+  </data>
+  <data name="txtStatus" xml:space="preserve">
+    <value>Holati: </value>
   </data>
   <data name="txtTakeAwayLocation" xml:space="preserve">
     <value>Nur cafe manzili 👇</value>

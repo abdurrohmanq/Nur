@@ -297,14 +297,14 @@ public partial class BotUpdateHandler
         {
             string orderType = order.OrderType == OrderType.Delivery ?
                 localizer["btnDelivery"] : localizer["btnTakeAway"];
-            ordersReport.AppendLine($"Buyurtma berilgan: {order.StartAt}");
-            ordersReport.AppendLine($"Yetkazib berilgan: {order.EndAt}");
-            ordersReport.AppendLine($"Holati: {order.Status}");
-            ordersReport.AppendLine($"Umumiy narxi: {order.TotalPrice}");
-            ordersReport.AppendLine($"Buyurtma turi: {orderType}");
-            ordersReport.AppendLine($"Izoh: {order.Description}");
-            ordersReport.AppendLine($"Buyurtma bergan: {order.User.FullName}");
-            ordersReport.AppendLine($"Telefon raqami: {order.User.Phone}");
+            ordersReport.AppendLine($"{localizer["txtStartDate"]} {order.StartAt}");
+            ordersReport.AppendLine($"{localizer["txtEndDate"]} {order.EndAt}");
+            ordersReport.AppendLine($"{localizer["txtStatus"]} {order.Status}");
+            ordersReport.AppendLine($"{localizer["txtTotalPrice", order.TotalPrice]}");
+            ordersReport.AppendLine($"{localizer["txtOrderType"]} {orderType}");
+            ordersReport.AppendLine($"{localizer["txtComments"]} {order.Description}");
+            ordersReport.AppendLine($"{localizer["txtAutorOrder"]} {order.User.FullName}");
+            ordersReport.AppendLine($"{localizer["txtPhone"]} {order.User.Phone}");
 
             ordersReport.AppendLine("Buyurtma bergan mahsulotlar:");
             foreach (var item in order.OrderItems)
