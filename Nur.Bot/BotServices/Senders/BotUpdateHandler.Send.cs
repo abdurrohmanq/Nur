@@ -118,7 +118,7 @@ public partial class BotUpdateHandler
     {
         await botClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
-            text: localizer["txtContactInfo"],
+            text: localizer["txtContactInfo", cafe[message.Chat.Id].Phone],
             cancellationToken: cancellationToken
         );
     }
@@ -153,7 +153,7 @@ public partial class BotUpdateHandler
 
         await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: localizer["txtInfo"],
+                text: localizer["txtInfo", cafe[message.Chat.Id].InstagramLink, cafe[message.Chat.Id].FacebookLink],
                 cancellationToken: cancellationToken);
 
         await botClient.SendLocationAsync(

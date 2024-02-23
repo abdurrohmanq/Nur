@@ -1,4 +1,5 @@
-﻿using Nur.APIService.Models.ProductCategories;
+﻿using Nur.APIService.Models.Enums;
+using Nur.APIService.Models.ProductCategories;
 using Nur.Bot.Models.Enums;
 using System.Text;
 using Telegram.Bot;
@@ -18,9 +19,9 @@ public partial class BotUpdateHandler
         {
             { } text when text == localizer["btnCategory"] => SendCategoryMenuAsync(message, cancellationToken),
             { } text when text == localizer["btnProduct"] => SendProductMenuAsync(message, cancellationToken),
-            _ when message.Text == localizer["btnEditInfo"] => SendInfoAsync(message, cancellationToken),
-            { } text when text == localizer["btnEditPhone"] => ShowFeedbackAsync(message, cancellationToken),
-            { } text when text == localizer["btnOrdersList"] => SendContactAsync(message, cancellationToken),
+            _ when message.Text == localizer["btnEditInfo"] => SendEditCafeInfoPartsAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditPhone"] => SendEditCafePhoneQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnOrdersList"] => HandleOrderListAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 
@@ -282,4 +283,41 @@ public partial class BotUpdateHandler
             await SendCategoryMenuAsync(message, cancellationToken);
         }
     }
+
+    private async Task HandleOrderListAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("HandleOrderListAsync is working..");
+
+        var orders = await orderService.GetAllAsync(cancellationToken);
+        var ordersReport = new StringBuilder();
+
+        foreach (var order in orders)
+        {
+            string orderType = order.OrderType == OrderType.Delivery ?
+                localizer["btnDelivery"] : localizer["btnTakeAway"];
+            ordersReport.AppendLine($"Buyurtma berilgan: {order.StartAt}");
+            ordersReport.AppendLine($"Yetkazib berilgan: {order.EndAt}");
+            ordersReport.AppendLine($"Holati: {order.Status}");
+            ordersReport.AppendLine($"Umumiy narxi: {order.TotalPrice}");
+            ordersReport.AppendLine($"Buyurtma turi: {orderType}");
+            ordersReport.AppendLine($"Izoh: {order.Description}");
+            ordersReport.AppendLine($"Buyurtma bergan: {order.User.FullName}");
+            ordersReport.AppendLine($"Telefon raqami: {order.User.Phone}");
+
+            ordersReport.AppendLine("Buyurtma bergan mahsulotlar:");
+            foreach (var item in order.OrderItems)
+            {
+                ordersReport.AppendLine($"- {item.Product.Name}: {item.Quantity} x {item.Price} = {item.Sum}");
+            }
+
+            ordersReport.AppendLine("--------------------");
+        }
+
+        await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: ordersReport.ToString(),
+            replyMarkup: new ReplyKeyboardMarkup(new[] { new[] { new KeyboardButton(localizer["btnMainMenu"]) } }) { ResizeKeyboard = true },
+            cancellationToken: cancellationToken);
+    }
+
 }

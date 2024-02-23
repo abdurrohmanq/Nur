@@ -166,6 +166,12 @@
   <data name="btnDelivery" xml:space="preserve">
     <value>🚖 Yetkazib berish</value>
   </data>
+  <data name="btnEditCafeFacebookLink" xml:space="preserve">
+    <value>Facebook linki</value>
+  </data>
+  <data name="btnEditCafeInstagramLink" xml:space="preserve">
+    <value>Instagram linki</value>
+  </data>
   <data name="btnEditCategory" xml:space="preserve">
     <value>Kategoriya yangilash</value>
   </data>
@@ -319,6 +325,15 @@
   <data name="txtBad" xml:space="preserve">
     <value>Yomon 🚫</value>
   </data>
+  <data name="txtCafeEditInfoSelect" xml:space="preserve">
+    <value>O'zgartirish kerak bo'lgan qismni tanlang!</value>
+  </data>
+  <data name="txtCafeFacebookLinkRequest" xml:space="preserve">
+    <value>Facebook linkini kiriting:</value>
+  </data>
+  <data name="txtCafeInstaLinkRequest" xml:space="preserve">
+    <value>Instagram linkini kiriting:</value>
+  </data>
   <data name="txtCafePassword" xml:space="preserve">
     <value>Parolni kiriting:</value>
   </data>
@@ -380,7 +395,7 @@ tavsif (Bu kategoriyada qanday mahsulotlar turishi, qanday kategoriya ekanligi h
     <value>Mahsulotni o'chirishni tasdiqlash uchun  🆗 ni bosing!</value>
   </data>
   <data name="txtContactInfo" xml:space="preserve">
-    <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
+    <value>Biz bilan aloqaga chiqish uchun &lt;{0}&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
   </data>
   <data name="txtContinueOrder" xml:space="preserve">
     <value>Buyurtma berishda davom etamizmi? 😋</value>
@@ -391,8 +406,20 @@ tavsif (Bu kategoriyada qanday mahsulotlar turishi, qanday kategoriya ekanligi h
   <data name="txtCurrentCategory" xml:space="preserve">
     <value>Mahsulot hozir {0} kategoriyasida turibdi. Uni qaysi kategoriyaga o'zgartirmoqchisiz?</value>
   </data>
+  <data name="txtCurrentFacebookLink" xml:space="preserve">
+    <value>Hozirgi Facebook linki: 
+{0}</value>
+  </data>
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Hozirgi ism sharifingiz: {0}</value>
+  </data>
+  <data name="txtCurrentInstaLink" xml:space="preserve">
+    <value>Hozirgi Instagram linki: 
+{0}</value>
+  </data>
+  <data name="txtCurrentPhone" xml:space="preserve">
+    <value>Hozirgi telefon raqam:
+{0}</value>
   </data>
   <data name="txtDeleteCategoryWarning" xml:space="preserve">
     <value>Bu kategoriyani o'chirganingizda quyidagi mahsulotlar ham o'chib ketadi:
@@ -437,8 +464,8 @@ Tasdiqlash uchun 🆗 ni bosing!</value>
   <data name="txtInfo" xml:space="preserve">
     <value>Nur cafe milliy va parxez taomlar markazi. 
 
-[Instagram](https://www.instagram.com/nur_kafe_andijon/)  
-[Facebook](https://www.facebook.com/nur.parxez/?show_switched_toast=0&amp;show_invite_to_follow=0&amp;show_switched_tooltip=0&amp;show_podcast_settings=0&amp;show_community_review_changes=0&amp;show_community_rollback=0&amp;show_follower_visibility_disclosure=0)  
+[Instagram]({0})  
+[Facebook]({1})  
 Biznnig manzil 👇</value>
   </data>
   <data name="txtInputProductQuantity" xml:space="preserve">

@@ -16,7 +16,7 @@ public partial class BotUpdateHandler
         logger.LogInformation("From: {from.FirstName}", from?.FirstName);
 
         var adminState = adminStates.TryGetValue(message.Chat.Id, out var state) ? state : AdminState.None;
-
+        if (message.Text.Equals(localizer["btnMainMenu"])) {await AdminSendMainMenuAsync(message, cancellationToken); return; }
         var handler = adminState switch
         {
             AdminState.None => SendEnterCalmAsync(message, cancellationToken),
@@ -41,6 +41,7 @@ public partial class BotUpdateHandler
             AdminState.WaitingForSelectProductEdit => AdminHandleProductEditAsync(message, cancellationToken),
             AdminState.WaitingForGetProductSelection => AdminHandleProductSelectionAsync(message, cancellationToken),
             AdminState.WaitingForDeleteProductConfirm => HandleProductDeleteConfirmAsync(message, cancellationToken),
+            AdminState.WaitingForSelectCafeInfoEdit => AdminHandleCafeInfoEditAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

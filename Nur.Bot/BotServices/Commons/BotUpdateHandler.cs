@@ -30,7 +30,7 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
 
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
-        if (update.Message.Type == MessageType.Text)
+        if (update.Message != null && update.Message.Type == MessageType.Text)
         {
             if (update.Message.Text.Equals("/admin")) { userStates[update.Message.Chat.Id] = UserState.AdminState; }
             else if (update.Message.Text.Equals("/start"))
@@ -40,7 +40,8 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
             }
         }
 
-        var userState = userStates.TryGetValue(update.Message.Chat.Id, out var state) ? state : UserState.None;
+        var chatId = update.Message?.Chat.Id ?? update.CallbackQuery.Message.Chat.Id;
+        var userState = userStates.TryGetValue(chatId, out var state) ? state : UserState.None;
 
         if (userState == UserState.AdminState)
         {

@@ -63,4 +63,119 @@ public partial class BotUpdateHandler
 
         adminStates[message.Chat.Id] = AdminState.WaitingForSelectMainMenu;
     }
+
+    private async Task SendEditCafeInfoPartsAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendEditCafeInfoPartsAsync is working");
+
+        var replyKeyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new[] { new KeyboardButton(localizer["btnEditCafeInstagramLink"]), new KeyboardButton(localizer["btnEditCafeFacebookLink"]) },
+            new[] { new KeyboardButton(localizer["btnBack"])},
+        })
+        {
+            ResizeKeyboard = true
+        };
+
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCafeEditInfoSelect"],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        adminStates[message.Chat.Id] = AdminState.WaitingForSelectCafeInfoEdit;
+    }
+
+    private async Task AdminHandleCafeInfoEditAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("AdminHandleCafeInfoEditAsync is working..");
+
+        var handle = message.Text switch
+        {
+            { } text when text == localizer["btnEditCafeFacebookLink"] => SendEditCafeInfoFacebookLinkQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditCafeInstagramLink"] => SendEditCafeInfoInstaLinkQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnBack"] => AdminSendMainMenuAsync(message, cancellationToken),
+            _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
+        };
+
+        try { await handle; }
+        catch (Exception ex) { logger.LogError(ex, "Error handling message from {user.FirstName}", user[message.Chat.Id].FirstName); }
+    }
+
+    private async Task SendEditCafeInfoInstaLinkQueryAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendEditCafeInfoInstaLinkQueryAsync is working");
+        var replyKeyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new[] { new KeyboardButton(localizer["btnBack"]) },
+        })
+        {
+            ResizeKeyboard = true
+        };
+
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCurrentInstaLink", cafe[message.Chat.Id].InstagramLink],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCafeInstaLinkRequest"],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        adminStates[message.Chat.Id] = AdminState.WaitingForInstagramLink;
+    }
+    
+    private async Task SendEditCafeInfoFacebookLinkQueryAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendEditCafeInfoFacebookLinkQueryAsync is working");
+        var replyKeyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new[] { new KeyboardButton(localizer["btnBack"]) },
+        })
+        {
+            ResizeKeyboard = true
+        };
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCurrentFacebookLink", cafe[message.Chat.Id].FacebookLink],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCafeFacebookLinkRequest"],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        adminStates[message.Chat.Id] = AdminState.WaitingForFacebookLink;
+    }
+    
+    private async Task SendEditCafePhoneQueryAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("SendEditCafePhoneQueryAsync is working");
+        var replyKeyboard = new ReplyKeyboardMarkup(new[]
+        {
+            new[] { new KeyboardButton(localizer["btnBack"]) },
+        })
+        {
+            ResizeKeyboard = true
+        };
+
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCurrentPhone", cafe[message.Chat.Id].Phone],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCafePhone"],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        adminStates[message.Chat.Id] = AdminState.WaitingForCafePhone;
+    }
 }

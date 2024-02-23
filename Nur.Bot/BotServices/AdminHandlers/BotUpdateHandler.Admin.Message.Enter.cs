@@ -52,6 +52,10 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("AdminHandleInstagramLinkAsync is working..");
 
+        if (message.Text.Equals(localizer["btnBack"]) && commonAdminStates[message.Chat.Id] != CommonAdminState.CreateCafe)
+        {
+            await SendEditCafeInfoPartsAsync(message, cancellationToken);
+        }
         var link = message.Text;
         if (IsValidInstagramLink(link))
         {
@@ -87,7 +91,10 @@ public partial class BotUpdateHandler
     private async Task AdminHandleFacebookLinkAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("AdminHandleFacebookLinkAsync is working..");
-
+        if (message.Text.Equals(localizer["btnBack"]) && commonAdminStates[message.Chat.Id] != CommonAdminState.CreateCafe)
+        {
+            await SendEditCafeInfoPartsAsync(message, cancellationToken);
+        }
 
         var link = message.Text;
         if (IsValidFacebookLink(link))
@@ -126,6 +133,10 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("AdminHandlePhoneAsync is working..");
 
+        if (message.Text.Equals(localizer["btnBack"]) && commonAdminStates[message.Chat.Id] != CommonAdminState.CreateCafe)
+        {
+            await AdminSendMainMenuAsync(message, cancellationToken);
+        }
         var phone = message.Text;
         if(PhoneValidation.ValidatePhoneNumber(phone))
         {

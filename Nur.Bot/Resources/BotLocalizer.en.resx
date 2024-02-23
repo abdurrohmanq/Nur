@@ -245,7 +245,7 @@
     <value>Your order has been accepted! You will be notified soon!</value>
   </data>
   <data name="txtContactInfo" xml:space="preserve">
-    <value>You can call &lt;&lt;+998905710460&gt;&gt; to contact us!</value>
+    <value>You can call &lt;{0}&gt; to contact us!</value>
   </data>
   <data name="txtContinueOrder" xml:space="preserve">
     <value>Do we continue to order? 😋</value>
@@ -274,8 +274,10 @@ Leave a comment or rate our service!</value>
   </data>
   <data name="txtInfo" xml:space="preserve">
     <value>Nur Cafe is a national and dietary food center.
-[Instagram](https://www.instagram.com/nur_kafe_andijon/)  
-[Facebook](https://www.facebook.com/nur.parxez/?show_switched_toast=0&amp;show_invite_to_follow=0&amp;show_switched_tooltip=0&amp;show_podcast_settings=0&amp;show_community_review_changes=0&amp;show_community_rollback=0&amp;show_follower_visibility_disclosure=0)  
+
+[Instagram]({0})  
+[Facebook]({1})  
+
 Our address is 👇</value>
   </data>
   <data name="txtInputProductQuantity" xml:space="preserve">

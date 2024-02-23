@@ -24,5 +24,6 @@ public enum AdminState
     WaitingForProductSelection,
     WaitingForSelectProductEdit,
     WaitingForGetProductSelection,
-    WaitingForDeleteProductConfirm
+    WaitingForDeleteProductConfirm,
+    WaitingForSelectCafeInfoEdit
 }
