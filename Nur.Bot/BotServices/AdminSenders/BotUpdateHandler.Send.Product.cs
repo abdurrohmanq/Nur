@@ -117,6 +117,47 @@ public partial class BotUpdateHandler
         adminStates[chatId] = AdminState.WaitingForProductSelection;
     }
 
+    private async Task AdminSendAllProductsKeyboardAsync(long chatId, CancellationToken cancellationToken)
+    {
+        var additionalButtons = new List<KeyboardButton>
+        {
+        new KeyboardButton(localizer["btnBack"]),
+        };
+
+        var allButtons = new List<KeyboardButton[]>();
+        var rowButtons = new List<KeyboardButton>();
+
+        var products = await productService.GetAllAsync(cancellationToken);
+        foreach (var product in products)
+        {
+            var button = new KeyboardButton(product.Name);
+            rowButtons.Add(button);
+
+            if (rowButtons.Count == 2)
+            {
+                allButtons.Add(rowButtons.ToArray());
+                rowButtons.Clear();
+            }
+        }
+
+        if (rowButtons.Any())
+        {
+            allButtons.Add(rowButtons.ToArray());
+        }
+
+        allButtons.Add(additionalButtons.ToArray());
+
+        var replyKeyboard = new ReplyKeyboardMarkup(allButtons) { ResizeKeyboard = true };
+
+        await botClient.SendTextMessageAsync(
+            chatId: chatId,
+            text: localizer["txtSelectProduct"],
+            replyMarkup: replyKeyboard,
+            cancellationToken: cancellationToken);
+
+        adminStates[chatId] = AdminState.WaitingForGetProductSelection;
+    }
+
     private async Task SendEditProductNameQueryAsync(Message message, CancellationToken cancellationToken)
     {
         logger.LogInformation("SendEditProductNameQueryAsync is working");
@@ -143,6 +184,7 @@ public partial class BotUpdateHandler
         logger.LogInformation("SendEditProductQuantityQueryAsync is working");
         var replyKeyboard = new ReplyKeyboardMarkup(new[]
         {
+            new[] { new KeyboardButton(localizer["btnAsterisk"]) },
             new[] { new KeyboardButton(localizer["btnBack"]) },
         })
         {

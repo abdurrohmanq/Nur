@@ -32,10 +32,11 @@ public partial class BotUpdateHandler
         {
             commonAdminStates[message.Chat.Id] = CommonAdminState.DeleteProduct;
             await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+            adminStates[message.Chat.Id] = AdminState.WaitingForCategorySelectionForProduct;
         }
         else if (message.Text.Equals(localizer["btnGetProductInfo"]))
         {
-            await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+            await AdminSendAllProductsKeyboardAsync(message.Chat.Id, cancellationToken);
         }
         else if (message.Text.Equals(localizer["btnBack"]))
             await AdminSendMainMenuAsync(message, cancellationToken);
@@ -63,7 +64,7 @@ public partial class BotUpdateHandler
         {
             await SendAddProductQueryAsync(message, cancellationToken);
         }
-        else if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.UpdateProduct))
+        else if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.UpdateProduct) || commonAdminStates[message.Chat.Id].Equals(CommonAdminState.DeleteProduct))
             await AdminSendProductsKeyboardAsync(message.Chat.Id, category[message.Chat.Id].Products, cancellationToken);
     }
 
@@ -128,6 +129,11 @@ public partial class BotUpdateHandler
         }
         else
         {
+            string quantity = string.Empty;
+            if (product[message.Chat.Id].Quantity is null)
+                quantity = string.Empty;
+            else
+                quantity = product[message.Chat.Id].Quantity.ToString();
             using (var httpClient = new HttpClient())
             {
                 var url = product[message.Chat.Id].Attachment.FilePath;
@@ -139,7 +145,8 @@ public partial class BotUpdateHandler
                           chatId: message.Chat.Id,
                           photo: inputFile,
                           caption: $" *{product[message.Chat.Id].Name}*\n\n{product[message.Chat.Id].Description}\n\n" +
-                          $"{localizer["txtProductPrice", product[message.Chat.Id].Price]}",
+                          $"{localizer["txtProductPrice", product[message.Chat.Id].Price]}\n\n" +
+                          $"{localizer["txtProductQuantity", quantity]}",
                           parseMode: ParseMode.Markdown,
                           cancellationToken: cancellationToken);
                 }
@@ -148,6 +155,46 @@ public partial class BotUpdateHandler
             selectedProduct[message.Chat.Id] = product[message.Chat.Id];
             if (commonAdminStates[message.Chat.Id] == CommonAdminState.UpdateProduct)
                 await SendEditProductPartsAsync(message, cancellationToken);
+            else if(commonAdminStates[message.Chat.Id] == CommonAdminState.DeleteProduct)
+            {
+                var replyKeyboard = new ReplyKeyboardMarkup(new[]
+{
+                 new[] { new KeyboardButton(localizer["btnCancel"]) },
+                 new[] { new KeyboardButton(localizer["btnOk"]) },
+})
+                {
+                    ResizeKeyboard = true
+                };
+
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: localizer["txtConfirmProduct"],
+                    replyMarkup: replyKeyboard,
+                    cancellationToken: cancellationToken);
+                adminStates[message.Chat.Id] = AdminState.WaitingForDeleteProductConfirm;  
+            }
+        }
+    }
+
+    private async Task HandleProductDeleteConfirmAsync(Message message, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("HandleProductDeleteConfirmAsync is working..");
+
+        if (message.Text.Equals(localizer["btnCancel"]))
+        {
+            commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+            await SendProductMenuAsync(message, cancellationToken);
+        }
+        else if (message.Text.Equals(localizer["btnOk"]))
+        {
+            await productService.DeleteAsync(selectedProduct[message.Chat.Id].Id, cancellationToken);
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtRemovedProduct"],
+                cancellationToken: cancellationToken);
+
+            commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+            await SendProductMenuAsync(message, cancellationToken);
         }
     }
 

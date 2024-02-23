@@ -376,6 +376,9 @@ tavsif (Bu kategoriyada qanday mahsulotlar turishi, qanday kategoriya ekanligi h
   <data name="txtConfirmationSend" xml:space="preserve">
     <value>Buyurtmangiz qabul qilindi! Tez orada sizga xabar beriladi!</value>
   </data>
+  <data name="txtConfirmProduct" xml:space="preserve">
+    <value>Mahsulotni o'chirishni tasdiqlash uchun  🆗 ni bosing!</value>
+  </data>
   <data name="txtContactInfo" xml:space="preserve">
     <value>Biz bilan aloqaga chiqish uchun &lt;&lt;+998905710460&gt;&gt; ga qo'ng'iroq qilishingiz mumkin!</value>
   </data>
@@ -527,6 +530,9 @@ Na'muna: "+998901234567"</value>
   <data name="txtProductPriceUpdated" xml:space="preserve">
     <value>Mahsulot narxi yangilandi!</value>
   </data>
+  <data name="txtProductQuantity" xml:space="preserve">
+    <value>Miqdori: {0}</value>
+  </data>
   <data name="txtProductQuantityError" xml:space="preserve">
     <value>Mahsulot miqdorini faqat sonda kiritish kerak!</value>
   </data>
@@ -558,6 +564,9 @@ Izoh: Cafeda {0} mahsulotidan qancha borligini kiriting. Agar aniq bilmasangiz q
   </data>
   <data name="txtRemovedCategory" xml:space="preserve">
     <value>Kategoriya muvaffaqiyatli o'chirildi!</value>
+  </data>
+  <data name="txtRemovedProduct" xml:space="preserve">
+    <value>Mahsulot muvaffaqiyatli o'chirildi!</value>
   </data>
   <data name="txtRequestForLocation" xml:space="preserve">
     <value>Buyurtmangizni qayerga yetkazib berish kerak 🚙?</value>
