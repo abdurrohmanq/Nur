@@ -9,5 +9,6 @@ public enum CommonAdminState
     DeleteCategory,
     CreateProduct,
     UpdateProduct,
-    DeleteProduct
+    DeleteProduct,
+    EditCategoryForProduct
 }

@@ -37,6 +37,8 @@ public partial class BotUpdateHandler
             AdminState.WaitingForInputProductPrice => AdminHandleProductPriceAsync(message, cancellationToken),
             AdminState.WaitingForInputProductQuantity => AdminHandleProductQuantityAsync(message, cancellationToken),
             AdminState.WaitingForInputProductDesc => AdminHandleProductDescAsync(message, cancellationToken),
+            AdminState.WaitingForProductSelection => AdminHandleProductSelectionAsync(message, cancellationToken),
+            AdminState.WaitingForSelectProductEdit => AdminHandleProductEditAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 

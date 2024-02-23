@@ -385,6 +385,9 @@ tavsif (Bu kategoriyada qanday mahsulotlar turishi, qanday kategoriya ekanligi h
   <data name="txtCreatedCafe" xml:space="preserve">
     <value>Cafe ma'lumotlari muvaffaqiyatli yaratildi!</value>
   </data>
+  <data name="txtCurrentCategory" xml:space="preserve">
+    <value>Mahsulot hozir {0} kategoriyasida turibdi. Uni qaysi kategoriyaga o'zgartirmoqchisiz?</value>
+  </data>
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Hozirgi ism sharifingiz: {0}</value>
   </data>
@@ -400,6 +403,9 @@ Tasdiqlash uchun 🆗 ni bosing!</value>
   </data>
   <data name="txtEditedProduct" xml:space="preserve">
     <value>Mahsulot rasmi yangilandi!</value>
+  </data>
+  <data name="txtEditedProductCategory" xml:space="preserve">
+    <value>Mahsulot kategoriyasi yangilandi!</value>
   </data>
   <data name="txtEditedProductError" xml:space="preserve">
     <value>Qandaydir muammo yuzaga kelganligi sababli mahsulot yangilanmadi!</value>

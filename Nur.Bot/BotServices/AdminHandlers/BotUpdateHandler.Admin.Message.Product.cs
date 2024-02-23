@@ -22,13 +22,13 @@ public partial class BotUpdateHandler
             await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
             adminStates[message.Chat.Id] = AdminState.WaitingForCategorySelectionForProduct;
         }
-        else if (message.Text.Equals(localizer["btnEditCategory"]))
+        else if (message.Text.Equals(localizer["btnEditProduct"]))
         {
             commonAdminStates[message.Chat.Id] = CommonAdminState.UpdateProduct;
             await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
             adminStates[message.Chat.Id] = AdminState.WaitingForCategorySelectionForProduct;
         }
-        else if (message.Text.Equals(localizer["btnDeleteCategory"]))
+        else if (message.Text.Equals(localizer["btnDeleteProduct"]))
         {
             commonAdminStates[message.Chat.Id] = CommonAdminState.DeleteProduct;
             await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
@@ -37,11 +37,12 @@ public partial class BotUpdateHandler
         {
             await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
         }
+        else if (message.Text.Equals(localizer["btnBack"]))
+            await AdminSendMainMenuAsync(message, cancellationToken);
         else
             await HandleUnknownMessageAsync(botClient, message, cancellationToken);
     }
 
-    Dictionary<long, ProductResultDTO> product = new Dictionary<long, ProductResultDTO>();
     private async Task AdminHandleCategorySelectionForProductAsync(Message message, CancellationToken cancellationToken)
     {
         if (message.Text.Equals(localizer["btnBack"]))
@@ -56,14 +57,53 @@ public partial class BotUpdateHandler
         selectedCategoryName[message.Chat.Id] = message.Text;
 
         category[message.Chat.Id] = await categoryService.GetByNameAsync(selectedCategoryName[message.Chat.Id], cancellationToken);
+        if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.EditCategoryForProduct))
+            await AdminHandlerEditCategoryAsync(message, cancellationToken);
         if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.CreateProduct))
         {
             await SendAddProductQueryAsync(message, cancellationToken);
         }
-        else if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.UpdateCategory))
+        else if (commonAdminStates[message.Chat.Id].Equals(CommonAdminState.UpdateProduct))
             await AdminSendProductsKeyboardAsync(message.Chat.Id, category[message.Chat.Id].Products, cancellationToken);
     }
 
+    private async Task AdminHandlerEditCategoryAsync(Message message, CancellationToken cancellationToken)
+    {
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await SendEditProductPartsAsync(message, cancellationToken);
+            commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+            return;
+        }
+
+        var updateProduct = new ProductUpdateDTO
+        {
+            Id = selectedProduct[message.Chat.Id].Id,
+            Name = selectedProduct[message.Chat.Id].Name,
+            Price = selectedProduct[message.Chat.Id].Price,
+            Quantity = selectedProduct[message.Chat.Id].Quantity,
+            Description = selectedProduct[message.Chat.Id].Description,
+            Unit = selectedProduct[message.Chat.Id].Unit,
+            CategoryId = category[message.Chat.Id].Id,
+        };
+
+        var result = await productService.UpdateAsync(updateProduct, cancellationToken);
+
+        if(result is not null)
+        {
+            await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtEditedProductCategory"],
+            cancellationToken: cancellationToken);
+
+            await SendProductMenuAsync(message, cancellationToken);
+        }
+        else
+            await botClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: localizer["txtEditedProductError"],
+            cancellationToken: cancellationToken);
+    }
     private async Task AdminHandleProductSelectionAsync(Message message, CancellationToken cancellationToken)
     {
         if (message.Text.Equals(localizer["btnBack"]))
@@ -115,15 +155,20 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("AdminHandleProductEditAsync is working..");
 
+        if (message.Text.Equals(localizer["btnBack"]))
+        {
+            await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
+            commonAdminStates[message.Chat.Id] = CommonAdminState.UpdateProduct;
+            adminStates[message.Chat.Id] = AdminState.WaitingForCategorySelectionForProduct;
+        }
         var handle = message.Text switch
         {
-            { } text when text == localizer["btnEditProductName"] => SendEditCategoryNameQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnEditProductPrice"] => SendEditCategoryDescQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnEditProductQuantity"] => SendEditCategoryDescQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnEditProductDesc"] => SendEditCategoryDescQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnEditProductCategory"] => SendEditCategoryDescQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnEditProductPhoto"] => SendEditCategoryDescQueryAsync(message, cancellationToken),
-            { } text when text == localizer["btnBack"] => SendCategoryMenuAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditProductName"] => SendEditProductNameQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditProductPrice"] => SendEditProductPriceQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditProductQuantity"] => SendEditProductQuantityQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditProductDesc"] => SendEditProductDescQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditProductCategory"] => SendEditProductCategoryQueryAsync(message, cancellationToken),
+            { } text when text == localizer["btnEditProductPhoto"] => SendEditProductPhotoQueryAsync(message, cancellationToken),
             _ => HandleUnknownMessageAsync(botClient, message, cancellationToken)
         };
 
@@ -169,13 +214,13 @@ public partial class BotUpdateHandler
             {
                 var updateProduct = new ProductUpdateDTO
                 {
-                    Id = product[message.Chat.Id].Id,
+                    Id = selectedProduct[message.Chat.Id].Id,
                     Name = name,
-                    Price = product[message.Chat.Id].Price,
-                    Quantity = product[message.Chat.Id].Quantity,
-                    Description = product[message.Chat.Id].Description,
-                    Unit = product[message.Chat.Id].Unit,
-                    CategoryId = product[message.Chat.Id].Category.Id,
+                    Price = selectedProduct[message.Chat.Id].Price,
+                    Quantity = selectedProduct[message.Chat.Id].Quantity,
+                    Description = selectedProduct[message.Chat.Id].Description,
+                    Unit = selectedProduct[message.Chat.Id].Unit,
+                    CategoryId = selectedProduct[message.Chat.Id].Category.Id,
                 };
                 await productService.UpdateAsync(updateProduct, cancellationToken);
                 commonAdminStates[message.Chat.Id] = CommonAdminState.None;
@@ -185,7 +230,7 @@ public partial class BotUpdateHandler
                 text: localizer["txtProductNameUpdated"],
                 cancellationToken: cancellationToken);
 
-                await SendCategoryMenuAsync(message, cancellationToken);
+                await SendProductMenuAsync(message, cancellationToken);
             }
         }
         else
@@ -218,39 +263,40 @@ public partial class BotUpdateHandler
         {
             var price = decimal.Parse(message.Text);
 
-                if (commonAdminStates[message.Chat.Id] == CommonAdminState.CreateProduct)
+            if (commonAdminStates[message.Chat.Id] == CommonAdminState.CreateProduct)
+            {
+                createProduct[message.Chat.Id].Price = price;
+                await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtProductRequestQuantity", createProduct[message.Chat.Id].Name],
+                replyMarkup: replyKeyboard,
+                cancellationToken: cancellationToken);
+
+                adminStates[message.Chat.Id] = AdminState.WaitingForInputProductQuantity;
+            }
+            else if (commonAdminStates[message.Chat.Id] == CommonAdminState.UpdateProduct)
+            {
+                var updateProduct = new ProductUpdateDTO
                 {
-                    createProduct[message.Chat.Id].Price = price;
-                    await botClient.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: localizer["txtProductRequestQuantity", createProduct[message.Chat.Id].Name],
-                    replyMarkup: replyKeyboard,
-                    cancellationToken: cancellationToken);
+                    Id = selectedProduct[message.Chat.Id].Id,
+                    Name = selectedProduct[message.Chat.Id].Name,
+                    Price = price,
+                    Quantity = selectedProduct[message.Chat.Id].Quantity,
+                    Description = selectedProduct[message.Chat.Id].Description,
+                    Unit = selectedProduct[message.Chat.Id].Unit,
+                    CategoryId = selectedProduct[message.Chat.Id].Category.Id,
+                };
+                await productService.UpdateAsync(updateProduct, cancellationToken);
+                commonAdminStates[message.Chat.Id] = CommonAdminState.None;
 
-                    adminStates[message.Chat.Id] = AdminState.WaitingForInputProductQuantity;
-                }
-                else if (commonAdminStates[message.Chat.Id] == CommonAdminState.UpdateProduct)
-                {
-                    var updateProduct = new ProductUpdateDTO
-                    {
-                        Id = product[message.Chat.Id].Id,
-                        Name = product[message.Chat.Id].Name,
-                        Price = price,
-                        Quantity = product[message.Chat.Id].Quantity,
-                        Description = product[message.Chat.Id].Description,
-                        Unit = product[message.Chat.Id].Unit,
-                        CategoryId = product[message.Chat.Id].Category.Id,
-                    };
-                    await productService.UpdateAsync(updateProduct, cancellationToken);
-                    commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+                await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtProductPriceUpdated"],
+                cancellationToken: cancellationToken);
 
-                    await botClient.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: localizer["txtProductPriceUpdated"],
-                    cancellationToken: cancellationToken);
+                await SendProductMenuAsync(message, cancellationToken);
 
-                    await SendCategoryMenuAsync(message, cancellationToken);
-                }
+            }
         }
         catch
         {
@@ -304,13 +350,13 @@ public partial class BotUpdateHandler
             {
                 var updateProduct = new ProductUpdateDTO
                 {
-                    Id = product[message.Chat.Id].Id,
-                    Name = product[message.Chat.Id].Name,
-                    Price = product[message.Chat.Id].Price,
+                    Id = selectedProduct[message.Chat.Id].Id,
+                    Name = selectedProduct[message.Chat.Id].Name,
+                    Price = selectedProduct[message.Chat.Id].Price,
                     Quantity = quantity,
-                    Description = product[message.Chat.Id].Description,
-                    Unit = product[message.Chat.Id].Unit,
-                    CategoryId = product[message.Chat.Id].Category.Id,
+                    Description = selectedProduct[message.Chat.Id].Description,
+                    Unit = selectedProduct[message.Chat.Id].Unit,
+                    CategoryId = selectedProduct[message.Chat.Id].Category.Id,
                 };
                 await productService.UpdateAsync(updateProduct, cancellationToken);
                 commonAdminStates[message.Chat.Id] = CommonAdminState.None;
@@ -320,7 +366,7 @@ public partial class BotUpdateHandler
                 text: localizer["txtProductQuantityUpdated"],
                 cancellationToken: cancellationToken);
 
-                await SendCategoryMenuAsync(message, cancellationToken);
+                await SendProductMenuAsync(message, cancellationToken);
             }
         }
         catch
@@ -366,13 +412,13 @@ public partial class BotUpdateHandler
         {
             var updateProduct = new ProductUpdateDTO
             {
-                Id = product[message.Chat.Id].Id,
-                Name = product[message.Chat.Id].Name,
-                Price = product[message.Chat.Id].Price,
-                Quantity = product[message.Chat.Id].Quantity,
+                Id = selectedProduct[message.Chat.Id].Id,
+                Name = selectedProduct[message.Chat.Id].Name,
+                Price = selectedProduct[message.Chat.Id].Price,
+                Quantity = selectedProduct[message.Chat.Id].Quantity,
                 Description = desc,
-                Unit = product[message.Chat.Id].Unit,
-                CategoryId = product[message.Chat.Id].Category.Id,
+                Unit = selectedProduct[message.Chat.Id].Unit,
+                CategoryId = selectedProduct[message.Chat.Id].Category.Id,
             };
             await productService.UpdateAsync(updateProduct, cancellationToken);
             commonAdminStates[message.Chat.Id] = CommonAdminState.None;
@@ -382,13 +428,13 @@ public partial class BotUpdateHandler
             text: localizer["txtProductDescUpdated"],
             cancellationToken: cancellationToken);
 
-            await SendCategoryMenuAsync(message, cancellationToken);
+            await SendProductMenuAsync(message, cancellationToken);
         }
     }
 
     private async Task HandleProductPhotoAsync(Message message, CancellationToken cancellationToken)
     {
-        if (message.Text.Equals(localizer["btnBack"]))
+        if (message.Type == MessageType.Text && message.Text.Equals(localizer["btnBack"]))
         {
             await SendProductMenuAsync(message, cancellationToken);
             commonAdminStates[message.Chat.Id] = CommonAdminState.None;
@@ -431,13 +477,13 @@ public partial class BotUpdateHandler
                     {
                         var updateProduct = new ProductUpdateDTO
                         {
-                            Id = product[message.Chat.Id].Id,
-                            Name = product[message.Chat.Id].Name,
-                            Price = product[message.Chat.Id].Price,
-                            Quantity = product[message.Chat.Id].Quantity,
-                            Description = product[message.Chat.Id].Description,
-                            Unit = product[message.Chat.Id].Unit,
-                            CategoryId = product[message.Chat.Id].Category.Id,
+                            Id = selectedProduct[message.Chat.Id].Id,
+                            Name = selectedProduct[message.Chat.Id].Name,
+                            Price = selectedProduct[message.Chat.Id].Price,
+                            Quantity = selectedProduct[message.Chat.Id].Quantity,
+                            Description = selectedProduct[message.Chat.Id].Description,
+                            Unit = selectedProduct[message.Chat.Id].Unit,
+                            CategoryId = selectedProduct[message.Chat.Id].Category.Id,
                         };
                         var result = await productService.UpdateAsync(updateProduct, cancellationToken);
                         if (result != null)

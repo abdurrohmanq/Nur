@@ -28,6 +28,7 @@ public partial class BotUpdateHandler
              replyMarkup: replyKeyboard,
              cancellationToken: cancellationToken);
 
+        commonAdminStates[message.Chat.Id] = CommonAdminState.None;
         adminStates[message.Chat.Id] = AdminState.WaitingForSelectProductMenu;
     }
 
@@ -72,6 +73,7 @@ public partial class BotUpdateHandler
              replyMarkup: replyKeyboard,
              cancellationToken: cancellationToken);
 
+        commonAdminStates[message.Chat.Id] = CommonAdminState.None;
         adminStates[message.Chat.Id] = AdminState.WaitingForSelectProductEdit;
     }
 
@@ -149,7 +151,7 @@ public partial class BotUpdateHandler
 
         await botClient.SendTextMessageAsync(
              chatId: message.Chat.Id,
-             text: localizer["txtProductRequestQuantity"],
+             text: localizer["txtProductRequestQuantity", selectedProduct[message.Chat.Id].Name],
              replyMarkup: replyKeyboard,
              cancellationToken: cancellationToken);
 
@@ -210,7 +212,13 @@ public partial class BotUpdateHandler
             ResizeKeyboard = true
         };
 
-        commonAdminStates[message.Chat.Id] = CommonAdminState.None;
+        await botClient.SendTextMessageAsync(
+             chatId: message.Chat.Id,
+             text: localizer["txtCurrentCategory", category[message.Chat.Id].Name],
+             replyMarkup: replyKeyboard,
+             cancellationToken: cancellationToken);
+
+        commonAdminStates[message.Chat.Id] = CommonAdminState.EditCategoryForProduct;
         await AdminSendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
         adminStates[message.Chat.Id] = AdminState.WaitingForCategorySelectionForProduct;
     }
@@ -233,6 +241,6 @@ public partial class BotUpdateHandler
              cancellationToken: cancellationToken);
 
         commonAdminStates[message.Chat.Id] = CommonAdminState.UpdateProduct;
-        adminStates[message.Chat.Id] = AdminState.WaitingForInputProductPrice;
+        adminStates[message.Chat.Id] = AdminState.WaitingForInputProductPhoto;
     }
 }
