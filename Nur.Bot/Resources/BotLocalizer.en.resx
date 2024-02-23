@@ -311,6 +311,10 @@ Arrives in minutes!</value>
   <data name="txtOrderCancel" xml:space="preserve">
     <value>Order cancelled.</value>
   </data>
+  <data name="txtOrderDelivered" xml:space="preserve">
+    <value>The order has been successfully delivered. Thank you! 
+Feedback - rate our service in the comments section!</value>
+  </data>
   <data name="txtOrderType" xml:space="preserve">
     <value>Order type:</value>
   </data>

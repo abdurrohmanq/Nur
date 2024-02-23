@@ -10,7 +10,7 @@ namespace Nur.Bot.BotServices;
 
 public partial class BotUpdateHandler
 {
-    private async Task HandleCallbackQuery(ITelegramBotClient botClient, CallbackQuery? callbackQuery, CancellationToken cancellationToken)
+    private async Task HandleCallbackQuery(ITelegramBotClient botClient, CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(callbackQuery);
         try
@@ -88,8 +88,8 @@ public partial class BotUpdateHandler
                     OrderType = order[userId].OrderType,
                     Description = order[userId].Description,
                     UserId = order[userId].User.Id,
-                    AddressId = order[userId].Address.Id,
-                    SupplierId = order[userId].Supplier.Id,
+                    AddressId = order[userId].Address.Id == 0 ? null : order[userId].Address.Id,
+                    SupplierId = order[userId].Supplier.Id == 0 ? null : order[userId].Supplier.Id,
                     PaymentId = order[userId].Payment.Id,
                 };
 
@@ -108,16 +108,23 @@ public partial class BotUpdateHandler
                     replyToMessageId: orderMessage[userId].MessageId,
                     cancellationToken: cancellationToken);
 
+                await botClient.SendTextMessageAsync(
+                    chatId: userId,
+                    text: localizer["txtOrderDelivered"],
+                    cancellationToken: cancellationToken);
+
                 var updateOrder5 = new OrderUpdateDTO()
                 {
                     Id = order[userId].Id,
+                    StartAt = order[userId].StartAt,
+                    EndAt = order[userId].EndAt,
                     Status = Status.Delivered,
                     TotalPrice = order[userId].TotalPrice,
                     OrderType = order[userId].OrderType,
                     Description = order[userId].Description,
                     UserId = order[userId].User.Id,
-                    AddressId = order[userId].Address.Id,
-                    SupplierId = order[userId].Supplier.Id,
+                    AddressId = order[userId].Address.Id == 0? null: order[userId].Address.Id,
+                    SupplierId = order[userId].Supplier.Id == 0? null: order[userId].Supplier.Id,
                     PaymentId = order[userId].Payment.Id,
                 };
 

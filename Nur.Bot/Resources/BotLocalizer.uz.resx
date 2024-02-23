@@ -511,6 +511,10 @@ Bir necha daqiqada yetib boradi!</value>
   <data name="txtOrderCancel" xml:space="preserve">
     <value>Buyurtma bekor qilindi.</value>
   </data>
+  <data name="txtOrderDelivered" xml:space="preserve">
+    <value>Buyurtma muvaffaqiyatli yetkazib berildi. Rahmat! 
+Fikr - mulohazalar bo'limida xizmatimizni baholang!</value>
+  </data>
   <data name="txtOrderType" xml:space="preserve">
     <value>Buyurtma turi:</value>
   </data>

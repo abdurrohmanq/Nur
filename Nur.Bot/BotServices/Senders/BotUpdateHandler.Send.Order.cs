@@ -56,7 +56,7 @@ public partial class BotUpdateHandler
         {
             OrderType = OrderType.TakeAway
         };
-
+        
         await SendCategoryKeyboardAsync(message.Chat.Id, cancellationToken);
     }
 
@@ -273,7 +273,7 @@ public partial class BotUpdateHandler
         {
             await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: localizer["txtRemovedCartItem", productName],
+                text: localizer["txtRemovedCartItem", productName[message.Chat.Id]],
                 cancellationToken: cancellationToken);
 
             if (cart[message.Chat.Id].CartItems.Count() == 0)

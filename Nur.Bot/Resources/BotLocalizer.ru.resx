@@ -311,6 +311,10 @@
   <data name="txtOrderCancel" xml:space="preserve">
     <value>Приказ был отменен.</value>
   </data>
+  <data name="txtOrderDelivered" xml:space="preserve">
+    <value>Заказ был успешно доставлен. Спасибо! 
+Оцените наш сервис в разделе отзывов!</value>
+  </data>
   <data name="txtOrderType" xml:space="preserve">
     <value>Тип заказа:</value>
   </data>

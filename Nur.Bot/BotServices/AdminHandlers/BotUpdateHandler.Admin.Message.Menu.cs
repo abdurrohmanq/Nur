@@ -288,6 +288,8 @@ public partial class BotUpdateHandler
     {
         logger.LogInformation("HandleOrderListAsync is working..");
 
+        const int maxMessageLength = 3000;
+
         var orders = await orderService.GetAllAsync(cancellationToken);
         var ordersReport = new StringBuilder();
 
@@ -311,13 +313,27 @@ public partial class BotUpdateHandler
             }
 
             ordersReport.AppendLine("--------------------");
+
+            if (ordersReport.Length > maxMessageLength)
+            {
+                await botClient.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: ordersReport.ToString(),
+                    cancellationToken: cancellationToken);
+
+                ordersReport.Clear();
+            }
         }
 
-        await botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
-            text: ordersReport.ToString(),
-            replyMarkup: new ReplyKeyboardMarkup(new[] { new[] { new KeyboardButton(localizer["btnMainMenu"]) } }) { ResizeKeyboard = true },
-            cancellationToken: cancellationToken);
+        if (ordersReport.Length > 0)
+        {
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: ordersReport.ToString(),
+                replyMarkup: new ReplyKeyboardMarkup(new[] { new[] { new KeyboardButton(localizer["btnMainMenu"]) } }) { ResizeKeyboard = true },
+                cancellationToken: cancellationToken);
+        }
+
     }
 
 }

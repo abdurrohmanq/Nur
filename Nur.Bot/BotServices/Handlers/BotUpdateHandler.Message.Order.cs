@@ -142,7 +142,7 @@ public partial class BotUpdateHandler
                 cartItem[message.Chat.Id] = await cartItemService.UpdateAsync(cartItemUpdate, cancellationToken);
             }
 
-            if (cartItem is not null)
+            if (cartItem[message.Chat.Id] is not null)
             {
                 await botClient.SendTextMessageAsync(
                     chatId: message.Chat.Id,

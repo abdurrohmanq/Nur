@@ -70,8 +70,13 @@ public class OrderUpdateCommandHandler(IMapper mapper,
             {
                 if (item.Product.Quantity != null)
                 {
-                    item.Product.Quantity -= item.Quantity;
-                    productRepository.Update(item.Product);
+                    if (item.Product.Quantity >= item.Quantity)
+                    {
+                        item.Product.Quantity -= item.Quantity;
+                        productRepository.Update(item.Product);
+                    }
+                    else
+                        break;
                 }
             }
 
