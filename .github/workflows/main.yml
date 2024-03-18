@@ -26,3 +26,45 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+  dockerize:
+      name: Dockerize
+      needs: build
+      runs-on: ubuntu-latest
+      env:
+        USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+        - name: Setup .NET 8
+          uses: actions/setup-dotnet@v3
+        - name: Build Docker image
+          run: docker build -t $USERNAME/nurwebapi -f Nur.WebAPI/Dockerfile .
+        - name: Login to Docker account
+          run: docker login -u $USERNAME -p $PASSWORD 
+        - name: Push Docker image
+          run: docker image push $USERNAME/nurwebapi
+        - name: Build Docker image for TelegramBOT
+          run: docker build -t $USERNAME/nurbot -f Nur.Bot/Dockerfile .
+        - name: Push Docker image for TelegramBOT
+          run: docker image push $USERNAME/nurbot
+
+  deploy:
+    name: Deploy
+    needs: dockerize
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into AWS Ubuntu Serve
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH }}
+          port: 22
+          script: |
+            cd ~/program
+            docker-compose up -d
+
