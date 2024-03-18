@@ -3,6 +3,7 @@ using Nur.Infrastructure;
 using Nur.WebAPI.MiddleWares;
 using System.Text.Json.Serialization;
 using Nur.Application.Commons.Helpers;
+using Nur.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,11 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
 });
+
 var app = builder.Build();
+
+// Automigrate
+app.MigrateDatabase();
 
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
