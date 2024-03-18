@@ -24,6 +24,7 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
 });
 
+///Build
 var app = builder.Build();
 
 // Automigrate
