@@ -38,7 +38,7 @@ public partial class BotUpdateHandler
             string userFeedback = message.Text;
 
             await botClient.SendTextMessageAsync(
-                chatId: "@OnlineMarketFeedBack",
+                chatId: "@NurFeedBack",
                 text: $"Yangi Fikr-mulohaza:\n\n{userFeedback}",
                 cancellationToken: cancellationToken);
 

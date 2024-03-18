@@ -291,6 +291,15 @@ public partial class BotUpdateHandler
         const int maxMessageLength = 3000;
 
         var orders = await orderService.GetAllAsync(cancellationToken);
+        if(!orders.Any())
+        {
+            await botClient.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: localizer["txtNotFoundOrderInfo"],
+                cancellationToken: cancellationToken);
+            return;
+        }
+
         var ordersReport = new StringBuilder();
 
         foreach (var order in orders)

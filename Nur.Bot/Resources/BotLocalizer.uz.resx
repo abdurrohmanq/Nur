@@ -501,6 +501,9 @@ Biznnig manzil 👇</value>
   <data name="txtNotEnoughProduct" xml:space="preserve">
     <value>Buncha miqdorda mahsulot yo'q!</value>
   </data>
+  <data name="txtNotFoundOrderInfo" xml:space="preserve">
+    <value>Hali birorta ham buyurtma yo'q!</value>
+  </data>
   <data name="txtNotFoundProduct" xml:space="preserve">
     <value>Bunday mahsulot yo'q!</value>
   </data>
