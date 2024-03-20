@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{98
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nur.APIService", "Nur.APIService\Nur.APIService.csproj", "{0FF7F0FA-3EC3-444D-8766-7CE49A41ED15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nur.Bot", "Nur.Bot\Nur.Bot.csproj", "{4BAFAF00-01FA-4BEB-ADC7-E110F6218B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nur.Bot", "Nur.Bot\Nur.Bot.csproj", "{4BAFAF00-01FA-4BEB-ADC7-E110F6218B40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

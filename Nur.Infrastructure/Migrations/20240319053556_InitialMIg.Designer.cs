@@ -12,8 +12,8 @@ using Nur.Infrastructure.Contexts;
 namespace Nur.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240223175657_Initial")]
-    partial class Initial
+    [Migration("20240319053556_InitialMIg")]
+    partial class InitialMIg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

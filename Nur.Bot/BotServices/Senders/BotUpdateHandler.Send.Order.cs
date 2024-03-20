@@ -396,9 +396,18 @@ public partial class BotUpdateHandler
 
             await cartItemService.DeleteAllAsync(cart[message.Chat.Id].Id, cancellationToken);
 
+            var replyKeyboard = new ReplyKeyboardMarkup(new[]
+            {
+            new[] { new KeyboardButton("OK")},
+            })
+            {
+                ResizeKeyboard = true
+            };
+
             await botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: localizer["txtConfirmationSend"],
+                replyMarkup: replyKeyboard,
                 cancellationToken: cancellationToken);
 
             userStates[message.Chat.Id] = UserState.None;

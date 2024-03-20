@@ -40,7 +40,7 @@ public partial class BotUpdateHandler(ILogger<BotUpdateHandler> logger,
             }
         }
 
-        var chatId = update.Message?.Chat.Id ?? update.CallbackQuery.Message.Chat.Id;
+        var chatId = update.Message?.Chat.Id ?? update.CallbackQuery?.Message.Chat.Id ?? 0;
         var userState = userStates.TryGetValue(chatId, out var state) ? state : UserState.None;
 
         if (userState == UserState.AdminState)

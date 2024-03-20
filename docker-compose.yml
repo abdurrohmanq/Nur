@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  app:
+    image: abdurahmonq/nurwebapi
+    container_name: nurwebapi
+    ports:
+      - "9050:9050"
+    restart: always
+    environment:
+      - ConnectionStrings__DefaultConnection=host=postgres:5432;uid=postgres;password=postgres;database=NurDB;
+    depends_on:
+      - postgres
+    networks:
+      - web
+
+  postgres:
+    image: postgres
+    container_name: nur-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - web
+
+  bot:
+    image: abdurahmonq/nurbot
+    container_name: nurbot
+    ports:
+      - "9060:9060"
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
