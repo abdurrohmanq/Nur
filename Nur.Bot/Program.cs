@@ -18,8 +18,7 @@ builder.Services.AddApiServices();
 
 builder.Services.AddLocalization();
 
-//builder.Host.UseServiceProviderFactory(new DynamicProxyServiceProviderFactory());
-
+//Build
 var app = builder.Build();
 
 // Localization
