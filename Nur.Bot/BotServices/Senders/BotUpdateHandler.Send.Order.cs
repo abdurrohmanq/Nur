@@ -422,7 +422,7 @@ public partial class BotUpdateHandler
                 orderText[message.Chat.Id] = result;
             }
                 orderMessage[message.Chat.Id] = await botClient.SendTextMessageAsync(
-                chatId: "@NurOrders",
+                chatId: "@DemoChannelnur",
                 text: orderText[message.Chat.Id],
                 replyMarkup: keyboard,
                 cancellationToken: cancellationToken);
@@ -430,13 +430,13 @@ public partial class BotUpdateHandler
             if(order[message.Chat.Id].Address.Id != 0)
             {
                 await botClient.SendTextMessageAsync(
-                chatId: "@NurOrders",
+                chatId: "@DemoChannelnur",
                 text: "lokatsiya 👇",
                 replyToMessageId: orderMessage[message.Chat.Id].MessageId,
                 cancellationToken: cancellationToken);
 
                 await botClient.SendLocationAsync(
-                chatId: "@NurOrders",
+                chatId: "@DemoChannelnur",
                 latitude: order[message.Chat.Id].Address.Latitude,
                 longitude: order[message.Chat.Id].Address.Longitude,
                 cancellationToken: cancellationToken);

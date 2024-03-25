@@ -116,20 +116,19 @@ public partial class BotUpdateHandler
                 var updateOrder5 = new OrderUpdateDTO()
                 {
                     Id = order[userId].Id,
-                    StartAt = order[userId].StartAt,
-                    EndAt = order[userId].EndAt,
                     Status = Status.Delivered,
                     TotalPrice = order[userId].TotalPrice,
                     OrderType = order[userId].OrderType,
                     Description = order[userId].Description,
                     UserId = order[userId].User.Id,
-                    AddressId = order[userId].Address.Id == 0? null: order[userId].Address.Id,
-                    SupplierId = order[userId].Supplier.Id == 0? null: order[userId].Supplier.Id,
+                    AddressId = order[userId].Address.Id == 0 ? null : order[userId].Address.Id,
+                    SupplierId = order[userId].Supplier.Id == 0 ? null : order[userId].Supplier.Id,
                     PaymentId = order[userId].Payment.Id,
                 };
 
                 await orderService.UpdateAsync(updateOrder5, cancellationToken);
                 break;
+
             case "btnCancel":
                 await botClient.SendTextMessageAsync(
                     chatId: callbackQuery.Message.Chat.Id,

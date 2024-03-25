@@ -38,7 +38,7 @@ public class UserCreateCommandHandler(IMapper mapper,
             throw new AlreadyExistException($"This user already exist with telegram id: {request.TelegramId}");
 
         entity = mapper.Map<User>(request);
-        entity.CreatedAt = TimeHelper.GetDateTime();
+        entity.CreatedAt = TimeHelper.GetDateTime().ToLocalTime();
         entity.DateOfBirth = request.DateOfBirth.AddHours(TimeConstant.UTC);
 
         var cart = new Cart { UserId = entity.Id, User = entity };
