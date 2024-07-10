@@ -241,6 +241,9 @@
   <data name="txtConfirmation" xml:space="preserve">
     <value>Заказ подтвержден администраторами! Скоро будет доставлено!</value>
   </data>
+  <data name="txtConfirmation2" xml:space="preserve">
+    <value>Заказ подтвержден администраторами! Можно взять!</value>
+  </data>
   <data name="txtConfirmationSend" xml:space="preserve">
     <value>Ваш заказ принят! Скоро вы будете уведомлены!</value>
   </data>
@@ -314,6 +317,10 @@
   <data name="txtOrderDelivered" xml:space="preserve">
     <value>Заказ был успешно доставлен. Спасибо! 
 Оцените наш сервис в разделе отзывов!</value>
+  </data>
+  <data name="txtOrderTakeawayed" xml:space="preserve">
+    <value>Buyurtma muvaffaqiyatli bajarildi . Rahmat! 
+Sharhlar bo'limida xizmatimizni baholang!</value>
   </data>
   <data name="txtOrderType" xml:space="preserve">
     <value>Тип заказа:</value>

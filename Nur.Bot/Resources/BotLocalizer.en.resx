@@ -241,6 +241,9 @@
   <data name="txtConfirmation" xml:space="preserve">
     <value>The order has been approved by the admins! Will be delivered soon!</value>
   </data>
+  <data name="txtConfirmation2" xml:space="preserve">
+    <value>The order has been approved by admins! You can take away!</value>
+  </data>
   <data name="txtConfirmationSend" xml:space="preserve">
     <value>Your order has been accepted! You will be notified soon!</value>
   </data>
@@ -313,6 +316,10 @@ Arrives in minutes!</value>
   </data>
   <data name="txtOrderDelivered" xml:space="preserve">
     <value>The order has been successfully delivered. Thank you! 
+Feedback - rate our service in the comments section!</value>
+  </data>
+  <data name="txtOrderTakeawayed" xml:space="preserve">
+    <value>Order submitted successfully. Thank you! 
 Feedback - rate our service in the comments section!</value>
   </data>
   <data name="txtOrderType" xml:space="preserve">

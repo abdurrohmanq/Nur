@@ -362,7 +362,7 @@ public partial class BotUpdateHandler
             var keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
             [InlineKeyboardButton.WithCallbackData("✅ Tasdiqlash", $"btnConfirmation_{message.Chat.Id}")],
             [InlineKeyboardButton.WithCallbackData("Kutish", $"btnPending_{message.Chat.Id}")],
-            [InlineKeyboardButton.WithCallbackData("Yetkazib berildi!  ✅✅", $"btnDelivered_{message.Chat.Id}")],
+            [InlineKeyboardButton.WithCallbackData("Topshirildi!  ✅✅", $"btnDelivered_{message.Chat.Id}")],
             [InlineKeyboardButton.WithCallbackData("Bekor qilish", $"btnCancel_{message.Chat.Id}")] });
 
             Dictionary<long, PaymentDTO> createdPayment = new Dictionary<long, PaymentDTO>();
@@ -422,7 +422,7 @@ public partial class BotUpdateHandler
                 orderText[message.Chat.Id] = result;
             }
                 orderMessage[message.Chat.Id] = await botClient.SendTextMessageAsync(
-                chatId: "@DemoChannelnur",
+                chatId: "@NurOrders",
                 text: orderText[message.Chat.Id],
                 replyMarkup: keyboard,
                 cancellationToken: cancellationToken);
@@ -430,13 +430,13 @@ public partial class BotUpdateHandler
             if(order[message.Chat.Id].Address.Id != 0)
             {
                 await botClient.SendTextMessageAsync(
-                chatId: "@DemoChannelnur",
+                chatId: "@NurOrders",
                 text: "lokatsiya 👇",
                 replyToMessageId: orderMessage[message.Chat.Id].MessageId,
                 cancellationToken: cancellationToken);
 
                 await botClient.SendLocationAsync(
-                chatId: "@DemoChannelnur",
+                chatId: "@NurOrders",
                 latitude: order[message.Chat.Id].Address.Latitude,
                 longitude: order[message.Chat.Id].Address.Longitude,
                 cancellationToken: cancellationToken);

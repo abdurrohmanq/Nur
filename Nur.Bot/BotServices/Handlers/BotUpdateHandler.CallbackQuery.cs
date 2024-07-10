@@ -77,7 +77,7 @@ public partial class BotUpdateHandler
             case "btnConfirmation":
                 await botClient.SendTextMessageAsync(
                     chatId: userId,
-                    text: localizer["txtConfirmation"],
+                    text: order[userId].OrderType == OrderType.Delivery? localizer["txtConfirmation"] : localizer["txtConfirmation2"],
                     cancellationToken: cancellationToken);
 
                 var updateOrderConfirm = new OrderUpdateDTO()
@@ -110,7 +110,7 @@ public partial class BotUpdateHandler
 
                 await botClient.SendTextMessageAsync(
                     chatId: userId,
-                    text: localizer["txtOrderDelivered"],
+                    text: order[userId].OrderType == OrderType.Delivery ? localizer["txtOrderDelivered"] : localizer["txtOrderTakeawayed"],
                     cancellationToken: cancellationToken);
 
                 var updateOrder5 = new OrderUpdateDTO()
