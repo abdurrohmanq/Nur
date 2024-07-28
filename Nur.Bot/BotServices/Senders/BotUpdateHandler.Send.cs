@@ -15,7 +15,7 @@ public partial class BotUpdateHandler
 
         ArgumentNullException.ThrowIfNull(message);
 
-        if (user[message.Chat.Id].CreatedAt.AddHours(TimeConstant.UTC).AddSeconds(5) > DateTime.UtcNow.AddHours(TimeConstant.UTC))
+        if (user[message.Chat.Id].CreatedAt.AddHours(TimeConstant.UTC).AddSeconds(5) > DateTime.UtcNow.AddHours(TimeConstant.UTC) || user[message.Chat.Id].Phone == null)
         {
             var keyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[][] {
                 [InlineKeyboardButton.WithCallbackData("🇺🇿 o'zbekcha 🇺🇿", "ibtnUz")],

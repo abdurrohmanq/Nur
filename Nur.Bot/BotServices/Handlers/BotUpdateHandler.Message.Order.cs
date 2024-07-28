@@ -267,6 +267,8 @@ public partial class BotUpdateHandler
                 $"{localizer["txtPhone"]} {user[message.Chat.Id].Phone}\n\n {localizer["txtFullName", user[message.Chat.Id].FullName]}\n\n " +
                 $" {localizer["txtPaymentType"]} " +
                 $"{paymentType[message.Chat.Id]}\n\n {localizer["txtComments"]} {createOrder[message.Chat.Id].Description}\n\n" + orderText[message.Chat.Id];
+            orderText[message.Chat.Id] += $"\n\n {localizer["txtDeliveryInfo", createOrder[message.Chat.Id].DeliveryFee]}";
+            cart[message.Chat.Id].TotalPrice += (decimal)createOrder[message.Chat.Id].DeliveryFee;
             orderText[message.Chat.Id] += $"\n\n {localizer["txtTotalPrice", cart[message.Chat.Id].TotalPrice]}";
 
             payment[message.Chat.Id].Amount = cart[message.Chat.Id].TotalPrice;

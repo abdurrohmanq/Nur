@@ -256,8 +256,14 @@
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Your current full name: {0}</value>
   </data>
+  <data name="txtDeliveryInfo" xml:space="preserve">
+    <value>Delivery price: {0} soum.</value>
+  </data>
   <data name="txtDislike" xml:space="preserve">
     <value>Dislike 👎🏻</value>
+  </data>
+  <data name="txtDistanceLocation" xml:space="preserve">
+    <value>Distance from the restaurant to your address: {0}</value>
   </data>
   <data name="txtEmptyCategory" xml:space="preserve">
     <value>There are currently no products in this category.</value>
@@ -288,6 +294,9 @@ Our address is 👇</value>
   </data>
   <data name="txtMenuPersonalInfo" xml:space="preserve">
     <value>Choose to change your personal information</value>
+  </data>
+  <data name="txtMustWithinAndijan" xml:space="preserve">
+    <value>We only deliver within Andijan State.</value>
   </data>
   <data name="txtNewFullName" xml:space="preserve">
     <value>Enter your new Full Name:</value>
@@ -388,6 +397,15 @@ Example: "+998901234567"</value>
   </data>
   <data name="txtTotalPrice" xml:space="preserve">
     <value>Total: {0} soums</value>
+  </data>
+  <data name="txtUnableParseDestination" xml:space="preserve">
+    <value>The distance could not be determined.</value>
+  </data>
+  <data name="txtUnknownDoorCode" xml:space="preserve">
+    <value>Unknown Door code</value>
+  </data>
+  <data name="txtUnknownStreet" xml:space="preserve">
+    <value>Unknown Street</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>I liked everything 👍</value>

@@ -314,6 +314,7 @@ public partial class BotUpdateHandler
             ordersReport.AppendLine($"{localizer["txtComments"]} {order.Description}");
             ordersReport.AppendLine($"{localizer["txtAutorOrder"]} {order.User.FullName}");
             ordersReport.AppendLine($"{localizer["txtPhone"]} {order.User.Phone}");
+            ordersReport.AppendLine($"{localizer["txtDeliveryInfo", order.DeliveryFee]}");
 
             ordersReport.AppendLine("Buyurtma bergan mahsulotlar:");
             foreach (var item in order.OrderItems)

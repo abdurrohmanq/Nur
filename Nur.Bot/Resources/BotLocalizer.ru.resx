@@ -256,8 +256,14 @@
   <data name="txtCurrentFullName" xml:space="preserve">
     <value>Ваше текущее имя: {0}</value>
   </data>
+  <data name="txtDeliveryInfo" xml:space="preserve">
+    <value>Стоимость доставки: {0} сум.</value>
+  </data>
   <data name="txtDislike" xml:space="preserve">
     <value>Не понравилось 👎🏻</value>
+  </data>
+  <data name="txtDistanceLocation" xml:space="preserve">
+    <value>Расстояние от кухни до места назначения: {0}</value>
   </data>
   <data name="txtEmptyCategory" xml:space="preserve">
     <value>Пока в этой категории нет продуктов.</value>
@@ -288,6 +294,9 @@
   </data>
   <data name="txtMenuPersonalInfo" xml:space="preserve">
     <value>Чтобы изменить личные данные, выберите</value>
+  </data>
+  <data name="txtMustWithinAndijan" xml:space="preserve">
+    <value>Мы осуществляем доставку только в пределах штата Андижан.</value>
   </data>
   <data name="txtNewFullName" xml:space="preserve">
     <value>Введите свое новое имя:</value>
@@ -388,6 +397,15 @@ Sharhlar bo'limida xizmatimizni baholang!</value>
   </data>
   <data name="txtTotalPrice" xml:space="preserve">
     <value>Итого: {0} Сум</value>
+  </data>
+  <data name="txtUnableParseDestination" xml:space="preserve">
+    <value>Определить расстояние не удалось.</value>
+  </data>
+  <data name="txtUnknownDoorCode" xml:space="preserve">
+    <value>Неизвестный код двери</value>
+  </data>
+  <data name="txtUnknownStreet" xml:space="preserve">
+    <value>Неизвестная улица</value>
   </data>
   <data name="txtVeryGood" xml:space="preserve">
     <value>Все понравилось 👍</value>

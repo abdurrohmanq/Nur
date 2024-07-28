@@ -434,8 +434,15 @@ tavsif (Bu kategoriyada qanday mahsulotlar turishi, qanday kategoriya ekanligi h
 
 Tasdiqlash uchun 🆗 ni bosing!</value>
   </data>
+  <data name="txtDeliveryInfo" xml:space="preserve">
+    <value>
+Yetkazib berish narxi: {0} so'm.</value>
+  </data>
   <data name="txtDislike" xml:space="preserve">
     <value>Yoqmadi 👎🏻</value>
+  </data>
+  <data name="txtDistanceLocation" xml:space="preserve">
+    <value>Oshxonadan sizning manzilingizgacha bo'lgan masofa: {0}</value>
   </data>
   <data name="txtEditedProduct" xml:space="preserve">
     <value>Mahsulot rasmi yangilandi!</value>
@@ -494,6 +501,9 @@ Biznnig manzil 👇</value>
   </data>
   <data name="txtMenuPersonalInfo" xml:space="preserve">
     <value>Shaxsiy ma'lumotlarni o'zgartirish uchun tanlang</value>
+  </data>
+  <data name="txtMustWithinAndijan" xml:space="preserve">
+    <value>Buyurtma faqat Andijondan qabul qilinadi.</value>
   </data>
   <data name="txtNewFullName" xml:space="preserve">
     <value>Yangi ism sharifingizni kiriting:</value>
@@ -659,6 +669,15 @@ Izoh: Cafeda {0} mahsulotidan qancha borligini kiriting. Agar aniq bilmasangiz q
   </data>
   <data name="txtTotalPrice" xml:space="preserve">
     <value>Jami: {0} so'm</value>
+  </data>
+  <data name="txtUnableParseDestination" xml:space="preserve">
+    <value>Masofani aniqlashni imkoni bo'lmadi.</value>
+  </data>
+  <data name="txtUnknownDoorCode" xml:space="preserve">
+    <value>Noma'lum eshik kodi</value>
+  </data>
+  <data name="txtUnknownStreet" xml:space="preserve">
+    <value>Noma'lum ko'cha</value>
   </data>
   <data name="txtUpdatedFacebookLink" xml:space="preserve">
     <value>Facebook linki yangilandi!</value>
